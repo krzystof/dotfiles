@@ -1,9 +1,11 @@
 ## My Dotfiles
 
 ### ToDos
-- [ ] update the repo!
-- [ ] apt-get install zsh
+- [x] update the repo!
+- [x] dropbox
+- [x] apt-get install zsh vim
+- [ ] clementine
 - [ ] prezto
-- [ ] vim
+- [ ] symlinks
 - [ ] gitconfig global
 - [ ] banner!
