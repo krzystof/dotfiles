@@ -1,0 +1,109 @@
+#
+# Executes commands at login pre-zshrc.
+#
+# Authors:
+#   Sorin Ionescu <sorin.ionescu@gmail.com>
+#
+
+#
+# Browser
+#
+
+if [[ "$OSTYPE" == darwin* ]]; then
+  export BROWSER='open'
+fi
+
+
+
+#
+# Editors
+#
+
+export EDITOR='vim'
+export VISUAL='gvim'
+export PAGER='less'
+export VIMRC='/home/krzystof/.vimrc'
+#export PHANTOMJS_BIN='/home/krzystof/.nvm/versions/node/v6.5.0/bin/phantomjs'
+
+
+
+#
+# Language
+#
+
+if [[ -z "$LANG" ]]; then
+  export LANG='en_US.UTF-8'
+fi
+
+
+
+#
+# Paths
+#
+
+# Ensure path arrays do not contain duplicates.
+typeset -gU cdpath fpath mailpath path
+
+# Set the the list of directories that cd searches.
+# cdpath=(
+#   $cdpath
+# )
+
+# Set the list of directories that Zsh searches for programs.
+path=(
+  vendor/bin
+  node_modules/.bin
+  /usr/local/{bin,sbin}
+  /usr/local/go/bin
+  $HOME/.composer/vendor/bin
+  $HOME/.nvm/versions/node/v6.5.0/bin
+  $path
+)
+
+
+
+#
+# Gopath
+#
+export GOPATH=$HOME/Code/go
+
+
+
+#
+# Less
+#
+
+# Set the default Less options.
+# Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
+# Remove -X and -F (exit if the content fits on one screen) to enable it.
+export LESS='-F -g -i -M -R -S -w -X -z-4'
+
+# Set the Less input preprocessor.
+# Try both `lesspipe` and `lesspipe.sh` as either might exist on a system.
+if (( $#commands[(i)lesspipe(|.sh)] )); then
+  export LESSOPEN="| /usr/bin/env $commands[(i)lesspipe(|.sh)] %s 2>&-"
+fi
+
+
+
+#
+# Temporary Files
+#
+
+if [[ ! -d "$TMPDIR" ]]; then
+  export TMPDIR="/tmp/$LOGNAME"
+  mkdir -p -m 700 "$TMPDIR"
+fi
+
+TMPPREFIX="${TMPDIR%/}/zsh"
+
+
+
+#
+# Custom functions. There will probably be a better place for these
+#
+
+function runLL () {
+    docker-compose -f ops/docker/docker-compose.yml run php protected/ll.php $1 --schooldb="learning_ladders"
+}
+

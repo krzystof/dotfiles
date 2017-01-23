@@ -1,10 +1,13 @@
 #!/bin/sh
 set -e
 
-symlink_in_dropbox() {
-    # if not exist or not specified location...
-    DEST="$HOME/Dropbox/$1"
-    LINK="$HOME/$2"
+. $DOT_DIR/utils.sh
+
+msg_info "Symlinking to the dotfiles"
+
+symlink() {
+    DEST="$DOT_DIR/files/$1"
+    LINK="$HOME/.$1"
 
     # if file exist but not a symlink
     if [ -f $LINK ] && [ ! -L $LINK ] ; then
@@ -22,4 +25,11 @@ symlink_in_dropbox() {
     fi
 }
 
-symlink_in_dropbox "Vim/vimrc" ".vimrc"
+symlink "vimrc"
+symlink "vim"
+# symlink_in_dropbox "Prezto/zlogin" ".zlogin"
+# symlink_in_dropbox "Prezto/logout" ".logout"
+# symlink_in_dropbox "Prezto/zpreztorc" ".zpreztorc"
+# symlink_in_dropbox "Prezto/zprofile" ".zprofile"
+# symlink_in_dropbox "Prezto/zshenv" ".zshenv"
+# symlink_in_dropbox "Prezto/zshrc" ".zshrc"

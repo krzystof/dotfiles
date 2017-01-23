@@ -1,6 +1,6 @@
 #!/bin/sh
 set -e
-. ./colors_and_utils.sh
+. ./utils.sh
 
 msg_info "Updating packages list"
 
