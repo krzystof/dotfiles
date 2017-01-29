@@ -25,7 +25,7 @@ set shiftwidth=4
 
 
 "------Visuals
-colorscheme brogrammer
+colorscheme nova
 set t_CO=256                             "Use 256 colors
 set laststatus=2                         "Always display the status bar
 let g:airline_powerline_fonts = 0

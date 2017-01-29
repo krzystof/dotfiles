@@ -23,11 +23,3 @@ export TERM=xterm-256color
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
-export NVM_DIR="/home/krzystof/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-
-nvm use stable
-
-# Install the fuck
-eval $(thefuck --alias)
-

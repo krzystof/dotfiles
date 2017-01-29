@@ -56,7 +56,7 @@ path=(
   /usr/local/{bin,sbin}
   /usr/local/go/bin
   $HOME/.composer/vendor/bin
-  $HOME/.nvm/versions/node/v6.5.0/bin
+#  $HOME/.nvm/versions/node/v6.5.0/bin
   $path
 )
 
