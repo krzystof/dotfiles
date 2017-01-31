@@ -13,3 +13,10 @@
     with_items:
       - zsh
       - vim
+
+  - name: clone Vundle repo
+    become_user: krzystof
+    git:
+      repo: https://github.com/VundleVim/Vundle.vim.git
+      dest: /home/krzystof/.vim/bundle/Vundle.vim
+      
