@@ -1,3 +1,5 @@
 ## My Dotfiles
 
-> Just `$ ./Dotfiles/run.sh` it
+> Just `$ make dot` it
+
+Require ansible to be installed on the machine

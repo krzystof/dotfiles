@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  become: yes
+  tasks:
+
+  # - name: get dropbox
+  #   get_url: url=https://www.dropbox.com/download?plat=lnx.x86_64 dest=~/Downloads/dropbox-installer
+  # untar?
+  # ~/.dropbox-dist/dropboxd
+
+  - name: get general packages
+    apt: name={{ item }} update_cache=yes state=latest
+    with_items:
+      - zsh
+      - vim
