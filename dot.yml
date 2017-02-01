@@ -14,9 +14,34 @@
       - zsh
       - vim
 
+  - name: install Prezto
+    become_user: krzystof
+    git:
+      repo: https://github.com/sorin-ionescu/prezto.git
+      dest: /home/krzystof/.zprezto
+
+  - name: set default shell to zsh
+    command: chsh -s /bin/zsh
+
+  - name: Copy dotfiles
+    become_user: krzystof
+    copy:
+      src: "/home/krzystof/Dotfiles/files/{{ item }}"
+      dest: "/home/krzystof/.{{ item }}"
+      owner: krzystof
+      group: krzystof
+    with_items:
+      - vim
+      - vimrc
+      - zlogin
+      - zlogout
+      - zpreztorc
+      - zprofile
+      - zshenv
+      - zshrc
+
   - name: clone Vundle repo
     become_user: krzystof
     git:
       repo: https://github.com/VundleVim/Vundle.vim.git
       dest: /home/krzystof/.vim/bundle/Vundle.vim
-      

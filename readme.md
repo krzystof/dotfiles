@@ -14,6 +14,7 @@ mv source-code-pro-2.030R-ro-1.050R-it/TTF/* ~/.fonts/
 
 - node and yarn
 - Prezto
-- Symlinks
-- Install Sublime
+- :white_check_mark: Symlinks
+- Install sublime
+- install chrome
 
