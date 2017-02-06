@@ -1,3 +1,3 @@
 dot:
-	@ansible-playbook dot.yml
+	@sudo -v && ansible-playbook dot.yml
 

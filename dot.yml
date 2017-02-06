@@ -21,7 +21,6 @@
       - vim
 
   - name: install Prezto
-    become_user: krzystof
     git:
       repo: https://github.com/sorin-ionescu/prezto.git
       dest: /home/krzystof/.zprezto
@@ -36,12 +35,10 @@
     command: chsh -s /bin/zsh
 
   - name: Copy dotfiles
-    become_user: krzystof
-    copy:
+    file:
       src: "/home/krzystof/Dotfiles/files/{{ item }}"
       dest: "/home/krzystof/.{{ item }}"
-      owner: krzystof
-      group: krzystof
+      state: link
     with_items:
       - vimrc
       - zlogin
