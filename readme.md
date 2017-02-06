@@ -12,9 +12,9 @@ wget https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.
 tar -zxvf 1.050R-it.tar.gz
 mv source-code-pro-2.030R-ro-1.050R-it/TTF/* ~/.fonts/
 
-- node and yarn
+- :white_check_mark: node and yarn
 - Prezto
 - :white_check_mark: Symlinks
 - Install sublime
-- install chrome
+- Install chrome
 
