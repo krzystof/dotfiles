@@ -1,8 +1,13 @@
 ---
-- hosts: localhost
+- hosts: 127.0.0.1
+  vars:
+    home: /home/krzystof
   become: yes
   become_method: sudo
   tasks:
+
+  - include: tasks/node.yml
+    static: no
 
   # - name: get dropbox
   #   get_url: url=https://www.dropbox.com/download?plat=lnx.x86_64 dest=~/Downloads/dropbox-installer
@@ -47,9 +52,9 @@
       - zshrc
       - tmux.conf
 
-  - name: clone Vundle repo
-    become_user: krzystof
-    git:
-      repo: https://github.com/VundleVim/Vundle.vim.git
-      dest: /home/krzystof/.vim/bundle/Vundle.vim
+  # - name: clone Vundle repo
+  #   become_user: krzystof
+  #   git:
+  #     repo: https://github.com/VundleVim/Vundle.vim.git
+  #     dest: /home/krzystof/.vim/bundle/Vundle.vim
 

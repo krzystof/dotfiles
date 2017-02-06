@@ -1,0 +1,28 @@
+---
+# Install node and yarn
+- name: NODE | Download installer
+  get_url:
+    url: https://deb.nodesource.com/setup_6.x
+    dest: "{{ home }}/Downloads"
+    mode: a+x
+  register: node_installer
+
+- name: NODE | Execute node installer
+  command: /bin/bash "{{ home }}"/Downloads/setup_6.x
+  when: node_installer.changed
+
+- name: NODE | Add yarn repository key
+  apt_key:
+    url: https://dl.yarnpkg.com/debian/pubkey.gpg
+    state: present
+
+- name: NODE | Add yarn repository
+  apt_repository:
+    repo: deb https://dl.yarnpkg.com/debian/ stable main
+    state: present
+
+- name: NODE | Install node and yarn from apt
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - nodejs
+    - yarn

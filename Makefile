@@ -1,2 +1,3 @@
 dot:
-	@ansible-playbook dot.yml --ask-sudo-pass
+	@ansible-playbook dot.yml
+
