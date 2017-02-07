@@ -1,0 +1,15 @@
+---
+- name: ZSH | install Prezto
+  git:
+    repo: https://github.com/sorin-ionescu/prezto.git
+    dest: {{ home }}/.zprezto
+    recursive: yes
+    force: yes
+
+- name: ZSH | have my customized theme in Prezto
+  copy:
+    src: ollie-theme
+    dest: {{ home }}/.zprezto/modules/prompt/functions/prompt_ollie_setup
+
+- name: ZSH | set default shell to zsh
+  command: chsh -s /bin/zsh

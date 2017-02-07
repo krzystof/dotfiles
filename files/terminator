@@ -1,0 +1,22 @@
+[global_config]
+  title_font = Source Code Pro Ultra-Light 10
+  title_transmit_bg_color = "#151515"
+  title_use_system_font = False
+[keybindings]
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#151515"
+    background_image = None
+    font = Source Code Pro 14
+    foreground_color = "#a1b0b8"
+    palette = "#252525:#ff443e:#c3d82c:#ffc135:#42a5f5:#d81b60:#00acc1:#f5f5f5:#656565:#cb4b16:#586e75:#657b83:#839496:#6c71c4:#93a1a1:#fdf6e3"
+    use_system_font = False

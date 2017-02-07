@@ -1,43 +1,28 @@
 ---
 - hosts: 127.0.0.1
+  connection: local
   vars:
     home: /home/krzystof
   become: yes
   become_method: sudo
   tasks:
+  # - include: tasks/dropbox.yml
+  # - include: tasks/sublime.yml
+  # - include: tasks/node.yml
+  # - include: tasks/zsh.yml
 
-  - include: tasks/node.yml
-    static: no
-
-  # - name: get dropbox
-  #   get_url: url=https://www.dropbox.com/download?plat=lnx.x86_64 dest=~/Downloads/dropbox-installer
-  # untar?
-  # ~/.dropbox-dist/dropboxd
-
-  - name: get general packages
-    apt: name={{ item }} update_cache=yes state=latest
+  - name: APT | get general packages
+    apt: name={{ item }} update_cache=no state=present
     with_items:
       - zsh
       - vim
+      - tmux
+      - terminator
 
-  - name: install Prezto
-    git:
-      repo: https://github.com/sorin-ionescu/prezto.git
-      dest: /home/krzystof/.zprezto
-      force: yes
-
-  - name: have my customized theme in Prezto
-    copy:
-      src: ollie-theme
-      dest: /home/krzystof/.zprezto/modules/prompt/functions/prompt_ollie_setup
-
-  - name: set default shell to zsh
-    command: chsh -s /bin/zsh
-
-  - name: Copy dotfiles
+  - name: DOTFILES | link dotfiles
     file:
-      src: "/home/krzystof/Dotfiles/files/{{ item }}"
-      dest: "/home/krzystof/.{{ item }}"
+      src: "{{ home }}/Dotfiles/files/{{ item }}"
+      dest: "{{ home }}/.{{ item }}"
       state: link
     with_items:
       - vimrc
@@ -47,11 +32,28 @@
       - zprofile
       - zshenv
       - zshrc
-      - tmux.conf
+      - tmux
 
-  # - name: clone Vundle repo
-  #   become_user: krzystof
-  #   git:
-  #     repo: https://github.com/VundleVim/Vundle.vim.git
-  #     dest: /home/krzystof/.vim/bundle/Vundle.vim
+  - name: VIM | clone Vundle repo
+    become_user: krzystof
+    git:
+      repo: https://github.com/VundleVim/Vundle.vim.git
+      dest: "{{ home }}/.vim/bundle/Vundle.vim"
 
+  - name: VIM | change vundle owner
+    file:
+      name: "{{ home }}/.vim/bundle/Vundle.vim"
+      owner: krzystof
+      group: krzystof
+      state: directory
+
+  - name: VIM | copy my vim theme
+    copy:
+      src: obsidian.vim
+      dest: "{{ home }}/.vim/colors/obsidian.vim"
+
+  - name: TERMINAL | copy my terminator config
+    file:
+      src: "{{ home }}/Dotfiles/files/terminator"
+      dest: "{{ home }}/.config/terminator/config"
+      state: link
