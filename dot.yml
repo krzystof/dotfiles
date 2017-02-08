@@ -32,7 +32,7 @@
       - zprofile
       - zshenv
       - zshrc
-      - tmux
+      - tmux.conf
 
   - name: VIM | clone Vundle repo
     become_user: krzystof
