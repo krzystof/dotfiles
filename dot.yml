@@ -59,6 +59,12 @@
       src: obsidian.vim
       dest: "{{ home }}/.vim/colors/obsidian.vim"
 
+  - name: VIM | symlink my vim plugins
+    file:
+      src: "{{ home }}/Dotfiles/files/plugins.vim"
+      dest: "{{ home }}/.vim/plugins.vim"
+      state: link
+
   - name: TERMINAL | create the terminator config dir
     file:
       name: "{{ home }}/.config/terminator"
