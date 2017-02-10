@@ -47,13 +47,28 @@
       group: krzystof
       state: directory
 
+  - name: VIM | create the colors dir
+    file:
+      name: "{{ home }}/.vim/colors"
+      owner: krzystof
+      group: krzystof
+      state: directory
+
   - name: VIM | copy my vim theme
     copy:
       src: obsidian.vim
       dest: "{{ home }}/.vim/colors/obsidian.vim"
+
+  - name: TERMINAL | create the terminator config dir
+    file:
+      name: "{{ home }}/.config/terminator"
+      owner: krzystof
+      group: krzystof
+      state: directory
 
   - name: TERMINAL | copy my terminator config
     file:
       src: "{{ home }}/Dotfiles/files/terminator"
       dest: "{{ home }}/.config/terminator/config"
       state: link
+

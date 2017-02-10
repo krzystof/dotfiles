@@ -23,3 +23,10 @@ export TERM=xterm-256color
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
+# Completion for aws cli
+source /usr/local/bin/aws_zsh_completer.sh
+
+# zstyle ':completion:*:manuals'    separate-sections true
+# zstyle ':completion:*:manuals.*'  insert-sections   true
+# zstyle ':completion:*:man:*'      menu yes select
+
