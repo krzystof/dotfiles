@@ -30,3 +30,6 @@ source /usr/local/bin/aws_zsh_completer.sh
 # zstyle ':completion:*:manuals.*'  insert-sections   true
 # zstyle ':completion:*:man:*'      menu yes select
 
+# Load z
+source $HOME/Dropbox/Scripts/z.sh
+

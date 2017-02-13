@@ -43,7 +43,7 @@ zstyle ':prezto:load' pmodule \
 #
 
 # Set the key mapping style to 'emacs' or 'vi'.
-zstyle ':prezto:module:editor' key-bindings 'emacs'
+zstyle ':prezto:module:editor' key-bindings 'vi'
 
 # Auto convert .... to ../..
 # zstyle ':prezto:module:editor' dot-expansion 'yes'
@@ -153,19 +153,11 @@ zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
 #
 
 # Auto start a session when Zsh is launched in a local terminal.
-# zstyle ':prezto:module:tmux:auto-start' local 'yes'
+zstyle ':prezto:module:tmux:auto-start' local 'yes'
 
 # Auto start a session when Zsh is launched in a SSH connection.
 # zstyle ':prezto:module:tmux:auto-start' remote 'yes'
 
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
-
-# Load Z
-. ~/Dropbox/Prezto/z.sh
-
-export BLACKFIRE_CLIENT_ID=2872de42-515e-4a78-adee-539d5383caef
-export BLACKFIRE_CLIENT_TOKEN=44533a6cc8054539d7b0981c2222ea68d72c7a3d72044115148eab19ec76ef03
-export BLACKFIRE_SERVER_ID=a20b52f3-925b-4550-ac09-727de84718ff
-export BLACKFIRE_SERVER_TOKEN=3e77d20a66c0d78e600ca971f2f88493d71f68f0c99fdc66c0acc3ac993293e9
 
