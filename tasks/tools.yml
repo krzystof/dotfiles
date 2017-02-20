@@ -1,14 +1,12 @@
 ---
-- name: APT | get general packages
-  apt: name={{ item }} update_cache=no state=present
+- apt: name={{ item }} update_cache=no state=present
   with_items:
     - zsh
     - vim
     - tmux
     - terminator
 
-- name: DOTFILES | link dotfiles
-  file:
+- file:
     src: "{{ home }}/Dotfiles/files/{{ item }}"
     dest: "{{ home }}/.{{ item }}"
     state: link
@@ -21,47 +19,35 @@
     - zshenv
     - zshrc
     - tmux.conf
+    - gitconfig
+    - gitignore_global
 
-- name: VIM | clone Vundle repo
-  become_user: krzystof
-  git:
-    repo: https://github.com/VundleVim/Vundle.vim.git
-    dest: "{{ home }}/.vim/bundle/Vundle.vim"
+- become_user: krzystof
+  git: repo=https://github.com/VundleVim/Vundle.vim.git dest={{ home }}/.vim/bundle/Vundle.vim
 
-- name: VIM | change vundle owner
-  file:
+- file:
     name: "{{ home }}/.vim/bundle/Vundle.vim"
     owner: krzystof
     group: krzystof
     state: directory
 
-- name: VIM | create the colors dir
-  file:
+- file:
     name: "{{ home }}/.vim/colors"
     owner: krzystof
     group: krzystof
     state: directory
 
-- name: VIM | copy my vim theme
-  copy:
-    src: obsidian.vim
-    dest: "{{ home }}/.vim/colors/obsidian.vim"
+- copy: src=obsidian.vim dest={{ home }}/.vim/colors/obsidian.vim
 
-- name: VIM | symlink my vim plugins
-  file:
+- file:
     src: "{{ home }}/Dotfiles/files/plugins.vim"
     dest: "{{ home }}/.vim/plugins.vim"
     state: link
 
-- name: TERMINAL | create the terminator config dir
-  file:
+- file:
     name: "{{ home }}/.config/terminator"
     owner: krzystof
     group: krzystof
     state: directory
 
-- name: TERMINAL | copy my terminator config
-  file:
-    src: "{{ home }}/Dotfiles/files/terminator"
-    dest: "{{ home }}/.config/terminator/config"
-    state: link
+- file: src="{{ home }}/Dotfiles/files/terminator dest={{ home }}/.config/terminator/config state=link

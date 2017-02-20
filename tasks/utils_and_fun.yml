@@ -1,0 +1,16 @@
+---
+# Install utilities and fun software
+- apt: deb=https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
+
+- apt_repository: repo="ppa:me-davidsansome/clementine" state=present
+
+- apt: name=clementine state=latest
+
+- stat: path={{ home }}/Dropbox
+
+# - file: src={{ home }}/Dropbox/Clementine/{{ item }} dest={{ home }}/.config/Clementine/{{ item }} state=link
+#   with_items:
+#     - albumcovers
+#     - clementine.conf
+#     - clementine.db
+#   when: dropbox.exists

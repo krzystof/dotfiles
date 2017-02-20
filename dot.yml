@@ -10,7 +10,5 @@
   # - include: tasks/sublime.yml
   # - include: tasks/node.yml
   # - include: tasks/zsh.yml
-
-  - include: tasks/theme.yml
-
-  # - include: tasks/dropbox.yml
+  # - include: tasks/theme.yml
+  # - include: tasks/utils_and_fun.yml

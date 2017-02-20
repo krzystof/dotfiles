@@ -1,0 +1,8 @@
+[user]
+	email = getintouch@christophegraniczny.com
+	name = Christophe Graniczny
+[push]
+	default = simple
+[core]
+	excludesfile = /home/krzystof/.gitignore_global
+	editor = vim
