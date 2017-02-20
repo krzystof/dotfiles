@@ -22,6 +22,7 @@ Require ansible to be installed on my machine
 - [ ] ssh config
 - [ ] default programs? startup app?
 - [ ] link my dconf file
+- [ ] roboto? noto? https://github.com/adapta-project/adapta-gtk-theme
 
 
 ### Tools

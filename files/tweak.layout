@@ -1,0 +1,50 @@
+[Toplevel top]
+orientation=top
+expand=true
+size=28
+
+[Toplevel toplevel-0]
+orientation=bottom
+expand=true
+size=24
+
+[Object matemenuapplet]
+locked=true
+position=0
+panel-right-stick=false
+toplevel-id=top
+applet-iid=MateMenuAppletFactory::MateMenuApplet
+object-type=applet
+
+[Object notificationarea]
+locked=true
+position=391
+panel-right-stick=true
+toplevel-id=top
+applet-iid=NotificationAreaAppletFactory::NotificationArea
+object-type=applet
+
+[Object clockapplet]
+locked=true
+position=138
+panel-right-stick=true
+toplevel-id=top
+applet-iid=ClockAppletFactory::ClockApplet
+object-type=applet
+
+[Object windowlistapplet]
+locked=false
+position=0
+panel-right-stick=false
+toplevel-id=toplevel-0
+applet-iid=WnckletFactory::WindowListApplet
+object-type=applet
+
+[Object workspaceswitcherapplet]
+locked=true
+position=321
+panel-right-stick=true
+toplevel-id=toplevel-0
+applet-iid=WnckletFactory::WorkspaceSwitcherApplet
+object-type=applet
+

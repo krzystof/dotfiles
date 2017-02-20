@@ -7,8 +7,10 @@
   become_method: sudo
   tasks:
   # - include: tasks/tools.yml
-  # - include: tasks/dropbox.yml
   # - include: tasks/sublime.yml
   # - include: tasks/node.yml
   # - include: tasks/zsh.yml
+
   - include: tasks/theme.yml
+
+  # - include: tasks/dropbox.yml

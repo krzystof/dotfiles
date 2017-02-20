@@ -1,8 +1,29 @@
 ---
-# adapta for the windows and control
-# paper icon theme
-# bridge for the cursor
-# change accent color
-# put my.theme in .theme/MyVeryOwnTheme/index.theme
+# Install my custom theme and keyboard shortcuts
 
-# activate the theme?
+- apt_repository: repo={{ item }} state=present
+  with_items:
+    - ppa:tista/adapta
+    - ppa:snwh/pulp
+
+- apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - adapta-backgrounds
+    - adapta-gtk-theme
+    - paper-icon-theme
+
+- copy: src=bridge dest=/usr/share/icons/bridge directory_mode=yes
+
+# change accent color
+
+- file: src=my.theme dest={{ home }}/.theme/MyVeryOwnTheme/index.theme state=link
+
+- file: src=tweak.panel dest=/usr/share/mate-panel/layouts/krzystof-tweak.panel state=link
+
+- file: src=tweak.layout dest=/usr/share/mate-panel/layouts/krzystof-tweak.layout state=link
+
+# ACTIVATION
+# activate the theme and panel layout?
+
+# KEYBINDINGS
+- file: src=dconf dest={{ home }}/.config/dconf/user state=link
