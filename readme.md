@@ -4,33 +4,46 @@
 
 Require ansible to be installed on my machine
 
+### This
 - On zsh login, async update this repo and run ansible (ansible pull???)
-- dropbox
 
-- :white_check_mark: node and yarn
+
+### OS
 - :white_check_mark: Symlinks
-- :white_check_mark: Install sublime
 - :white_check_mark: Prezto
 - :white_check_mark: fonts
-- :white_check_mark: terminator
-
-- php and composer?
-- keyboard shortcuts (system wide)
-- terminal config and colors
+- keyboard shortcuts (system wide: super key)
 - Ubuntu panels config?
-- install flux
-- install clementine + symlink lib
-- install docker and docker compose
-- laravel valet
-- gitconfig global
+- install adapta theme
+- install paper icons
+- plank dock
+- ubuntu 24x24 apps icon
 - ssh config
 - default programs?
+
+
+### Tools
+- dropbox
+- :white_check_mark: terminator + its config
+- :white_check_mark: Sublime
+- docker and docker compose
+- gitconfig global
 - install vim plugins
 
----
 
-Packages to consider
+### Various
+- flux
+- clementine + symlink lib
 
+
+### Code
+- :white_check_mark: node and yarn
+- php and composer?
+- laravel valet
+
+
+### Consider
 - albert
 - chrome
 - shutter
+

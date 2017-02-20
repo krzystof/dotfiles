@@ -24,7 +24,10 @@ fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
 # Completion for aws cli
-source /usr/local/bin/aws_zsh_completer.sh
+source $HOME/Dropbox/Scripts/aws_zsh_completer.sh
+
+# Completion for pass
+# source $HOME/Dropbox/Scripts/pass.zsh-completion
 
 # zstyle ':completion:*:manuals'    separate-sections true
 # zstyle ':completion:*:manuals.*'  insert-sections   true
