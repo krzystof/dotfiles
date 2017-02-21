@@ -10,9 +10,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
+#
 # Customize to your needs...
+#
 
-source $HOME/Dropbox/Prezto/aliases
+# Custom scripts
+source $HOME/Dropbox/Scripts/aliases.sh
+source $HOME/Dropbox/Scripts/z.sh
 
 # Solarize me
 eval `dircolors $HOME/Dropbox/Prezto/solarized`
@@ -35,4 +39,3 @@ source $HOME/Dropbox/Scripts/aws_zsh_completer.sh
 
 # Load z
 source $HOME/Dropbox/Scripts/z.sh
-

@@ -61,6 +61,7 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 
 # Set the command prefix on non-GNU systems.
 # zstyle ':prezto:module:gnu-utility' prefix 'g'
+#
 
 #
 # History Substring Search
@@ -161,3 +162,6 @@ zstyle ':prezto:module:tmux:auto-start' local 'yes'
 # Integrate with iTerm2.
 # zstyle ':prezto:module:tmux:iterm' integrate 'yes'
 
+zstyle ':completion:*:manuals'    separate-sections true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+zstyle ':completion:*:man:*'      menu yes select

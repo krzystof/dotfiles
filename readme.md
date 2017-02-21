@@ -5,45 +5,43 @@
 Require ansible to be installed on my machine
 
 ### This
-- On zsh login, async update this repo and run ansible (ansible pull???)
+- [ ] On zsh login, async update this repo and run ansible (ansible pull???)
 
 
 ### OS
-- :white_check_mark: Symlinks
-- :white_check_mark: Prezto
-- :white_check_mark: fonts
-- keyboard shortcuts (system wide: super key)
-- Ubuntu panels config?
-- install adapta theme
-- install paper icons
-- plank dock
-- ubuntu 24x24 apps icon
-- ssh config
-- default programs?
+- [x] Symlinks
+- [x] Prezto
+- [x] fonts
+- [ ] keyboard shortcuts (system wide: super key)
+- [x] install adapta theme
+- [x] install paper icons
+- [ ] plank dock
+- [ ] ubuntu 24x24 apps icon
+- [ ] ubuntu panels
+- [ ] ubuntu theme
+- [ ] ssh config
+- [ ] default programs? startup app?
+- [ ] link my dconf file
 
 
 ### Tools
-- dropbox
-- :white_check_mark: terminator + its config
-- :white_check_mark: Sublime
-- docker and docker compose
-- gitconfig global
-- install vim plugins
+- [ ] dropbox
+- [x] terminator + its config
+- [x] Sublime
+- [ ] docker and docker compose
+- [x] gitconfig global
+- [ ] install vim plugins
+- [ ] albert
 
 
 ### Various
-- flux
-- clementine + symlink lib
+- [ ] flux
+- [x] clementine + symlink lib
+- [ ] shutter
+- [ ] chrome
 
 
 ### Code
-- :white_check_mark: node and yarn
-- php and composer?
-- laravel valet
-
-
-### Consider
-- albert
-- chrome
-- shutter
-
+- [x] node and yarn
+- [ ] php and composer
+- [ ] laravel valet
