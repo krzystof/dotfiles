@@ -14,10 +14,6 @@ fi
 # Customize to your needs...
 #
 
-# Custom scripts
-source $HOME/Dropbox/Scripts/aliases.sh
-source $HOME/Dropbox/Scripts/z.sh
-
 # Solarize me
 eval `dircolors $HOME/Dropbox/Prezto/solarized`
 
@@ -27,13 +23,11 @@ export TERM=xterm-256color
 # zstyle ':completion:*:manuals.*'  insert-sections   true
 # zstyle ':completion:*:man:*'      menu yes select
 
+# Custom scripts
+source $HOME/Dropbox/Scripts/aliases.sh
+
 # Load z
 source $HOME/Dropbox/Scripts/z.sh
-
-# Completion for aws cli
-source $HOME/Dropbox/Scripts/aws_zsh_completer.sh
-# Completion for pass
-# source $HOME/Dropbox/Scripts/pass.zsh-completion
 
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
