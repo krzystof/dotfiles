@@ -6,22 +6,6 @@
     - tmux
     - terminator
 
-- file:
-    src: "{{ home }}/Dotfiles/files/{{ item }}"
-    dest: "{{ home }}/.{{ item }}"
-    state: link
-  with_items:
-    - vimrc
-    - zlogin
-    - zlogout
-    - zpreztorc
-    - zprofile
-    - zshenv
-    - zshrc
-    - tmux.conf
-    - gitconfig
-    - gitignore_global
-
 - become_user: krzystof
   git: repo=https://github.com/VundleVim/Vundle.vim.git dest={{ home }}/.vim/bundle/Vundle.vim
 

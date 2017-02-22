@@ -1,15 +1,23 @@
 ---
-- name: ZSH | install Prezto
+- name: ZSH ~> install Prezto
   git:
     repo: https://github.com/sorin-ionescu/prezto.git
-    dest: {{ home }}/.zprezto
+    dest: "{{ home }}/.zprezto"
     recursive: yes
     force: yes
 
-- name: ZSH | have my customized theme in Prezto
+- name: ZSH ~> have my customized theme in Prezto
   copy:
     src: ollie-theme
-    dest: {{ home }}/.zprezto/modules/prompt/functions/prompt_ollie_setup
+    dest: "{{ home }}/.zprezto/modules/prompt/functions/prompt_ollie_setup"
 
-- name: ZSH | set default shell to zsh
+- name: ZSH ~> set default shell to zsh
   command: chsh -s /bin/zsh
+  when: not ansible_user_shell == "/bin/zsh"
+
+- name: ZSH ~> create the .zsh dir
+  become_user: krzystof
+  file: path="{{ home }}/.zsh" state=directory
+
+- name: ZSH ~> create the completion dir
+  file: src={{ home }}/Dotfiles/completion dest="{{ home }}/.zsh/completion" state=link

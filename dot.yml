@@ -2,17 +2,36 @@
 - hosts: 127.0.0.1
   connection: local
   vars:
+    username: krzystof
     home: /home/krzystof
   become: yes
   become_method: sudo
   tasks:
+  - name: SYMLINKS ~> all dotfiles
+    become_user: krzystof
+    file:
+      src: "{{ home }}/Dotfiles/files/{{ item }}"
+      dest: "{{ home }}/.{{ item }}"
+      state: link
+    with_items:
+      - vimrc
+      - zlogin
+      - zlogout
+      - zpreztorc
+      - zprofile
+      - zshenv
+      - zshrc
+      - tmux.conf
+      - gitconfig
+      - gitignore_global
 
-  - include: tasks/tools.yml
   - include: tasks/zsh.yml
+  - include: tasks/tools.yml
   - include: tasks/theme.yml
   - include: tasks/fonts.yml
 
   - include: tasks/node.yml
+  - include: tasks/docker.yml
 
   - stat: path={{ home }}/Dropbox
     register: dropbox_dir

@@ -2,6 +2,8 @@
 
 > Just `$ make dot` it
 
+Can check the fact on the machine with `touch facts.json && ansible -m setup 127.0.0.1 > facts.json`
+
 Require ansible to be installed on my machine
 
 ### This
@@ -26,10 +28,10 @@ Require ansible to be installed on my machine
 
 
 ### Tools
-- [ ] dropbox
+- [x] dropbox
 - [x] terminator + its config
 - [x] Sublime
-- [ ] docker and docker compose
+- [x] docker and docker compose
 - [x] gitconfig global
 - [ ] install vim plugins
 - [ ] albert

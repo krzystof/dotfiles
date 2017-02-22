@@ -1,0 +1,11 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+    username: krzystof
+    home: /home/krzystof
+  become: yes
+  become_method: sudo
+  tasks:
+
+  - include: tasks/zsh.yml
