@@ -26,7 +26,7 @@
   file: path={{ home }}/.themes/MyVeryOwn owner={{ username }} group={{ username }} recurse=yes state=directory
 
 - name: THEME ~> symlink my theme settings
-  file: src={{ home }}/Dotfiles/files/my.theme dest={{ home }}/.themes/MyVeryOwn/index.theme state=link
+  file: src={{ home }}/Dotfiles/files/MyOwn.theme dest={{ home }}/.themes/MyOwn/index.theme state=link
 
 - name: THEME ~> remove current dconf
   file: path={{ home }}/.config/dconf/user state=absent

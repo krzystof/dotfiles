@@ -1,0 +1,14 @@
+[Desktop Entry]
+Name=MyOwn
+Type=X-GNOME-Metatheme
+Comment=
+
+[X-GNOME-Metatheme]
+GtkTheme=Adapta-Eta
+MetacityTheme=Adapta
+IconTheme=Paper
+GtkColorScheme=fg_color:#4c4c4c4c4c4c,bg_color:#f6f6f4f4f2f2,text_color:#3c3c3c3c3c3c,base_color:#ffffffffffff,selected_fg_color:#fe8bf510f510,selected_bg_color:#ffff7a7a0000,tooltip_fg_color:#ffffffffffff,tooltip_bg_color:#000000000000
+CursorTheme=bridge
+CursorSize=32
+NotificationTheme=standard
+BackgroundImage=/home/krzystof/Pictures/Wallpapers/Elephant-wallpaper-28.jpg
