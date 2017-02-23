@@ -1,12 +1,12 @@
 [Toplevel top]
 orientation=top
 expand=true
-size=28
+size=24
 
 [Toplevel toplevel-0]
 orientation=bottom
 expand=true
-size=24
+size=19
 
 [Object matemenuapplet]
 locked=true
@@ -18,7 +18,7 @@ object-type=applet
 
 [Object notificationarea]
 locked=true
-position=391
+position=128
 panel-right-stick=true
 toplevel-id=top
 applet-iid=NotificationAreaAppletFactory::NotificationArea
@@ -26,14 +26,14 @@ object-type=applet
 
 [Object clockapplet]
 locked=true
-position=138
-panel-right-stick=true
+position=607
+panel-right-stick=false
 toplevel-id=top
 applet-iid=ClockAppletFactory::ClockApplet
 object-type=applet
 
 [Object windowlistapplet]
-locked=false
+locked=true
 position=0
 panel-right-stick=false
 toplevel-id=toplevel-0
@@ -42,7 +42,7 @@ object-type=applet
 
 [Object workspaceswitcherapplet]
 locked=true
-position=321
+position=129
 panel-right-stick=true
 toplevel-id=toplevel-0
 applet-iid=WnckletFactory::WorkspaceSwitcherApplet

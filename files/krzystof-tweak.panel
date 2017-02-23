@@ -4,46 +4,50 @@ object-id-list=['mate-menu', 'notification-area', 'clock', 'window-list', 'works
 toplevel-id-list=['top', 'toplevel-0']
 
 [toplevels/top]
-expand=true
 orientation='top'
+enable-buttons=false
+expand=true
+size=24
+enable-arrows=true
 screen=0
-size=28
+x-centered=true
 
 [toplevels/top/background]
-opacity=65535
-color='#2e3436'
+opacity=0
+color='#000000'
 type='color'
 
 [toplevels/toplevel-0]
 orientation='bottom'
+size=19
 screen=0
 monitor=0
-y=1056
+y=749
 y-bottom=0
 
 [toplevels/toplevel-0/background]
-opacity=65535
-color='#2e3436'
+opacity=0
 type='color'
 
 [objects/clock]
 applet-iid='ClockAppletFactory::ClockApplet'
 locked=true
 toplevel-id='top'
-position=138
+position=607
 object-type='applet'
-panel-right-stick=true
+panel-right-stick=false
 
 [objects/clock/prefs]
-expand-locations=false
+expand-locations=true
 format='24-hour'
+cities=['<location name="" city="London" timezone="Europe/London" latitude="51.500000" longitude="-0.500000" code="EGLC" current="true"/>']
 custom-format=''
 
 [objects/notification-area]
 applet-iid='NotificationAreaAppletFactory::NotificationArea'
 locked=true
 toplevel-id='top'
-position=391
+position=128
 object-type='applet'
 panel-right-stick=true
 
@@ -51,13 +55,11 @@ panel-right-stick=true
 applet-iid='WnckletFactory::WorkspaceSwitcherApplet'
 locked=true
 toplevel-id='toplevel-0'
-position=321
+position=129
 object-type='applet'
 panel-right-stick=true
 
 [objects/workspace-switcher/prefs]
-display-workspace-names=false
-wrap-workspaces=false
 display-all-workspaces=true
 num-rows=1
 
@@ -70,7 +72,10 @@ object-type='applet'
 
 [objects/window-list]
 applet-iid='WnckletFactory::WindowListApplet'
-locked=false
+locked=true
 toplevel-id='toplevel-0'
 position=0
 object-type='applet'
+
+[objects/window-list/prefs]
+group-windows='always'

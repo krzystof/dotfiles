@@ -19,9 +19,9 @@
   command: systemctl enable docker
 
 - name: DOCKER ~> put docker-compose binary in the path
-  become_user: {{ username }}
+  become_user: "{{ username }}"
   get_url: url=https://github.com/docker/compose/releases/download/1.11.2/docker-compose-linux-x86_64 dest=/usr/local/bin/docker-compose mode=+x
 
 - name: DOCKER ~> install completion script
-  become_user: {{ username }}
+  become_user: "{{ username }}"
   get_url: url=https://github.com/docker/compose/releases/download/1.11.2/docker-compose-linux-x86_64 dest={{ home }}/.zsh/completion/_docker-compose

@@ -34,4 +34,8 @@
     group: krzystof
     state: directory
 
-- file: src="{{ home }}/Dotfiles/files/terminator dest={{ home }}/.config/terminator/config state=link
+- name: TERMINATOR ~> symlink conf
+  file:
+    src: "{{ home }}/Dotfiles/files/terminator"
+    dest: "{{ home }}/.config/terminator/config"
+    state: link
