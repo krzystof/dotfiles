@@ -23,7 +23,7 @@
   file: src={{ home }}/Dotfiles/files/krzystof-tweak.layout dest=/usr/share/mate-panel/layouts/krzystof-tweak.layout state=link
 
 - name: THEME ~> make sure the theme directory exists
-  file: path={{ home }}/.themes/MyVeryOwn owner={{ username }} group={{ username }} recurse=yes state=directory
+  file: path={{ home }}/.themes/MyOwn owner={{ username }} group={{ username }} recurse=yes state=directory
 
 - name: THEME ~> symlink my theme settings
   file: src={{ home }}/Dotfiles/files/MyOwn.theme dest={{ home }}/.themes/MyOwn/index.theme state=link

@@ -1,0 +1,7 @@
+---
+- name: ALBERT ~> add ppa
+  apt_repository: repo='ppa:nilarimogard/webupd8'
+
+- name: ALBERT ~> install
+  apt: name=albert update_cache=yes state=present
+

@@ -3,10 +3,13 @@
 - name: SUBLIME | Install ST3
   apt: deb=https://download.sublimetext.com/sublime-text_build-3126_amd64.deb
 
+- name: SUBLIME | Create directory
+  file: path={{ home }}/.config/sublime-text-3 state=directory
+
 - name: SUBLIME | Install Package Control
   get_url:
     url: https://packagecontrol.io/Package%20Control.sublime-package
-    dest: "{{ home }}/.config/sublime-text-3/Installed Packages"
+    dest: "{{ home }}/.config/sublime-text-3/Installed Packages/Package%20Control.sublime-package"
 
 - name: SUBLIME | Symlink User folder to Dropbox
   file:

@@ -7,6 +7,9 @@
 - apt: name=clementine state=latest
 
 - stat: path={{ home }}/Dropbox
+  register: dropbox
+
+# - name: CLEMTENTINE ~>
 
 # - file: src={{ home }}/Dropbox/Clementine/{{ item }} dest={{ home }}/.config/Clementine/{{ item }} state=link
 #   with_items:
