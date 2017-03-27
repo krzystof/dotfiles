@@ -31,3 +31,8 @@ source $HOME/Dropbox/Scripts/z.sh
 
 fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
+
+
+# Launch tmux if you can
+if [ "$TMUX" = "" ]; then tmux; fi
+

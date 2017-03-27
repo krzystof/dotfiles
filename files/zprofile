@@ -56,7 +56,7 @@ path=(
   /usr/local/{bin,sbin}
   /usr/local/go/bin
   $HOME/.composer/vendor/bin
-#  $HOME/.nvm/versions/node/v6.5.0/bin
+  $HOME/.config/composer/vendor/bin
   $path
 )
 
@@ -66,6 +66,12 @@ path=(
 # Gopath
 #
 export GOPATH=$HOME/Code/go
+
+
+#
+# Swagger
+#
+export SWAGGER_CODEGEN_PATH=/home/krzystof/Code/java/swagger-cli
 
 
 

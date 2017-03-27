@@ -45,9 +45,8 @@ nmap <C-K> <C-W><C-K>
 nmap <C-H> <C-W><C-H>
 nmap <C-L> <C-W><C-L>
 
-nmap t $
-nmap T ^
-nmap [ %
+nmap ] $
+nmap [ ^
 
 nmap <C-V> "+gP
 imap <C-V> <ESC><C-V>i
