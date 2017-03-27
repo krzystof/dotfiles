@@ -61,11 +61,12 @@ path=(
 )
 
 
+#
+# Go
+#
+export GOPATH=$HOME/Code/shippal
 
-#
-# Gopath
-#
-export GOPATH=$HOME/Code/go
+
 
 
 #
