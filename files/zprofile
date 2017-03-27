@@ -56,16 +56,17 @@ path=(
   /usr/local/{bin,sbin}
   /usr/local/go/bin
   $HOME/.composer/vendor/bin
-#  $HOME/.nvm/versions/node/v6.5.0/bin
+  $HOME/.config/composer/vendor/bin
   $path
 )
 
 
+#
+# Go
+#
+export GOPATH=$HOME/Code/shippal
 
-#
-# Gopath
-#
-export GOPATH=$HOME/Code/go
+
 
 
 
