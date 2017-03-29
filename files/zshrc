@@ -34,5 +34,24 @@ autoload -Uz compinit && compinit -i
 
 
 # Launch tmux if you can
-if [ "$TMUX" = "" ]; then tmux; fi
+if [[ "$TMUX" = "" ]]; then 
+    tmux
+fi
+
+
+# Run a local conf if its there
+LOCAL_CONF=$HOME/.zshlocal
+
+if [[ -e ${LOCAL_CONF} ]]; then
+    source $LOCAL_CONF
+fi
+
+
+
+# Run the sync script
+/bin/bash $HOME/Dotfiles/sync.sh
+
+to() {
+    cd $1 && tree -L 1
+}
 
