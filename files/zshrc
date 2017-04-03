@@ -49,7 +49,7 @@ fi
 
 
 # Run the sync script
-/bin/bash $HOME/Dotfiles/sync.sh
+# /bin/bash $HOME/Dotfiles/sync.sh
 
 to() {
     cd $1 && tree -L 1
