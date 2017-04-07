@@ -1,8 +1,30 @@
+# Example here:
+# https://gist.github.com/scottnonnenberg/fefa3f65fdb3715d25882f3023b31c29
+# Article here:
+# https://blog.scottnonnenberg.com/better-git-configuration/
+
 [user]
-	email = getintouch@christophegraniczny.com
-	name = Christophe Graniczny
+  email = getintouch@christophegraniczny.com
+  name = Christophe Graniczny
+
+[alias]
+  prune = fetch --prune
+
 [push]
-	default = simple
+  default = simple
+  followTags = true
+
+[merge]
+  ff = only
+  conflictstyle = diff3
+
+[status]
+  showUntrackedFiles = all
+
+[transfer]
+  fsckobjects = true
+
 [core]
-	excludesfile = /home/krzystof/.gitignore_global
-	editor = vim
+  excludesfile = /home/krzystof/.gitignore_global
+  editor = vim
+
