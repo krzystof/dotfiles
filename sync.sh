@@ -15,4 +15,5 @@ function remove_music_if_exists() {
 }
 
 remove_music_if_exists "Von Bondies"
+remove_music_if_exists "White_Stripes/Various_live"
 
