@@ -6,7 +6,7 @@
   title_transmit_bg_color = "#151515"
   title_use_system_font = False
 [keybindings]
-  layout_launcher = <Alt>w
+  layout_launcher = <Alt>o
 [layouts]
   [[default]]
     [[[child1]]]
@@ -21,7 +21,7 @@
   [[default]]
     background_color = "#151515"
     background_image = None
-    font = Source Code Pro 12
+    font = Source Code Pro 10
     foreground_color = "#a1b0b8"
     palette = "#252525:#ff443e:#c3d82c:#ffc135:#42a5f5:#d81b60:#00acc1:#f5f5f5:#797272:#c0392b:#2ecc71:#f39c12:#2980b9:#8e44ad:#16a085:#fdf6e3"
     scrollbar_position = hidden
