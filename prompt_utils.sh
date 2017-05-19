@@ -34,6 +34,8 @@ e_bold() { printf "${bold}%s${reset}\n" "$@"
 }
 e_note() { printf "${underline}${bold}${blue}Note:${reset}  ${blue}%s${reset}\n" "$@"
 }
+e_ok() { printf "${blue}➜ %s${reset}\n" "$@"
+}
 
 #
 # USAGE FOR SEEKING CONFIRMATION
