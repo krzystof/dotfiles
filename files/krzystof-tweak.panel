@@ -1,81 +1,80 @@
 [general]
-default-layout='krzystof-tweak'
-object-id-list=['mate-menu', 'notification-area', 'clock', 'window-list', 'workspace-switcher']
-toplevel-id-list=['top', 'toplevel-0']
+default-layout='ubuntu-mate'
+object-id-list=@as []
+toplevel-id-list=['top', 'bottom']
+
+[toplevels/bottom]
+expand=true
+orientation='bottom'
+screen=0
+size=24
 
 [toplevels/top]
-orientation='top'
-enable-buttons=false
 expand=true
+orientation='top'
+screen=0
 size=24
-enable-arrows=true
-screen=0
-x-centered=true
 
-[toplevels/top/background]
-opacity=0
-color='#000000'
-type='color'
+[objects/workspace-switcher]
+applet-iid='WnckletFactory::WorkspaceSwitcherApplet'
+locked=true
+toplevel-id='bottom'
+position=10
+object-type='applet'
+panel-right-stick=true
 
-[toplevels/toplevel-0]
-orientation='bottom'
-size=19
-screen=0
-monitor=0
-y=749
-y-bottom=0
-
-[toplevels/toplevel-0/background]
-opacity=0
-type='color'
+[objects/firefox]
+locked=true
+launcher-location='/usr/share/applications/firefox.desktop'
+menu-path='applications:/'
+position=10
+object-type='launcher'
+toplevel-id='top'
 
 [objects/clock]
 applet-iid='ClockAppletFactory::ClockApplet'
 locked=true
 toplevel-id='top'
-position=607
+position=10
 object-type='applet'
-panel-right-stick=false
+panel-right-stick=true
 
 [objects/clock/prefs]
-expand-locations=true
 format='24-hour'
-cities=['<location name="" city="London" timezone="Europe/London" latitude="51.500000" longitude="-0.500000" code="EGLC" current="true"/>']
 custom-format=''
+
+[objects/shutdown]
+locked=true
+toplevel-id='top'
+action-type='shutdown'
+position=0
+object-type='action'
+panel-right-stick=true
+
+[objects/menu-bar]
+locked=true
+toplevel-id='top'
+position=0
+object-type='menu-bar'
+
+[objects/window-list]
+applet-iid='WnckletFactory::WindowListApplet'
+locked=true
+toplevel-id='bottom'
+position=20
+object-type='applet'
 
 [objects/notification-area]
 applet-iid='NotificationAreaAppletFactory::NotificationArea'
 locked=true
 toplevel-id='top'
-position=128
+position=20
 object-type='applet'
 panel-right-stick=true
 
-[objects/workspace-switcher]
-applet-iid='WnckletFactory::WorkspaceSwitcherApplet'
+[objects/show-desktop]
+applet-iid='WnckletFactory::ShowDesktopApplet'
 locked=true
-toplevel-id='toplevel-0'
-position=129
-object-type='applet'
-panel-right-stick=true
-
-[objects/workspace-switcher/prefs]
-display-all-workspaces=true
-num-rows=1
-
-[objects/mate-menu]
-applet-iid='MateMenuAppletFactory::MateMenuApplet'
-locked=true
-toplevel-id='top'
+toplevel-id='bottom'
 position=0
 object-type='applet'
-
-[objects/window-list]
-applet-iid='WnckletFactory::WindowListApplet'
-locked=true
-toplevel-id='toplevel-0'
-position=0
-object-type='applet'
-
-[objects/window-list/prefs]
-group-windows='always'

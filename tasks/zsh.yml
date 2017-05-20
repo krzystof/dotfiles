@@ -1,17 +1,23 @@
 ---
+- name: ZSH ~> ensure directory exists
+  file: path={{ home }}/Repos state=directory
+
 - name: ZSH ~> install Prezto
   git:
     repo: https://github.com/sorin-ionescu/prezto.git
-    dest: "{{ home }}/.zprezto"
+    dest: "{{ home }}/Repos/prezto"
     recursive: yes
     force: yes
 
-- name: ZSH ~> have my customized theme in Prezto
-  copy:
-    src: ollie-theme
-    dest: "{{ home }}/.zprezto/modules/prompt/functions/prompt_ollie_setup"
+- name: ZSH ~> symlink prezto
+  become_user: krzystof
+  file:
+    src: "{{ home }}/Repos/prezto"
+    dest: "{{ home }}/.prezto"
+    state: link
 
 - name: ZSH ~> set default shell to zsh
+  become_user: krzystof
   command: chsh -s /bin/zsh
   when: not ansible_user_shell == "/bin/zsh"
 
