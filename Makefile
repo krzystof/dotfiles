@@ -1,4 +1,4 @@
 dot:
-	@sudo -v && ./dot-me-up.sh
+	@sudo -v && ansible-playbook dot.yml
 	@notify-send "Congratulation, you have been dotfiled!"
 

@@ -6,4 +6,6 @@ set -eu
 
 e_header "Hang tight"
 
-. tasks/install_icons.sh
+. tasks/icons.sh
+. tasks/apt.sh
+

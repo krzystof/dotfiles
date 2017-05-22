@@ -3,30 +3,18 @@
 - name: THEME ~> add repositories
   apt_repository: repo={{ item }} state=present
   with_items:
-    - ppa:tista/adapta
-    - ppa:snwh/pulp
+    - ppa:moka/daily
 
 - name: THEME ~> install packages
-  apt: name={{ item }} update_cache=yes state=latest
+  apt: name={{ item }} state=latest
   with_items:
-    # - adapta-backgrounds
-    - adapta-gtk-theme
-    - paper-icon-theme
+    - arc-theme
+    - moka-icon-theme
 
 - name: THEME ~> copy bridge cursors
   copy: src=bridge dest=/usr/share/icons
 
-- name: THEME ~> symlink my panels
-  file: src={{ home }}/Dotfiles/files/krzystof-tweak.panel dest=/usr/share/mate-panel/layouts/krzystof-tweak.panel state=link
-
-- name: THEME ~> symlink my layout
-  file: src={{ home }}/Dotfiles/files/krzystof-tweak.layout dest=/usr/share/mate-panel/layouts/krzystof-tweak.layout state=link
-
-- name: THEME ~> make sure the theme directory exists
-  file: path={{ home }}/.themes/MyOwn owner={{ username }} group={{ username }} recurse=yes state=directory
-
-- name: THEME ~> symlink my theme settings
-  file: src={{ home }}/Dotfiles/files/MyOwn.theme dest={{ home }}/.themes/MyOwn/index.theme state=link
+  # copy Arc icon and plank theme
 
 - name: THEME ~> remove current dconf
   file: path={{ home }}/.config/dconf/user state=absent
