@@ -1,5 +1,4 @@
 [global_config]
-  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   handle_size = 1
   title_font = Source Code Pro Medium 10
   title_inactive_bg_color = "#151515"
@@ -21,11 +20,11 @@
 [profiles]
   [[default]]
     background_color = "#151515"
-    background_image = None
     cursor_color = "#a1b0b8"
     font = Source Code Pro 10
     foreground_color = "#a1b0b8"
     icon_bell = False
     palette = "#252525:#ff443e:#c3d82c:#ffc135:#42a5f5:#d81b60:#00acc1:#f5f5f5:#797272:#c0392b:#2ecc71:#f39c12:#2980b9:#8e44ad:#16a085:#fdf6e3"
+    scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False

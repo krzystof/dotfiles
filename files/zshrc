@@ -47,6 +47,10 @@ if [[ -e ${LOCAL_CONF} ]]; then
 fi
 
 
+# Boot rbenv
+eval "$(rbenv init -)"
+
+
 
 # Run the sync script
 # /bin/bash $HOME/Dotfiles/sync.sh
