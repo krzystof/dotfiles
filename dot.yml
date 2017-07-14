@@ -29,10 +29,6 @@
   - include: tasks/zsh.yml
   - include: tasks/theme.yml
   - include: tasks/fonts.yml
-    #  - include: tasks/albert.yml
-
-    #  - include: tasks/node.yml
-    #- include: tasks/docker.yml
 
   - stat: path={{ home }}/Dropbox
     register: dropbox_dir

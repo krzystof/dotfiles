@@ -15,3 +15,4 @@
     - albumcovers
     - Clementine.conf
     - clementine.db
+  when: dropbox.stat.exists

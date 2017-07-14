@@ -45,3 +45,6 @@ Thumbs.db
 .phpintel
 .idea
 
+# Vim tags
+tags
+

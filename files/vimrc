@@ -1,22 +1,64 @@
-set nocompatible                        " be iMproved, required
+" General basic necessary plugins
+set nocompatible                "Be iMproved, required
+set backspace=indent,eol,start  "Make backspace behave well
+syntax on                       "Enable syntax highlighting
+filetype plugin indent on       "Enable file type detection and do language-dependent indenting.
+
+
+"-----Learning Now
+
+
+"-----Cheat-Sheet
+" :tabc             => close a tab
+" :b1 or :b2        => go to buffer 1 or 2 etc
+" ctrl w and then | => expand split
+" :e .              => browse the current directory
+" ctrl ^ or :bp     => previous buffer
+" !                 => execute a shell command. % is the current file   
+
+
+
+
+
+"-----Notes
+" :tn    => go to next tag result
+" :tp    => go to previous tag result
+" :ts    => list all tags result
+" ctrl ] => go to tag definition (use ctrl ^ to go back to previous buffer)
+
+"-----Todo
+" - regenerate CTags
+
 
 " Source the plugins file
 so ~/.vim/plugins.vim
 
 
 
+<<<<<<< 98a25c99ac2a7dd95b2cca68d618ea83ff2952c7
 "------General settings
 "
 syntax enable
+"
+"---- Gvim specific
+:set guioptions-=e  "no GUI tabs
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
 
-set backspace=indent,eol,start
+
+
+"------General stuff
 let mapleader = ','
 set number
 
 set tabstop=8
 set expandtab
-set softtabstop=4
-set shiftwidth=4
+set softtabstop=4                        "Insert mode
+set shiftwidth=4                         "When using < and >
+set complete=.,w,b,u                     "Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
+set relativenumber
 
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -29,6 +71,10 @@ set t_CO=256                             "Use 256 colors
 set laststatus=2                         "Always display the status bar
 let g:airline_powerline_fonts = 0
 let g:airline_theme='luna'
+
+" For line numbers, to hide them a bit
+hi LineNr ctermfg=DarkGray
+hi Comment ctermfg=DarkGray
 
 
 
@@ -47,6 +93,7 @@ set splitright
 
 nmap <Leader>\| :vsp<CR>
 nmap <Leader>- :sp<CR>
+nmap <Leader>d :tabc<CR>                  "close a tab
 
 nmap <C-J> <C-W><C-J>
 nmap <C-K> <C-W><C-K>
@@ -73,8 +120,13 @@ vmap <C-C> "+y
 
 "------Mappings
 
+" Use space to enter command mode
+nmap <Space> :
+
 " Shortcut to edit the vimrc file
 nmap <Leader>ev :tabedit ~/.vimrc<cr>
+nmap <Leader>es :tabedit ~/.vim/snippets/
+nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
 
 " Simple highlight removal
 nmap <Leader><space> :nohlsearch<cr>
@@ -82,8 +134,12 @@ nmap <Leader><space> :nohlsearch<cr>
 " Comma + s to save
 nmap <Leader>s :w<cr>
 
-" Use space in normal mode to enter commands
-nmap <space> :
+
+
+" Search with Ack
+nmap <Leader>a :Ack
+
+
 
 " Close a tab
 nmap <Leader>c :tabc<cr>
@@ -113,19 +169,20 @@ let NERDTreeHijackNetrw = 0   "NERD tree is messing with vinegar...
 nmap <Leader>0 :NERDTreeToggle<cr>
 
 
+"/
+"/ VIM Test
+"/
+nmap <silent> <leader>tt :TestNearest<CR> "Run test near cursor"
+nmap <silent> <leader>tT :TestFile<CR>    "Run current file, or the last test file"
+nmap <silent> <leader>ta :TestSuite<CR>   "Run the whole test suite"
+nmap <silent> <leader>tl :TestLast<CR>    "Run the last test"
+
+
+
 
 "------Auto-Commands
 augroup autosourcing
     autocmd!
     autocmd BufWritePost .vimrc source %
 augroup END
-
-
-
-"------Cheat-Sheet
-" :tabc             => close a tab
-" :b1 or :b2        => go to buffer 1 or 2 etc
-" ctrl w and then | => expand split
-" :e .              => browse the current directory
-" ctrl ^ or :bp     => previous buffer
 

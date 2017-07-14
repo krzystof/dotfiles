@@ -13,7 +13,7 @@
   become_user: krzystof
   file:
     src: "{{ home }}/Repos/prezto"
-    dest: "{{ home }}/.prezto"
+    dest: "{{ home }}/.zprezto"
     state: link
 
 - name: ZSH ~> create the .zsh dir
