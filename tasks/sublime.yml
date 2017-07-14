@@ -4,17 +4,30 @@
   apt: deb=https://download.sublimetext.com/sublime-text_build-3126_amd64.deb
 
 - name: SUBLIME | Create directory
-  file: path={{ home }}/.config/sublime-text-3 state=directory
+  file: 
+    path: "{{ home }}/.config/sublime-text-3/Packages"
+    state: directory
+    owner: krzystof
+    group: krzystof
+
+- name: SUBLIME | Create directory
+  file: 
+    path: "{{ home }}/.config/sublime-text-3/Installed Packages"
+    state: directory
+    owner: krzystof
+    group: krzystof
 
 - name: SUBLIME | Install Package Control
   get_url:
     url: https://packagecontrol.io/Package%20Control.sublime-package
-    dest: "{{ home }}/.config/sublime-text-3/Installed Packages/Package%20Control.sublime-package"
+    dest: "{{ home }}/.config/sublime-text-3/Installed Packages/Package Control.sublime-package"
 
 - name: SUBLIME | Symlink User folder to Dropbox
   file:
     src: "{{ home }}/Dropbox/Sublime/User"
     dest: "{{ home }}/.config/sublime-text-3/Packages/User"
     state: link
+    owner: krzystof
+    group: krzystof
 
 # @todo ~> Clone my phpunit shit

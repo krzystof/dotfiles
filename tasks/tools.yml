@@ -21,7 +21,7 @@
     group: krzystof
     state: directory
 
-- copy: src=obsidian.vim dest={{ home }}/.vim/colors/obsidian.vim
+- copy: src=srcery.vim dest={{ home }}/.vim/colors/srcery.vim
 
 - file:
     src: "{{ home }}/Dotfiles/files/plugins.vim"

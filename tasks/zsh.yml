@@ -16,10 +16,10 @@
     dest: "{{ home }}/.prezto"
     state: link
 
-- name: ZSH ~> set default shell to zsh
-  become_user: krzystof
-  command: chsh -s /bin/zsh
-  when: not ansible_user_shell == "/bin/zsh"
+#- name: ZSH ~> set default shell to zsh
+# become_user: krzystof
+# command: chsh -s /bin/zsh
+# when: not ansible_user_shell == "/bin/zsh"
 
 - name: ZSH ~> create the .zsh dir
   become_user: krzystof
