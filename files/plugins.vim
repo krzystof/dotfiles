@@ -11,6 +11,7 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-surround'
+Plugin 'elixir-lang/vim-elixir'
 
 call vundle#end()            " required
 filetype plugin indent on    " required

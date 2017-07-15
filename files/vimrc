@@ -5,13 +5,8 @@ so ~/.vim/plugins.vim
 
 
 
-"---- Gvim specific
-:set guioptions-=e  "no GUI tabs
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
-
+"------General settings
+"
 syntax enable
 
 set backspace=indent,eol,start
@@ -24,6 +19,10 @@ set softtabstop=4
 set shiftwidth=4
 
 
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+
+
 "------Visuals
 colorscheme srcery
 set t_CO=256                             "Use 256 colors
@@ -31,12 +30,18 @@ set laststatus=2                         "Always display the status bar
 let g:airline_powerline_fonts = 0
 let g:airline_theme='luna'
 
+
+
 "------Search
-set hlsearch                             "Highlight search
+
+set hlsearch             "Highlight search
 set incsearch
 set ignorecase
 
+
+
 "------Splits
+
 set splitbelow
 set splitright
 
@@ -48,9 +53,18 @@ nmap <C-K> <C-W><C-K>
 nmap <C-H> <C-W><C-H>
 nmap <C-L> <C-W><C-L>
 
-nmap ] $
+
+
+"------Movements
+
+" End of the line
+nmap ] $                          
+" First non blank char
 nmap [ ^
 
+
+
+"------I dont remember...
 nmap <C-V> "+gP
 imap <C-V> <ESC><C-V>i
 vmap <C-C> "+y
@@ -66,16 +80,13 @@ nmap <Leader>ev :tabedit ~/.vimrc<cr>
 nmap <Leader><space> :nohlsearch<cr>
 
 " Comma + s to save
-nmap <C-S> :w<cr>
 nmap <Leader>s :w<cr>
 
-" List all buffers
-nmap <Leader>l :buffers<CR>
-nmap <Leader>b :buffer
-nmap <Leader>c :bdelete<CR>
+" Use space in normal mode to enter commands
+nmap <space> :
 
-
-
+" Close a tab
+nmap <Leader>c :tabc<cr>
 
 
 
@@ -91,7 +102,7 @@ let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
 nmap <c-R> :CtrlPBufTag<cr>
 nmap <Leader>r :CtrlPMRUFiles<cr>
 
-
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules)$'
 
 "/
 "/ NERDTree
