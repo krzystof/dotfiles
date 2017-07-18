@@ -4,10 +4,6 @@ set backspace=indent,eol,start  "Make backspace behave well
 syntax on                       "Enable syntax highlighting
 filetype plugin indent on       "Enable file type detection and do language-dependent indenting.
 
-
-"-----Learning Now
-
-
 "-----Cheat-Sheet
 " :tabc             => close a tab
 " :b1 or :b2        => go to buffer 1 or 2 etc
@@ -15,10 +11,6 @@ filetype plugin indent on       "Enable file type detection and do language-depe
 " :e .              => browse the current directory
 " ctrl ^ or :bp     => previous buffer
 " !                 => execute a shell command. % is the current file   
-
-
-
-
 
 "-----Notes
 " :tn    => go to next tag result
@@ -35,11 +27,12 @@ so ~/.vim/plugins.vim
 
 
 
-<<<<<<< 98a25c99ac2a7dd95b2cca68d618ea83ff2952c7
 "------General settings
-"
 syntax enable
-"
+set smartindent
+
+
+
 "---- Gvim specific
 :set guioptions-=e  "no GUI tabs
 :set guioptions-=m  "remove menu bar
@@ -55,13 +48,18 @@ set number
 
 set tabstop=8
 set expandtab
-set softtabstop=4                        "Insert mode
-set shiftwidth=4                         "When using < and >
-set complete=.,w,b,u                     "Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
+set softtabstop=4                        " Insert mode
+set shiftwidth=4                         " Spaces when using < and >
+set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
 set relativenumber
 
-
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+
+
+" Map ctrl+s to save
+:nmap <c-s> :w<CR>
+:imap <c-s> <Esc>:w<CR>a
 
 
 
@@ -105,9 +103,10 @@ nmap <C-L> <C-W><C-L>
 "------Movements
 
 " End of the line
-nmap ] $                          
+" nmap ] $                          
 " First non blank char
 nmap [ ^
+
 
 
 
@@ -127,8 +126,8 @@ nmap <Space> :
 
 " Shortcut to edit the vimrc file
 nmap <Leader>ev :tabedit ~/.vimrc<cr>
-nmap <Leader>es :tabedit ~/.vim/snippets/
 nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
+nmap <Leader>es :tabedit ~/.vim/UltiSnips/
 
 " Simple highlight removal
 nmap <Leader><space> :nohlsearch<cr>
@@ -184,6 +183,54 @@ nmap <silent> <leader>tT :TestFile<CR>    "Run current file, or the last test fi
 nmap <silent> <leader>ta :TestSuite<CR>   "Run the whole test suite"
 nmap <silent> <leader>tl :TestLast<CR>    "Run the last test"
 
+
+
+
+"/
+"/ Auto pairs
+"/
+
+let g:AutoPairsFlyMode = 1
+let g:AutoPairsShortcutBackInsert = '<C-b>'
+
+
+
+"/
+"/ Emmet
+"/
+
+" Use ctrl-m , to expand emmet abbr
+let g:user_emmet_leader_key='<C-m>' 
+
+
+
+"/
+"/ UltiSnips
+"/
+
+let g:UltiSnipsExpandTrigger="<C-e>"
+
+
+"/
+"/ Syntastic
+"/
+
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" PHP
+let g:syntastic_php_phpcs_args = "--standard=psr2"
+
+
+" JS
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exe = 'eslint %'
 
 
 

@@ -164,3 +164,7 @@ zstyle ':prezto:module:tmux:auto-start' local 'yes'
 zstyle ':completion:*:manuals'    separate-sections true
 zstyle ':completion:*:manuals.*'  insert-sections   true
 zstyle ':completion:*:man:*'      menu yes select
+
+
+# Disable ctrl-s freezing the terminal
+stty -ixon
