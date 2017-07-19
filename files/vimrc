@@ -4,22 +4,12 @@ set backspace=indent,eol,start  "Make backspace behave well
 syntax on                       "Enable syntax highlighting
 filetype plugin indent on       "Enable file type detection and do language-dependent indenting.
 
-"-----Cheat-Sheet
-" :tabc             => close a tab
-" :b1 or :b2        => go to buffer 1 or 2 etc
-" ctrl w and then | => expand split
-" :e .              => browse the current directory
-" ctrl ^ or :bp     => previous buffer
-" !                 => execute a shell command. % is the current file   
-
 "-----Notes
 " :tn    => go to next tag result
 " :tp    => go to previous tag result
 " :ts    => list all tags result
 " ctrl ] => go to tag definition (use ctrl ^ to go back to previous buffer)
 
-"-----Todo
-" - regenerate CTags
 
 
 " Source the plugins file
@@ -45,13 +35,13 @@ set smartindent
 "------General stuff
 let mapleader = ','
 set number
+set relativenumber
 
 set tabstop=8
 set expandtab
 set softtabstop=4                        " Insert mode
 set shiftwidth=4                         " Spaces when using < and >
 set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
-set relativenumber
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
@@ -60,6 +50,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 " Map ctrl+s to save
 :nmap <c-s> :w<CR>
 :imap <c-s> <Esc>:w<CR>a
+
 
 
 
@@ -198,8 +189,7 @@ let g:AutoPairsShortcutBackInsert = '<C-b>'
 "/
 "/ Emmet
 "/
-
-" Use ctrl-m , to expand emmet abbr
+" Use ctrl-m then "," to expand emmet abbr
 let g:user_emmet_leader_key='<C-m>' 
 
 
@@ -207,8 +197,8 @@ let g:user_emmet_leader_key='<C-m>'
 "/
 "/ UltiSnips
 "/
-
 let g:UltiSnipsExpandTrigger="<C-e>"
+
 
 
 "/
