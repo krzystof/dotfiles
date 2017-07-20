@@ -21,6 +21,7 @@
 [profiles]
   [[default]]
     background_color = "#252525"
+    background_image = None
     cursor_blink = False
     cursor_color = "#fce94f"
     cursor_color_fg = False

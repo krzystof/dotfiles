@@ -1,4 +1,4 @@
-" General basic necessary plugins
+ " General basic necessary plugins
 set nocompatible                "Be iMproved, required
 set backspace=indent,eol,start  "Make backspace behave well
 syntax on                       "Enable syntax highlighting
@@ -17,22 +17,11 @@ so ~/.vim/plugins.vim
 
 
 
-"------General settings
+"----> General settings
 syntax enable
 set smartindent
 
 
-
-"---- Gvim specific
-:set guioptions-=e  "no GUI tabs
-:set guioptions-=m  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
-
-
-
-"------General stuff
 let mapleader = ','
 set number
 set relativenumber
@@ -55,15 +44,12 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 
 "------Visuals
-colorscheme srcery
+
+colorscheme onedark
 set t_CO=256                             "Use 256 colors
 set laststatus=2                         "Always display the status bar
 let g:airline_powerline_fonts = 0
 let g:airline_theme='luna'
-
-" For line numbers, to hide them a bit
-hi LineNr ctermfg=DarkGray
-hi Comment ctermfg=DarkGray
 
 
 
@@ -82,29 +68,21 @@ set splitright
 
 nmap <Leader>\| :vsp<CR>
 nmap <Leader>- :sp<CR>
-nmap <Leader>d :tabc<CR>                  "close a tab
 
-nmap <C-J> <C-W><C-J>
-nmap <C-K> <C-W><C-K>
-nmap <C-H> <C-W><C-H>
-nmap <C-L> <C-W><C-L>
+" close a tab
+nmap <Leader>d :tabc<CR>                  
 
-
-
-"------Movements
-
-" End of the line
-" nmap ] $                          
-" First non blank char
-nmap [ ^
+nmap <C-j> <C-w><C-j>
+nmap <C-k> <C-w><C-k>
+nmap <C-h> <C-w><C-h>
+nmap <C-l> <C-w><C-l>
 
 
-
-
-"------I dont remember...
-nmap <C-V> "+gP
-imap <C-V> <ESC><C-V>i
-vmap <C-C> "+y
+" Ctrl V paste
+nmap <C-v> "+gP
+imap <C-v> <ESC><C-v>i
+" Ctrl C copy
+vmap <C-c> "+y
 
 
 
@@ -126,10 +104,13 @@ nmap <Leader><space> :nohlsearch<cr>
 " Comma + s to save
 nmap <Leader>s :w<cr>
 
+" Jump one char to the right in insert mode
+inoremap <C-l> <C-o>l
+inoremap <S-Space> <C-o>l
 
 
 " Search with Ack
-nmap <Leader>a :Ack
+nmap <Leader>a :Ack 
 
 
 
@@ -144,7 +125,8 @@ nmap <Leader>c :tabc<cr>
 "/
 "/ CtrlP
 "/
-let g:ctrlp_custom_ignore = 'node_modules\|git'
+
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
 
 nmap <c-R> :CtrlPBufTag<cr>
@@ -166,13 +148,24 @@ let NERDTreeHijackNetrw = 0
 nmap <Leader>0 :NERDTreeToggle<cr>
 
 
+
+"/
+"/ Languages specifics
+"/
+
+" Elm
+let g:elm_format_autosave = 1
+
+
+
 "/
 "/ VIM Test
 "/
-nmap <silent> <leader>tt :TestNearest<CR> "Run test near cursor"
-nmap <silent> <leader>tT :TestFile<CR>    "Run current file, or the last test file"
-nmap <silent> <leader>ta :TestSuite<CR>   "Run the whole test suite"
-nmap <silent> <leader>tl :TestLast<CR>    "Run the last test"
+
+nmap <silent> <leader>tt :TestNearest<CR> 
+nmap <silent> <leader>tT :TestFile<CR>    
+nmap <silent> <leader>ta :TestSuite<CR>   
+nmap <silent> <leader>tl :TestLast<CR>    
 
 
 
@@ -215,6 +208,7 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 " PHP
+let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args = "--standard=psr2"
 
 
@@ -222,6 +216,16 @@ let g:syntastic_php_phpcs_args = "--standard=psr2"
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint %'
 
+
+
+
+"/
+"/ Some common abbreviations
+"/
+
+abbr ret return
+abbr req request
+abbr res response
 
 
 "------Auto-Commands

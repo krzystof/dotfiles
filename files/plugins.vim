@@ -34,6 +34,7 @@ Plugin 'ervandew/supertab'
 " Languages
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'posva/vim-vue'
+Plugin 'elmcast/elm-vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
