@@ -174,7 +174,7 @@ nmap <silent> <leader>tl :TestLast<CR>
 "/ Auto pairs
 "/
 
-let g:AutoPairsFlyMode = 1
+" let g:AutoPairsFlyMode = 1
 let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 
@@ -183,7 +183,7 @@ let g:AutoPairsShortcutBackInsert = '<C-b>'
 "/ Emmet
 "/
 " Use ctrl-m then "," to expand emmet abbr
-let g:user_emmet_leader_key='<C-m>' 
+" let g:user_emmet_leader_key='<C-m>' 
 
 
 

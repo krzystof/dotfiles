@@ -27,7 +27,7 @@ Plugin 'janko-m/vim-test'
 " Completion
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
-" Plugin 'mattn/emmet-vim'
+Plugin 'mattn/emmet-vim'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'ervandew/supertab'
 
@@ -35,6 +35,7 @@ Plugin 'ervandew/supertab'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'posva/vim-vue'
 Plugin 'elmcast/elm-vim'
+Plugin 'wavded/vim-stylus'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
