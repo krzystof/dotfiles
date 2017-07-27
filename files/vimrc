@@ -45,7 +45,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 "------Visuals
 
-colorscheme onedark
+colorscheme srcery
 set t_CO=256                             "Use 256 colors
 set laststatus=2                         "Always display the status bar
 let g:airline_powerline_fonts = 0
@@ -214,18 +214,8 @@ let g:syntastic_php_phpcs_args = "--standard=psr2"
 
 " JS
 let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = 'eslint %'
+let g:syntastic_javascript_eslint_exe = 'eslint %' " Just lint the current file
 
-
-
-
-"/
-"/ Some common abbreviations
-"/
-
-abbr ret return
-abbr req request
-abbr res response
 
 
 "------Auto-Commands
