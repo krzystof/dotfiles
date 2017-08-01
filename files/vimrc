@@ -37,8 +37,11 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 
 " Map ctrl+s to save
-:nmap <c-s> :w<CR>
-:imap <c-s> <Esc>:w<CR>a
+nmap <c-s> :w<CR>
+imap <c-s> <Esc>:w<CR>a
+
+" Substitute word under the cursor
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 
 
@@ -49,7 +52,9 @@ colorscheme srcery
 set t_CO=256                             "Use 256 colors
 set laststatus=2                         "Always display the status bar
 let g:airline_powerline_fonts = 0
-let g:airline_theme='luna'
+let g:airline_theme='aurora'
+
+hi LineNr ctermfg=DarkGrey
 
 
 
@@ -106,12 +111,7 @@ nmap <Leader>s :w<cr>
 
 " Jump one char to the right in insert mode
 inoremap <C-l> <C-o>l
-inoremap <S-Space> <C-o>l
-
-
-" Search with Ack
-nmap <Leader>a :Ack 
-
+inoremap <S-space> <C-o>l
 
 
 " Close a tab
@@ -162,13 +162,13 @@ let g:elm_format_autosave = 1
 "/ VIM Test
 "/
 
-nmap <silent> <leader>tt :TestNearest<CR> 
-nmap <silent> <leader>tT :TestFile<CR>    
-nmap <silent> <leader>ta :TestSuite<CR>   
-nmap <silent> <leader>tl :TestLast<CR>    
+nmap <silent> <leader>t :TestNearest<CR> 
+nmap <silent> <leader>T :TestFile<CR>    
+nmap <silent> <leader>A :TestSuite<CR>   
+nmap <silent> <leader>l :TestLast<CR>    
 
-
-
+" Dispatch to use the quickfix window
+let test#strategy = "dispatch" 
 
 "/
 "/ Auto pairs
@@ -194,13 +194,27 @@ let g:UltiSnipsExpandTrigger="<C-e>"
 
 
 
+
+"/
+"/ VimAck
+"/
+" Use the silversearcher
+let g:ackprg = 'ag --vimgrep'
+
+" Search with Ack
+nmap <Leader>a :Ack 
+" Search word under the cursor
+nnoremap <Leader>f :Ack \<<C-r><C-w>\><cr>
+
+
 "/
 "/ Syntastic
 "/
-
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+
+nmap <Leader>; :SyntasticToggleMode<cr>
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -211,11 +225,17 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args = "--standard=psr2"
 
-
 " JS
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint %' " Just lint the current file
 
+
+
+"
+" Number toggle
+"
+
+let g:NumberToggleTrigger="<F2>"
 
 
 "------Auto-Commands

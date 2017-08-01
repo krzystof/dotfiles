@@ -14,6 +14,7 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'tpope/vim-vinegar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'mileszs/ack.vim'
 
 " Visuals
 Plugin 'vim-airline/vim-airline'
@@ -21,6 +22,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'flazz/vim-colorschemes'
 
 " Powertools
+Plugin 'tpope/vim-dispatch'
 Plugin 'scrooloose/syntastic'
 Plugin 'janko-m/vim-test'
 
