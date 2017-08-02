@@ -47,10 +47,15 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 
 "------Visuals
-
 colorscheme srcery
+" dfferent colorscheme for ruby and markdown, for example
+" autocmd FileType ruby colorscheme railcasts
+
+>>>>>>> Vim plugins
 set t_CO=256                             "Use 256 colors
 set laststatus=2                         "Always display the status bar
+:highlight LineNr ctermfg=DarkGrey
+
 let g:airline_powerline_fonts = 0
 let g:airline_theme='aurora'
 
@@ -75,7 +80,7 @@ nmap <Leader>\| :vsp<CR>
 nmap <Leader>- :sp<CR>
 
 " close a tab
-nmap <Leader>d :tabc<CR>                  
+nmap <Leader>d :tabc<CR>
 
 nmap <C-j> <C-w><C-j>
 nmap <C-k> <C-w><C-k>
@@ -111,12 +116,26 @@ nmap <Leader>s :w<cr>
 
 " Jump one char to the right in insert mode
 inoremap <C-l> <C-o>l
-inoremap <S-space> <C-o>l
+
+
+" Search with Ack
+nmap <Leader>a :Ack 
+
+=======
+inoremap <S-Space> <C-o>l
+
+
+" Search with Ack
+nmap <Leader>a :Ack
+
 
 
 " Close a tab
 nmap <Leader>c :tabc<cr>
 
+
+" Trim trailing whitespace on save
+" autocmd BufWritePre * :%s/\s\+$//e
 
 
 
@@ -126,13 +145,15 @@ nmap <Leader>c :tabc<cr>
 "/ CtrlP
 "/
 
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
+let g:ctrlp_extensions = ['tag']
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
 
-nmap <c-R> :CtrlPBufTag<cr>
-"nmap <Leader>r :CtrlPMRUFiles<cr>
-
 " Ignore package managers huge folders
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
+
+nmap <Leader>r :CtrlPMRUFiles<cr>
+nmap <Leader>p :CtrlPTag<cr>
+
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 
 
@@ -142,7 +163,7 @@ let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 "/
 
 "NERD tree is messing with vinegar...
-let NERDTreeHijackNetrw = 0   
+let NERDTreeHijackNetrw = 0
 
 " Make NERD Tree easy to toggle
 nmap <Leader>0 :NERDTreeToggle<cr>
@@ -162,10 +183,12 @@ let g:elm_format_autosave = 1
 "/ VIM Test
 "/
 
-nmap <silent> <leader>t :TestNearest<CR> 
-nmap <silent> <leader>T :TestFile<CR>    
-nmap <silent> <leader>A :TestSuite<CR>   
-nmap <silent> <leader>l :TestLast<CR>    
+nmap <silent> <leader>tt :TestNearest<CR> 
+nmap <silent> <leader>tT :TestFile<CR>    
+nmap <silent> <leader>ta :TestSuite<CR>   
+nmap <silent> <leader>tl :TestLast<CR>    
+
+
 
 " Dispatch to use the quickfix window
 let test#strategy = "dispatch" 
@@ -183,7 +206,7 @@ let g:AutoPairsShortcutBackInsert = '<C-b>'
 "/ Emmet
 "/
 " Use ctrl-m then "," to expand emmet abbr
-" let g:user_emmet_leader_key='<C-m>' 
+" let g:user_emmet_leader_key='<C-m>'
 
 
 
@@ -191,6 +214,8 @@ let g:AutoPairsShortcutBackInsert = '<C-b>'
 "/ UltiSnips
 "/
 let g:UltiSnipsExpandTrigger="<C-e>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 
 
@@ -229,13 +254,19 @@ let g:syntastic_php_phpcs_args = "--standard=psr2"
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint %' " Just lint the current file
 
-
-
 "
 " Number toggle
 "
 
 let g:NumberToggleTrigger="<F2>"
+
+
+
+abbr ret return
+abbr req request
+abbr res response
+
+nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
 
 "------Auto-Commands

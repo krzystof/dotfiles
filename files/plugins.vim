@@ -31,6 +31,8 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
 Plugin 'mattn/emmet-vim'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
+Plugin 'majutsushi/tagbar'
+
 Plugin 'ervandew/supertab'
 
 " Languages

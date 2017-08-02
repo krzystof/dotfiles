@@ -59,6 +59,7 @@ path=(
   $HOME/.local/bin
   $HOME/.rbenv/bin
   $HOME/.rbenv/plugins/ruby-build/bin
+  $HOME/Tools/miniconda3/bin
   $path
 )
 
@@ -114,6 +115,6 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 #
 
 function runLL () {
-    docker-compose -f ops/docker/docker-compose.yml run php protected/ll.php $1 --schooldb="learning_ladders"
+    docker-compose -f ops/docker/docker-compose.yml run php protected/ll.php $1 --schooldb="learningladders"
 }
 
