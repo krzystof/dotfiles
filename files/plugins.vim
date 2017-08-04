@@ -10,6 +10,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-fugitive'
 Plugin 'editorconfig/editorconfig-vim'
 
 " Navigation
@@ -41,6 +42,9 @@ Plugin 'elixir-lang/vim-elixir'
 Plugin 'posva/vim-vue'
 Plugin 'elmcast/elm-vim'
 Plugin 'wavded/vim-stylus'
+Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
+Plugin 'arnaud-lb/vim-php-namespace'
 
 call vundle#end()            " required
 filetype plugin indent on    " required

@@ -3,55 +3,35 @@ set nocompatible                "Be iMproved, required
 set backspace=indent,eol,start  "Make backspace behave well
 syntax on                       "Enable syntax highlighting
 filetype plugin indent on       "Enable file type detection and do language-dependent indenting.
+so ~/.vim/plugins.vim           " Source the plugins file
 
-"/ gocon ----> GENERAL
+"/ gogen ----> GENERAL
 "/ goplu ----> PLUGINS
 "/ gofun ----> FUNCTIONS
 "/ gomap ----> MAPPINGS
 
+"/
+"/ gogen ----> GENERAL CONFIG
+"/
 
-
-"-----Notes
-" :tn    => go to next tag result
-" :tp    => go to previous tag result
-" :ts    => list all tags result
-" ctrl ] => go to tag definition (use ctrl ^ to go back to previous buffer)
-
-
-" Source the plugins file
-so ~/.vim/plugins.vim
-
-
-
-"----> General settings
 syntax enable
-set smartindent
-
-
 let mapleader = ','
+set smartindent
 set number
 set relativenumber
-
 set tabstop=8
 set expandtab
 set softtabstop=4                        " Insert mode
 set shiftwidth=4                         " Spaces when using < and >
 set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
-
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 
 " Map ctrl+s to save
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
-
 " Substitute word under the cursor
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
-
-
-" Map ctrl+s to save
-:nmap <c-s> :w<CR>
-:imap <c-s> <Esc>:w<CR>a
 
 
 " Move by showed line?
@@ -67,25 +47,18 @@ colorscheme srcery
 
 set t_CO=256                             "Use 256 colors
 set laststatus=2                         "Always display the status bar
-:highlight LineNr ctermfg=DarkGrey
-
 let g:airline_powerline_fonts = 0
 let g:airline_theme='aurora'
-
-hi LineNr ctermfg=DarkGrey
-
+highlight LineNr ctermfg=DarkGrey
 
 
 "------Search
-
-set hlsearch             "Highlight search
+set hlsearch
 set incsearch
 set ignorecase
 
 
-
 "------Splits
-
 set splitbelow
 set splitright
 
@@ -106,46 +79,68 @@ function! RenameFile()
 endfunction
 
 
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+
+
 
 
 "/
 "/ gomap ----> MAPPINGS
 "/
 
-" Use space to enter command mode
-nmap <Space> :
-
-
 " Map ctrl+s to save
-nmap <c-s> :w<CR>
-" save in insert mode
-imap <c-s> <Esc>:w<CR>a
-
-" Jump one char to the right in insert mode
-inoremap <C-l> <C-o>l
-inoremap <S-Space> <C-o>l
-
+nmap <C-s> :w<CR>
 
 nmap <C-j> <C-w><C-j>
 nmap <C-k> <C-w><C-k>
 nmap <C-h> <C-w><C-h>
 nmap <C-l> <C-w><C-l>
 
+noremap     <Space>             :
+nmap        <Leader>;           :SyntasticToggleMode<cr>
+nmap        <Leader><space>     :nohlsearch<cr>
+nmap        <Leader>\|          :vsp<cr>
+nmap        <Leader>-           :sp<cr>
+
+nmap        <Leader>1           :NERDTreeToggle<cr>
+nnoremap    <Leader>2           :TagbarToggle<CR>
+
+" a for ack
+nmap        <Leader>aa          :Ack<space>
+nnoremap    <Leader>af          :Ack \<<C-r><C-w>\><cr>
+"e for edit
+nmap        <Leader>ev          :tabedit ~/.vimrc<cr>
+nmap        <Leader>ep          :tabedit ~/.vim/plugins.vim<cr>
+nmap        <Leader>es          :tabedit ~/.vim/UltiSnips/
+" f for file
+map         <Leader>fn          :call RenameFile()<cr>
+" g for go
+nnoremap    <Leader>gr          :e bootstrap/routes.php<CR>
+" p for php
+inoremap    <Leader>pi          <Esc>:call IPhpInsertUse()<CR>
+noremap     <Leader>pi          :call PhpInsertUse()<CR>
+inoremap    <Leader>pe          <Esc>:call IPhpExpandClass()<CR>
+noremap     <Leader>pe          :call PhpExpandClass()<CR>
+noremap     <Leader>ps          :call PhpSortUse()<CR>
+" r for replace
+nnoremap    <Leader>rw          :%s/\<<C-r><C-w>\>//g<Left><Left>
+" s for search
+nmap        <Leader>sr          :CtrlPMRUFiles<cr>
+nmap        <Leader>st          :CtrlPTag<cr>
+" t for test
+nnoremap    <silent><leader>tt  :TestNearest<CR>
+nnoremap    <silent><leader>tT  :TestFile<CR>
+nnoremap    <silent><leader>ta  :TestSuite<CR>
+nnoremap    <silent><leader>tl  :TestLast<CR>
 
 
-
-nmap <Leader><space>    :nohlsearch<cr>
-nmap <Leader>\|         :vsp<cr>
-nmap <Leader>-          :sp<cr>
-nmap <Leader>0          :NERDTreeToggle<cr>
-
-nmap <Leader>a          :Ack<space>
-nmap <Leader>c          :tabc<cr>
-nmap <Leader>ev         :tabedit ~/.vimrc<cr>
-nmap <Leader>ep         :tabedit ~/.vim/plugins.vim<cr>
-nmap <Leader>es         :tabedit ~/.vim/UltiSnips/
-nmap <Leader>p          :CtrlPTag<cr>
-nmap <Leader>r          :CtrlPMRUFiles<cr>
 
 
 
@@ -160,83 +155,32 @@ let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'    " window t
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$' " ignore package managers huge folders
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 
-
 "/ NERDTree
 let NERDTreeHijackNetrw = 0                                           " NERD tree is messing with vinegar...
-
 
 "/ Elm
 let g:elm_format_autosave = 1
 
-
-
-"/
 "/ VIM Test
-"/
-
-nmap <silent> <leader>tt :TestNearest<CR>
-nmap <silent> <leader>tT :TestFile<CR>
-nmap <silent> <leader>ta :TestSuite<CR>
-nmap <silent> <leader>tl :TestLast<CR>
-
-
-" Dispatch to use the quickfix window
-let test#strategy = "dispatch" 
-
-"/
-"/ Auto pairs
-"/
-
-" let g:AutoPairsFlyMode = 1
-
-"/
-"/ Auto pairs
-"/
-
-" let g:AutoPairsFlyMode = 1
+let test#strategy = "dispatch"
 
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
 
-
-
-"/
-"/ Emmet
-"/
-" Use ctrl-m then "," to expand emmet abbr
-" let g:user_emmet_leader_key='<C-m>'
-
-
-
-"/
 "/ UltiSnips
-"/
-let g:UltiSnipsExpandTrigger="<C-e>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
 
-
-
-
-"/
 "/ VimAck
-"/
 " Use the silversearcher
 let g:ackprg = 'ag --vimgrep'
 
-" Search with Ack
-nmap <Leader>a :Ack 
-" Search word under the cursor
-nnoremap <Leader>f :Ack \<<C-r><C-w>\><cr>
 
-"/
 "/ Syntastic
-"/
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-
-nmap <Leader>; :SyntasticToggleMode<cr>
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -261,10 +205,7 @@ let g:NumberToggleTrigger="<F2>"
 
 abbr ret return
 abbr req request
-abbr res response
-
-nnoremap <silent> <Leader>b :TagbarToggle<CR>
-
+iabbr resp response
 
 "/ Autocorrect by abbrev
 iabbrev reutrn return
@@ -276,6 +217,3 @@ augroup autosourcing
     autocmd!
     autocmd BufWritePost .vimrc source %
 augroup END
-
-
-map <Leader>n :call RenameFile()<cr>
