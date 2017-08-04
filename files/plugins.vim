@@ -7,6 +7,8 @@ call vundle#begin()
 " Esentials
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 Plugin 'editorconfig/editorconfig-vim'
 
@@ -15,11 +17,12 @@ Plugin 'tpope/vim-vinegar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'majutsushi/tagbar'
 
 " Visuals
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'flazz/vim-colorschemes'
+" Plugin 'flazz/vim-colorschemes'
 
 " Powertools
 Plugin 'tpope/vim-dispatch'
@@ -31,8 +34,6 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
 Plugin 'mattn/emmet-vim'
 Plugin 'jeffkreeftmeijer/vim-numbertoggle'
-Plugin 'majutsushi/tagbar'
-
 Plugin 'ervandew/supertab'
 
 " Languages

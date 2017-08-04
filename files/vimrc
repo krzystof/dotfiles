@@ -4,12 +4,18 @@ set backspace=indent,eol,start  "Make backspace behave well
 syntax on                       "Enable syntax highlighting
 filetype plugin indent on       "Enable file type detection and do language-dependent indenting.
 
+"/ gocon ----> GENERAL
+"/ goplu ----> PLUGINS
+"/ gofun ----> FUNCTIONS
+"/ gomap ----> MAPPINGS
+
+
+
 "-----Notes
 " :tn    => go to next tag result
 " :tp    => go to previous tag result
 " :ts    => list all tags result
 " ctrl ] => go to tag definition (use ctrl ^ to go back to previous buffer)
-
 
 
 " Source the plugins file
@@ -35,7 +41,6 @@ set complete=.,w,b,u                     " Autocomplete looks through current bu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 
-
 " Map ctrl+s to save
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
@@ -44,6 +49,15 @@ imap <c-s> <Esc>:w<CR>a
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 
+" Map ctrl+s to save
+:nmap <c-s> :w<CR>
+:imap <c-s> <Esc>:w<CR>a
+
+
+" Move by showed line?
+nmap k gk
+nmap j gj
+
 
 
 "------Visuals
@@ -51,7 +65,6 @@ colorscheme srcery
 " dfferent colorscheme for ruby and markdown, for example
 " autocmd FileType ruby colorscheme railcasts
 
->>>>>>> Vim plugins
 set t_CO=256                             "Use 256 colors
 set laststatus=2                         "Always display the status bar
 :highlight LineNr ctermfg=DarkGrey
@@ -76,11 +89,42 @@ set ignorecase
 set splitbelow
 set splitright
 
-nmap <Leader>\| :vsp<CR>
-nmap <Leader>- :sp<CR>
 
-" close a tab
-nmap <Leader>d :tabc<CR>
+
+"/
+"/ gofun ----> FUNCTIONS
+"/
+
+function! RenameFile()
+  let old_name = expand('%')
+  let new_name = input('New file name: ', expand('%'), 'file')
+  if new_name != '' && new_name != old_name
+    exec ':saveas ' . new_name
+    exec ':silent !rm ' . old_name
+    redraw!
+  endif
+endfunction
+
+
+
+
+"/
+"/ gomap ----> MAPPINGS
+"/
+
+" Use space to enter command mode
+nmap <Space> :
+
+
+" Map ctrl+s to save
+nmap <c-s> :w<CR>
+" save in insert mode
+imap <c-s> <Esc>:w<CR>a
+
+" Jump one char to the right in insert mode
+inoremap <C-l> <C-o>l
+inoremap <S-Space> <C-o>l
+
 
 nmap <C-j> <C-w><C-j>
 nmap <C-k> <C-w><C-k>
@@ -88,93 +132,40 @@ nmap <C-h> <C-w><C-h>
 nmap <C-l> <C-w><C-l>
 
 
-" Ctrl V paste
-nmap <C-v> "+gP
-imap <C-v> <ESC><C-v>i
-" Ctrl C copy
-vmap <C-c> "+y
+
+
+nmap <Leader><space>    :nohlsearch<cr>
+nmap <Leader>\|         :vsp<cr>
+nmap <Leader>-          :sp<cr>
+nmap <Leader>0          :NERDTreeToggle<cr>
+
+nmap <Leader>a          :Ack<space>
+nmap <Leader>c          :tabc<cr>
+nmap <Leader>ev         :tabedit ~/.vimrc<cr>
+nmap <Leader>ep         :tabedit ~/.vim/plugins.vim<cr>
+nmap <Leader>es         :tabedit ~/.vim/UltiSnips/
+nmap <Leader>p          :CtrlPTag<cr>
+nmap <Leader>r          :CtrlPMRUFiles<cr>
 
 
 
-
-
-"------Leaders mappings
-
-" Use space to enter command mode
-nmap <Space> :
-
-" Shortcut to edit the vimrc file
-nmap <Leader>ev :tabedit ~/.vimrc<cr>
-nmap <Leader>ep :tabedit ~/.vim/plugins.vim<cr>
-nmap <Leader>es :tabedit ~/.vim/UltiSnips/
-
-" Simple highlight removal
-nmap <Leader><space> :nohlsearch<cr>
-
-" Comma + s to save
-nmap <Leader>s :w<cr>
-
-" Jump one char to the right in insert mode
-inoremap <C-l> <C-o>l
-
-
-" Search with Ack
-nmap <Leader>a :Ack 
-
-=======
-inoremap <S-Space> <C-o>l
-
-
-" Search with Ack
-nmap <Leader>a :Ack
-
-
-
-" Close a tab
-nmap <Leader>c :tabc<cr>
-
-
-" Trim trailing whitespace on save
-" autocmd BufWritePre * :%s/\s\+$//e
-
-
-
-"------Plugins
 
 "/
+"/ goplu ----> PLUGINS
+"/
+
 "/ CtrlP
-"/
-
 let g:ctrlp_extensions = ['tag']
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'
-
-" Ignore package managers huge folders
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
-
-nmap <Leader>r :CtrlPMRUFiles<cr>
-nmap <Leader>p :CtrlPTag<cr>
-
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'    " window to the top and other settings
+let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$' " ignore package managers huge folders
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 
 
-
-"/
 "/ NERDTree
-"/
-
-"NERD tree is messing with vinegar...
-let NERDTreeHijackNetrw = 0
-
-" Make NERD Tree easy to toggle
-nmap <Leader>0 :NERDTreeToggle<cr>
+let NERDTreeHijackNetrw = 0                                           " NERD tree is messing with vinegar...
 
 
-
-"/
-"/ Languages specifics
-"/
-
-" Elm
+"/ Elm
 let g:elm_format_autosave = 1
 
 
@@ -183,11 +174,10 @@ let g:elm_format_autosave = 1
 "/ VIM Test
 "/
 
-nmap <silent> <leader>tt :TestNearest<CR> 
-nmap <silent> <leader>tT :TestFile<CR>    
-nmap <silent> <leader>ta :TestSuite<CR>   
-nmap <silent> <leader>tl :TestLast<CR>    
-
+nmap <silent> <leader>tt :TestNearest<CR>
+nmap <silent> <leader>tT :TestFile<CR>
+nmap <silent> <leader>ta :TestSuite<CR>
+nmap <silent> <leader>tl :TestLast<CR>
 
 
 " Dispatch to use the quickfix window
@@ -198,6 +188,14 @@ let test#strategy = "dispatch"
 "/
 
 " let g:AutoPairsFlyMode = 1
+
+"/
+"/ Auto pairs
+"/
+
+" let g:AutoPairsFlyMode = 1
+
+"/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 
@@ -231,7 +229,6 @@ nmap <Leader>a :Ack
 " Search word under the cursor
 nnoremap <Leader>f :Ack \<<C-r><C-w>\><cr>
 
-
 "/
 "/ Syntastic
 "/
@@ -248,7 +245,7 @@ let g:syntastic_check_on_wq = 0
 
 " PHP
 let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=psr2"
+let g:syntastic_php_phpcs_args = "--standard=psr2 --exclude=CamelCapsFunctionNameStandard"
 
 " JS
 let g:syntastic_javascript_checkers = ['eslint']
@@ -269,9 +266,16 @@ abbr res response
 nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
 
+"/ Autocorrect by abbrev
+iabbrev reutrn return
+iabbrev repsonse response
+iabbrev gropu group
+
 "------Auto-Commands
 augroup autosourcing
     autocmd!
     autocmd BufWritePost .vimrc source %
 augroup END
 
+
+map <Leader>n :call RenameFile()<cr>
