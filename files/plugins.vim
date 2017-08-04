@@ -29,6 +29,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-dispatch'
 Plugin 'scrooloose/syntastic'
 Plugin 'janko-m/vim-test'
+Plugin 'terryma/vim-multiple-cursors'
 
 " Completion
 Plugin 'jiangmiao/auto-pairs'
