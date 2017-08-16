@@ -35,7 +35,6 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
 Plugin 'mattn/emmet-vim'
-Plugin 'jeffkreeftmeijer/vim-numbertoggle'
 Plugin 'ervandew/supertab'
 
 " Languages

@@ -28,7 +28,6 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 
 
 " Map ctrl+s to save
-<<<<<<< Updated upstream
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>a
 " Substitute word under the cursor
@@ -37,8 +36,8 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 
 " Move by showed line?
-nmap k gk
-nmap j gj
+" nmap k gk
+" nmap j gj
 
 
 
@@ -54,6 +53,8 @@ let g:airline_powerline_fonts = 0
 let g:airline_theme='aurora'
 hi LineNr ctermfg=DarkGrey
 
+set nocursorline
+set nocursorcolumn
 
 "------Search
 set hlsearch
@@ -86,6 +87,7 @@ function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
 endfunction
+
 function! IPhpExpandClass()
     call PhpExpandClass()
     call feedkeys('a', 'n')
@@ -107,11 +109,13 @@ nmap <C-h> <C-w><C-h>
 nmap <C-l> <C-w><C-l>
 
 noremap     <Space>             :
-nmap        <Leader>;           :SyntasticToggleMode<cr>
 nmap        <Leader><space>     :nohlsearch<cr>
 nmap        <Leader>\|          :vsp<cr>
 nmap        <Leader>-           :sp<cr>
 nmap        <Leader><           :SyntasticToggleMode<cr>
+nmap        <Leader>q           :cclose<CR>
+nnoremap    <Leader>W           :res +10<CR>
+nnoremap    <Leader>w           :res -10<CR>
 
 nmap        <Leader>1           :NERDTreeToggle<cr>
 nnoremap    <Leader>2           :TagbarToggle<CR>
@@ -127,6 +131,9 @@ nmap        <Leader>es          :tabedit ~/.vim/UltiSnips/
 map         <Leader>fn          :call RenameFile()<cr>
 " g for go
 nnoremap    <Leader>gr          :e bootstrap/routes.php<CR>
+" n for numbers
+map         <Leader>n           :set relativenumber<CR>
+map         <Leader>N           :set norelativenumber<CR>
 " p for php
 inoremap    <Leader>pi          <Esc>:call IPhpInsertUse()<CR>
 noremap     <Leader>pi          :call PhpInsertUse()<CR>
@@ -143,6 +150,9 @@ nnoremap    <silent><leader>tt  :TestNearest<CR>
 nnoremap    <silent><leader>tT  :TestFile<CR>
 nnoremap    <silent><leader>ta  :TestSuite<CR>
 nnoremap    <silent><leader>tl  :TestLast<CR>
+nnoremap    <silent><leader>tg  :TestVisit<CR>
+nnoremap    <leader>tsb :let test#strategy = 'basic'<CR>
+nnoremap    <leader>tsd :let test#strategy = 'dispatch'<CR>
 
 
 
@@ -152,6 +162,9 @@ nnoremap    <silent><leader>tl  :TestLast<CR>
 "/
 "/ goplu ----> PLUGINS
 "/
+
+"/ VimCommentary
+autocmd FileType php setlocal commentstring=\/\/\ %s
 
 "/ CtrlP
 let g:ctrlp_extensions = ['tag']
@@ -167,15 +180,15 @@ let g:elm_format_autosave = 1
 
 "/ VIM Test
 " Dispatch to use the quickfix window
-let test#strategy = "dispatch"
+let test#strategy = "basic"
 
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<S-tab>"
+let g:UltiSnipsJumpForwardTrigger="<C-n>"
+let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
 "/ VimAck
 " Use the silversearcher
@@ -208,12 +221,12 @@ let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint %'  " Just lint the current file
 
 
-" Number toggle
-
-let g:NumberToggleTrigger="<F2>"
 
 
 "/ Autocorrect by abbrev
+iabbrev ret return
+iabbrev req request
+iabbrev resp response
 iabbrev reutrn return
 iabbrev repsonse response
 iabbrev gropu group
