@@ -12,6 +12,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'editorconfig/editorconfig-vim'
+Plugin 'jeetsukumaran/vim-indentwise'
 
 " Navigation
 Plugin 'tpope/vim-vinegar'
