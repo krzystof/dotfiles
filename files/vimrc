@@ -122,7 +122,7 @@ nnoremap    <Leader>2           :TagbarToggle<CR>
 
 " a for ack
 nmap        <Leader>aa          :Ack<space>
-nnoremap    <Leader>af          :Ack \<<C-r><C-w>\><cr>
+nnoremap    <Leader>af          :Ack <C-r><C-w><cr>
 "e for edit
 nmap        <Leader>ev          :tabedit ~/.vimrc<cr>
 nmap        <Leader>ep          :tabedit ~/.vim/plugins.vim<cr>
