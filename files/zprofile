@@ -60,6 +60,7 @@ path=(
   $HOME/.rbenv/bin
   $HOME/.rbenv/plugins/ruby-build/bin
   $HOME/Tools/miniconda3/bin
+  $HOME/Dotfiles/bin
   $path
 )
 

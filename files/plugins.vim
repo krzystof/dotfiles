@@ -31,6 +31,7 @@ Plugin 'tpope/vim-dispatch'
 Plugin 'scrooloose/syntastic'
 Plugin 'janko-m/vim-test'
 Plugin 'terryma/vim-multiple-cursors'
+Plugin 'airblade/vim-gitgutter'
 
 " Completion
 Plugin 'jiangmiao/auto-pairs'

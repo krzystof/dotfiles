@@ -5,7 +5,7 @@ syntax on                       "Enable syntax highlighting
 filetype plugin indent on       "Enable file type detection and do language-dependent indenting.
 so ~/.vim/plugins.vim           " Source the plugins file
 
-"/ gogen ----> GENERAL
+"/ gogen ----> GENERAL CONFIG
 "/ goplu ----> PLUGINS
 "/ gofun ----> FUNCTIONS
 "/ gomap ----> MAPPINGS
@@ -173,13 +173,14 @@ let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$' " ignore p
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 
 "/ NERDTree
-let NERDTreeHijackNetrw = 0                                           " NERD tree is messing with vinegar...
+" messing with vinegar...
+let NERDTreeHijackNetrw = 0                                           
 
 "/ Elm
 let g:elm_format_autosave = 1
 
 "/ VIM Test
-" Dispatch to use the quickfix window
+" Dispatch to use the quickfix window. I like my terminal
 let test#strategy = "basic"
 
 "/ AutoPairs
@@ -191,20 +192,12 @@ let g:UltiSnipsJumpForwardTrigger="<C-n>"
 let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
 "/ VimAck
-" Use the silversearcher
 let g:ackprg = 'ag --vimgrep'
-
 
 "/ Syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
-
-"/ VimAck
-" Use the silversearcher
-let g:ackprg = 'ag --vimgrep'
-
-
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -214,19 +207,19 @@ let g:syntastic_check_on_wq = 0
 " PHP
 let g:syntastic_php_checkers = ['php', 'phpcs']
 let g:syntastic_php_phpcs_args = "--standard=psr2 --exclude=CamelCapsFunctionNameStandard"
-
-
 " JS
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint %'  " Just lint the current file
 
+"/ VimAck
+" Use the silversearcher
+let g:ackprg = 'ag --vimgrep'
 
 
-
-"/ Autocorrect by abbrev
+"/ Autocorrect abbrev
 iabbrev ret return
-iabbrev requ request
-iabbrev resp response
+iabbrev rq request
+iabbrev rs response
 iabbrev reutrn return
 iabbrev repsonse response
 iabbrev gropu group

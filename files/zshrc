@@ -33,12 +33,6 @@ fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
 
-# Launch tmux if you can
-if [[ "$TMUX" = "" ]]; then 
-    tmux
-fi
-
-
 # Run a local conf if its there
 LOCAL_CONF=$HOME/.zshlocal
 
