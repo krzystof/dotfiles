@@ -1,0 +1,28 @@
+!/bin/bash
+
+PROJECT="~/Code/planizely"
+SESSION=Planizely
+
+cd $PROJECT
+
+if [ ! -z $TMUX ]; then
+    echo I refuse to run this inside a session
+    exit 0
+fi
+
+tmux new-session -d -s $SESSION
+tmux new-window -t $SESSION -n "vim"
+tmux new-window -t $SESSION -n "process"
+
+tmux send-keys -t $SESSION:0 "cd $PROJECT; vim ." C-m
+
+# tmux send-keys -t 0:1 planizely:0 C-z "git status" C-m
+# tmux split-window -v -p 40 -t 0:1
+# tmux send-keys -t 0:1 planizely:1 C-z "npm run dev" C-m
+# tmux split-window -h -p 50 -t 0:1
+# tmux send-keys -t 0:1 planizely:2 C-z "docker-compose up" C-m
+
+# tmux send-keys -t 0:1 planizely:0 C-z "google-chrome-stable planizely.vm:81" C-m
+
+tmux select-window -t $SESSION:0
+tmux attach-session -d -t $SESSION

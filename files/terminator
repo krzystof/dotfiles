@@ -6,8 +6,9 @@
   title_transmit_bg_color = "#252525"
   title_use_system_font = False
 [keybindings]
+  broadcast_off = None
   cycle_next = None
-  layout_launcher = <Alt>o
+  layout_launcher = None
 [layouts]
   [[default]]
     [[[child1]]]
@@ -21,7 +22,6 @@
 [profiles]
   [[default]]
     background_color = "#252525"
-    background_image = None
     cursor_blink = False
     cursor_color = "#ffeb10"
     font = Source Code Pro 10

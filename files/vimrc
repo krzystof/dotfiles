@@ -25,6 +25,7 @@ set softtabstop=4                        " Insert mode
 set shiftwidth=4                         " Spaces when using < and >
 set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set nojoinspaces
 
 
 " Map ctrl+s to save
@@ -206,7 +207,8 @@ let g:syntastic_check_on_wq = 0
 
 " PHP
 let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=psr2 --exclude=CamelCapsFunctionNameStandard"
+let g:syntastic_php_phpcs_args = "--standard=phpcs.xml"
+"--exclude=CamelCapsFunctionNameStandard"
 " JS
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exe = 'eslint %'  " Just lint the current file
