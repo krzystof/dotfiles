@@ -15,6 +15,7 @@ Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jeetsukumaran/vim-indentwise'
 
 " Navigation
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-vinegar'
 Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
@@ -24,6 +25,7 @@ Plugin 'mileszs/ack.vim'
 " Visuals
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'ryanoasis/vim-devicons'
 " Plugin 'flazz/vim-colorschemes'
 
 " Powertools

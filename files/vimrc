@@ -25,12 +25,12 @@ set softtabstop=4                        " Insert mode
 set shiftwidth=4                         " Spaces when using < and >
 set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-set nojoinspaces
-
+" set nojoinspaces
+" set foldmethod=marker
 
 " Map ctrl+s to save
 nmap <c-s> :w<CR>
-imap <c-s> <Esc>:w<CR>a
+imap <c-s> <Esc>:w<CR>
 " Substitute word under the cursor
 nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
@@ -101,13 +101,17 @@ endfunction
 "/ gomap ----> MAPPINGS
 "/
 
-" Map ctrl+s to save
+" ctrl+s to save
 nmap <C-s> :w<CR>
 
+" ctrl+[hjkl] to move between panes
 nmap <C-j> <C-w><C-j>
 nmap <C-k> <C-w><C-k>
 nmap <C-h> <C-w><C-h>
 nmap <C-l> <C-w><C-l>
+
+" ctrl+m to increment next number on the line
+noremap     <C-m>               <C-a>
 
 noremap     <Space>             :
 nmap        <Leader><space>     :nohlsearch<cr>
@@ -123,29 +127,41 @@ nnoremap    <Leader>2           :TagbarToggle<CR>
 
 " a for ack
 nmap        <Leader>aa          :Ack<space>
-nnoremap    <Leader>af          :Ack <C-r><C-w><cr>
+nnoremap    <Leader>aw          :Ack <C-r><C-w><cr>
+
 "e for edit
 nmap        <Leader>ev          :tabedit ~/.vimrc<cr>
 nmap        <Leader>ep          :tabedit ~/.vim/plugins.vim<cr>
 nmap        <Leader>es          :tabedit ~/.vim/UltiSnips/
+
 " f for file
 map         <Leader>fn          :call RenameFile()<cr>
+
 " g for go
 nnoremap    <Leader>gr          :e bootstrap/routes.php<CR>
+
+" i for insert
+nnoremap    <Leader>id          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
+inoremap    <Leader>id          <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
+
 " n for numbers
 map         <Leader>n           :set relativenumber<CR>
 map         <Leader>N           :set norelativenumber<CR>
+
 " p for php
 inoremap    <Leader>pi          <Esc>:call IPhpInsertUse()<CR>
 noremap     <Leader>pi          :call PhpInsertUse()<CR>
 inoremap    <Leader>pe          <Esc>:call IPhpExpandClass()<CR>
 noremap     <Leader>pe          :call PhpExpandClass()<CR>
 noremap     <Leader>ps          :call PhpSortUse()<CR>
+
 " r for replace
 nnoremap    <Leader>rw          :%s/\<<C-r><C-w>\>//g<Left><Left>
+
 " s for search
 nmap        <Leader>sr          :CtrlPMRUFiles<cr>
 nmap        <Leader>st          :CtrlPTag<cr>
+
 " t for test
 nnoremap    <silent><leader>tt  :TestNearest<CR>
 nnoremap    <silent><leader>tT  :TestFile<CR>
