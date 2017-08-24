@@ -1,0 +1,24 @@
+#!/bin/bash
+
+if [ ! -z $TMUX ]; then
+    echo I refuse to run this inside a session
+    exit 0
+fi
+
+PROJECT="~/Code/procure"
+SESSION=Procure
+
+cd $PROJECT
+
+tmux new-session -d -s $SESSION
+
+tmux rename-window "vim"
+tmux send-keys -t $SESSION:0 "cd $PROJECT; vim ." C-m
+
+tmux new-window -t $SESSION -n "process"
+tmux send-keys -t $SESSION:1 process:0 C-z "cd $PROJECT; git status" C-m
+tmux split-window -v -p 40 -t $SESSION:1
+tmux send-keys -t $SESSION:1 process:1 C-z "cd $PROJECT; mix phx.server" C-m
+
+tmux select-window -t $SESSION:0
+tmux attach-session -d -t $SESSION

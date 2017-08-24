@@ -16,7 +16,9 @@ tmux rename-window "vim"
 tmux send-keys -t $SESSION:0 "cd $PROJECT; vim ." C-m
 
 tmux new-window -t $SESSION -n "process"
-tmux split-window -v -p 40 -t $SESSION:1
+
+
+/* tmux split-window -v -p 40 -t $SESSION:1 */
 
 
 # tmux send-keys -t 0:1 planizely:0 C-z "git status" C-m

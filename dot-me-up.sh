@@ -1,6 +1,8 @@
 #!/usr/bin/env sh
 set -eu
 
+DOTFILES=$(pwd)
+
 . ./prompt_utils.sh
 . ./dot_helpers.sh
 
@@ -27,4 +29,13 @@ if [ ! -d $HOME/.fonts/SauceCodePro ]; then
     e_success "SauceCodePro installed"
 else
     e_ok "SauceCodePro is there"
+fi
+
+#
+# SYMLINKS
+#
+
+if [ ! -L ${HOME}/.ctags ]; then
+    ln -s ${DOTFILES}/files/ctagsrc ${HOME}/.ctags
+    e_success "ctags symlinked"
 fi

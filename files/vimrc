@@ -115,6 +115,8 @@ noremap     <C-m>               <C-a>
 
 noremap     <Space>             :
 nmap        <Leader><space>     :nohlsearch<cr>
+nnoremap    <Leader>]           :CtrlPTag<cr>
+inoremap    <c-x><c-]>          <c-]>
 nmap        <Leader>\|          :vsp<cr>
 nmap        <Leader>-           :sp<cr>
 nmap        <Leader><           :SyntasticToggleMode<cr>
@@ -137,8 +139,9 @@ nmap        <Leader>es          :tabedit ~/.vim/UltiSnips/
 " f for file
 map         <Leader>fn          :call RenameFile()<cr>
 
-" g for go
+" g for go or git
 nnoremap    <Leader>gr          :e bootstrap/routes.php<CR>
+nnoremap    <Leader>gg          :Gstatus<CR>
 
 " i for insert
 nnoremap    <Leader>id          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
