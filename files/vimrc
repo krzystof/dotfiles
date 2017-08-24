@@ -188,7 +188,7 @@ autocmd FileType php setlocal commentstring=\/\/\ %s
 
 "/ CtrlP
 let g:ctrlp_extensions = ['tag']
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:30,results:30'    " window to the top and other settings
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'    " window to the top and other settings
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$' " ignore package managers huge folders
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 
@@ -205,6 +205,10 @@ let test#strategy = "basic"
 
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
+
+"/ Emmet
+" Use ,, to trigger emmet
+let g:user_emmet_leader_key=','
 
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
