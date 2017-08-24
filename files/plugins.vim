@@ -11,6 +11,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-speeddating'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jeetsukumaran/vim-indentwise'
 

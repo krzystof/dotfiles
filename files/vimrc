@@ -24,9 +24,13 @@ set expandtab
 set softtabstop=4                        " Insert mode
 set shiftwidth=4                         " Spaces when using < and >
 set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
+set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 " set nojoinspaces
 " set foldmethod=marker
+
+set autoread
+runtime! macros/matchit.vim
 
 " Map ctrl+s to save
 nmap <c-s> :w<CR>
@@ -219,6 +223,7 @@ let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 let g:ackprg = 'ag --vimgrep'
 
 "/ Syntastic
+" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
