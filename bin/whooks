@@ -1,0 +1,14 @@
+#!/bin/bash
+tmux new-session -d -s whooks
+tmux send-keys 'trk whooks' 'C-m'
+
+tmux rename-window -n "WHOOKS"
+
+tmux select-window -t whooks:0
+tmux send-keys -t whooks:0 "echo yay" "C-m"
+
+tmux split-window -h
+tmux send-keys "cd web && npm run elm" "C-m"
+
+tmux split-window -v
+tmux send-keys "cd api && npm start" "C-m"

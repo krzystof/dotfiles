@@ -12,8 +12,11 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-eunuch'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jeetsukumaran/vim-indentwise'
+Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'AndrewRadev/splitjoin.vim'
 
 " Navigation
 Plugin 'christoomey/vim-tmux-navigator'

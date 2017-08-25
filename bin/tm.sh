@@ -1,9 +1,13 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
 # https://github.com/nicknisi/dotfiles/blob/master/bin/tm
 
 # abort if we're already inside a TMUX session
-[ "$TMUX" == "" ] || exit 0
+if [ ! -z ${TMUX} ]; then
+    echo "Am not using that inside a TMUX session"
+    exit 0
+fi
+
 
 # startup a "default" session if non currently exists
 # tmux has-session -t _default || tmux new-session -s _default -d

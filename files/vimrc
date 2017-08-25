@@ -32,6 +32,8 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set autoread
 runtime! macros/matchit.vim
 
+set mouse=a 
+
 " Map ctrl+s to save
 nmap <c-s> :w<CR>
 imap <c-s> <Esc>:w<CR>
@@ -51,12 +53,23 @@ colorscheme srcery
 " dfferent colorscheme for ruby and markdown, for example
 " autocmd FileType ruby colorscheme railcasts
 
-colorscheme srcery
+" function! CleanBg()
+"     hi Normal ctermbg=NONE
+"     hi nonText ctermbg=NONE
+"     hi SignColumn ctermbg=NONE
+"     hi TabLineFill ctermbg=NONE
+" endfunction
+" autocmd FileType php colorscheme jellybeans NEED TO RERUN THE BG NONE!
+
 set t_CO=256                             "Use 256 colors
 set laststatus=2                         "Always display the status bar
 let g:airline_powerline_fonts = 0
 let g:airline_theme='aurora'
 hi LineNr ctermfg=DarkGrey
+hi Normal ctermbg=NONE
+hi nonText ctermbg=NONE
+hi SignColumn ctermbg=NONE
+hi TabLineFill ctermbg=NONE
 
 set nocursorline
 set nocursorcolumn
@@ -87,7 +100,6 @@ function! RenameFile()
   endif
 endfunction
 
-
 function! IPhpInsertUse()
     call PhpInsertUse()
     call feedkeys('a',  'n')
@@ -97,7 +109,6 @@ function! IPhpExpandClass()
     call PhpExpandClass()
     call feedkeys('a', 'n')
 endfunction
-
 
 
 
@@ -118,6 +129,7 @@ nmap <C-l> <C-w><C-l>
 noremap     <C-m>               <C-a>
 
 noremap     <Space>             :
+
 nmap        <Leader><space>     :nohlsearch<cr>
 nnoremap    <Leader>]           :CtrlPTag<cr>
 inoremap    <c-x><c-]>          <c-]>
@@ -141,7 +153,7 @@ nmap        <Leader>ep          :tabedit ~/.vim/plugins.vim<cr>
 nmap        <Leader>es          :tabedit ~/.vim/UltiSnips/
 
 " f for file
-map         <Leader>fn          :call RenameFile()<cr>
+map         <Leader>fr          :call RenameFile()<cr>
 
 " g for go or git
 nnoremap    <Leader>gr          :e bootstrap/routes.php<CR>
@@ -205,7 +217,7 @@ let g:elm_format_autosave = 1
 
 "/ VIM Test
 " Dispatch to use the quickfix window. I like my terminal
-let test#strategy = "basic"
+let test#strategy = "dispatch"
 
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
