@@ -163,6 +163,9 @@ nnoremap    <Leader>gg          :Gstatus<CR>
 nnoremap    <Leader>id          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 inoremap    <Leader>id          <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 
+" l for last
+nnoremap    <Leader>ld          mz$x`z`
+
 " n for numbers
 map         <Leader>n           :set relativenumber<CR>
 map         <Leader>N           :set norelativenumber<CR>
@@ -187,8 +190,8 @@ nnoremap    <silent><leader>tT  :TestFile<CR>
 nnoremap    <silent><leader>ta  :TestSuite<CR>
 nnoremap    <silent><leader>tl  :TestLast<CR>
 nnoremap    <silent><leader>tg  :TestVisit<CR>
-nnoremap    <leader>tsb :let test#strategy = 'basic'<CR>
-nnoremap    <leader>tsd :let test#strategy = 'dispatch'<CR>
+nnoremap    <leader>tsb         :let test#strategy = 'basic'<CR>
+nnoremap    <leader>tsd         :let test#strategy = 'dispatch'<CR>
 
 
 
@@ -263,6 +266,7 @@ iabbrev ret return
 iabbrev rq request
 iabbrev rs response
 iabbrev reutrn return
+iabbrev retrun return
 iabbrev repsonse response
 iabbrev gropu group
 

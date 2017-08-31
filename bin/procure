@@ -5,7 +5,7 @@ if [ ! -z $TMUX ]; then
     exit 0
 fi
 
-PROJECT="~/Code/procure"
+PROJECT="$HOME/Code/procure"
 SESSION=Procure
 
 cd $PROJECT
