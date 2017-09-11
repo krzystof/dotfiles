@@ -1,6 +1,6 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-# https://github.com/nicknisi/dotfiles/blob/master/bin/tm
+# https://github.com/nicknisi/dotfiles/blob/master/bin/tm is the original ZSH version
 
 # abort if we're already inside a TMUX session
 if [ ! -z ${TMUX} ]; then
@@ -10,11 +10,13 @@ fi
 
 
 # startup a "default" session if non currently exists
-# tmux has-session -t _default || tmux new-session -s _default -d
+tmux has-session -t _default || tmux new-session -s _default -d
 
 # present menu for user to choose which workspace to open
 PS3="Please choose your session: "
 options=($(tmux list-sessions -F "#S" 2>/dev/null) "New Session" "zsh")
+
+
 echo "Available sessions"
 echo "------------------"
 echo " "

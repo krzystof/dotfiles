@@ -1,14 +1,23 @@
 #!/bin/bash
-tmux new-session -d -s whooks
-tmux send-keys 'trk whooks' 'C-m'
 
-tmux rename-window -n "WHOOKS"
+SESSION=Whooks
+PROJECT="${HOME}/Fun/whooks"
 
-tmux select-window -t whooks:0
-tmux send-keys -t whooks:0 "echo yay" "C-m"
+if tmux has-session $SESSION ; then
+  tmux attach-session -t $SESSION
+  exit 0
+fi
 
-tmux split-window -h
-tmux send-keys "cd web && npm run elm" "C-m"
+cd $PROJECT
 
-tmux split-window -v
-tmux send-keys "cd api && npm start" "C-m"
+tmux new-session -d -s $SESSION
+tmux rename-window -n "vim"
+
+tmux select-window -t $SESSION:"vim"
+
+tmux new-window -n "npm"
+tmux split-window -t $SESSION:"npm"
+tmux send-keys $SESSION:"npm":0 "cd web && npm run elm" "C-m"
+tmux send-keys $SESSION:"npm":1 "cd api && npm start" "C-m"
+
+tmux attach-session -t $SESSION

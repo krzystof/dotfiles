@@ -46,6 +46,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'ervandew/supertab'
 
 " Languages
+Plugin 'tpope/vim-endwise'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'posva/vim-vue'
 Plugin 'elmcast/elm-vim'

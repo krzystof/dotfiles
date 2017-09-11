@@ -9,6 +9,7 @@ so ~/.vim/plugins.vim           " Source the plugins file
 "/ goplu ----> PLUGINS
 "/ gofun ----> FUNCTIONS
 "/ gomap ----> MAPPINGS
+"/ gocom ----> AUTOCOMMANDS
 
 "/
 "/ gogen ----> GENERAL CONFIG
@@ -19,10 +20,10 @@ let mapleader = ','
 set smartindent
 set number
 set relativenumber
-set tabstop=8
 set expandtab
-set softtabstop=4                        " Insert mode
-set shiftwidth=4                         " Spaces when using < and >
+set tabstop=2
+set softtabstop=2                        " Insert mode
+set shiftwidth=2                         " Spaces when using < and >
 set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
@@ -33,6 +34,7 @@ set autoread
 runtime! macros/matchit.vim
 
 set mouse=a 
+set clipboard=unnamed
 
 " Map ctrl+s to save
 nmap <c-s> :w<CR>
@@ -164,7 +166,11 @@ nnoremap    <Leader>id          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 inoremap    <Leader>id          <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 
 " l for last
-nnoremap    <Leader>ld          mz$x`z`
+nnoremap    <Leader>ld          mz$x`z
+nnoremap    <Leader>l;          mzA;<Esc>`z
+nnoremap    <Leader>l,          mzA,<Esc>`z
+nnoremap    <Leader>lr;         mz$r;`z
+nnoremap    <Leader>lr,         mz$r,`z
 
 " n for numbers
 map         <Leader>n           :set relativenumber<CR>
@@ -271,7 +277,14 @@ iabbrev repsonse response
 iabbrev gropu group
 
 
-"------Auto-Commands
+
+"/
+"/ gocom ----> AUTO-COMMANDS
+"/
+
+autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
+
 augroup autosourcing
     autocmd!
     autocmd BufWritePost .vimrc source %

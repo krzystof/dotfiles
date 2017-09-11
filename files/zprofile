@@ -23,7 +23,6 @@ export EDITOR='vim'
 export VISUAL='gvim'
 export PAGER='less'
 export VIMRC='/home/krzystof/.vimrc'
-#export PHANTOMJS_BIN='/home/krzystof/.nvm/versions/node/v6.5.0/bin/phantomjs'
 
 
 

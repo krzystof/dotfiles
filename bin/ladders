@@ -1,0 +1,30 @@
+#!/bin/bash
+
+SESSION=Ladders
+PROJECT="${HOME}/Code/learning-ladders"
+
+if tmux has-session -t $SESSION ; then
+  tmux attach-session -t $SESSION
+  exit 0
+fi
+
+cd $PROJECT
+
+tmux new-session -d -s $SESSION
+tmux rename-window "repo"
+tmux send-keys $SESSION:"repo" "docker-compose -f ops/docker/docker-compose.yml up -d && vim ." "C-m"
+
+tmux new-window -n "node"
+tmux split-window -h
+tmux send-keys -t $SESSION:"yarn":0 "yarn dev" "C-m"
+
+# tmux split-window -h
+# tmux send-keys "cd web && npm run elm" "C-m"
+
+# tmux split-window -v
+# tmux send-keys "cd api && npm start" "C-m"
+
+tmux new-window -n "mysql"
+tmux send-keys -t $SESSION:"mysql":0 "llsql" "C-m"
+
+tmux attach-session -t $SESSION

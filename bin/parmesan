@@ -1,0 +1,25 @@
+#!/bin/bash
+
+SESSION=Parmesan
+PROJECT="${HOME}/Code/parmesan"
+
+if tmux has-session -t $SESSION ; then
+  tmux attach-session -t $SESSION
+  exit 0
+fi
+
+cd $PROJECT
+
+tmux new-session -s $SESSION
+tmux rename-window -n "code"
+
+tmux new-window -n "yarn"
+tmux send-keys -t $SESSION:"yarn":1 "cd web && yarn start" "C-m"
+
+# tmux split-window -h
+# tmux send-keys -t "cd web && npm run elm" "C-m"
+
+# tmux split-window -v
+# tmux send-keys -t "cd api && npm start" "C-m"
+
+tmux attach-session -t $SESSION

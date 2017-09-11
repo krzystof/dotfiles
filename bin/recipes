@@ -1,0 +1,25 @@
+#!/bin/bash
+
+PROJECT="${HOME}/Code/chef-recipes"
+SESSION=CHEF
+
+if [ ! -z $TMUX ]; then
+    echo I refuse to run this inside a session
+    exit 0
+fi
+
+if tmux has-session $SESSION ; then
+  tmux attach-session -t $SESSION
+fi
+
+cd $PROJECT
+
+tmux new-session -d -s $SESSION
+tmux rename-window "vim"
+tmux split-window -v -p 60 -t $SESSION:0
+
+
+tmux send-keys -t $SESSION:0 "vim ." C-m
+
+tmux select-window -t $SESSION:0
+tmux attach-session -d -t $SESSION
