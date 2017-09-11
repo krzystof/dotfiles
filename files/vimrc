@@ -44,11 +44,9 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 
 
-" Move by showed line?
-" nmap k gk
-" nmap j gj
-
-
+" Move up and down by screen line
+nmap k gk
+nmap j gj
 
 "------Visuals
 colorscheme srcery
@@ -171,6 +169,7 @@ nnoremap    <Leader>l;          mzA;<Esc>`z
 nnoremap    <Leader>l,          mzA,<Esc>`z
 nnoremap    <Leader>lr;         mz$r;`z
 nnoremap    <Leader>lr,         mz$r,`z
+nnoremap    <Leader>l<Space>    :%s/\s\+$//e<CR>
 
 " n for numbers
 map         <Leader>n           :set relativenumber<CR>
