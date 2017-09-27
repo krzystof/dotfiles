@@ -54,6 +54,7 @@ Plugin 'wavded/vim-stylus'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 Plugin 'arnaud-lb/vim-php-namespace'
+Plugin 'prettier/vim-prettier'
 
 call vundle#end()            " required
 filetype plugin indent on    " required

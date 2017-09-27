@@ -1,0 +1,23 @@
+#!/bin/bash
+
+SESSION=Deepdays
+PROJECT="${HOME}/Code/deepdays"
+
+if tmux has-session -t $SESSION ; then
+  tmux attach-session -t $SESSION
+  exit 0
+fi
+
+cd $PROJECT
+
+tmux new-session -s $SESSION -d
+
+tmux rename-window "code"
+tmux send-keys -t $SESSION:"code":0 "vim ."
+
+tmux new-window -t $SESSION -n "servers"
+tmux split-window -h
+tmux send-keys -t $SESSION:servers.0 "cd ../assets/ && elm-app start"
+tmux send-keys -t $SESSION:servers.1 "mix phx.server"
+
+tmux attach-session -t $SESSION

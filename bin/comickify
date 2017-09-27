@@ -1,0 +1,15 @@
+#!/bin/bash
+set -e
+
+# read all files finishing by cbr
+
+# rename 's/ /_/g' *
+
+# while [ -f "$1" ]; do
+#   rename 's/\([0-9a-zA-Z-_]*\)//g' $1
+#   shift;
+# done
+
+# rename 's/_{2,}//g' *
+
+# ls -lh
