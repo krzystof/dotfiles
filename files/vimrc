@@ -199,6 +199,9 @@ nnoremap    <leader>tsb         :let test#strategy = 'basic'<CR>
 nnoremap    <leader>tsd         :let test#strategy = 'dispatch'<CR>
 
 
+nnoremap    [w                  :tabprevious<CR>
+nnoremap    ]w                  :tabnext<CR>
+
 
 
 
@@ -279,6 +282,47 @@ iabbrev gropu group
 "/ Prettier
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
+
+
+"/
+"/ Custom text objects
+"/
+call textobj#user#plugin('function', {
+\   '-': {
+\     'select-a-function': 'CurrentFunctionA',
+\     'select-a': 'af',
+\   },
+\ })
+
+function! CurrentFunctionA()
+  if getline('.') =~# '}'
+    normal! k
+  endif
+  normal! ]M$
+  let e = getpos('.')
+  normal! [m
+  call search('function', 'bW')
+  normal! 0
+  let b = getpos('.')
+  if 1 < e[1] - b[1]
+    return ['V', b, e]
+  else
+    return 0
+  endif
+endfunction
+
+" function! CurrentFunctionI()
+"   normal! ^
+"   let head_pos = getpos('.')
+"   normal! g_
+"   let tail_pos = getpos('.')
+"   let non_blank_char_exists_p = getline('.')[head_pos[2] - 1] !~# '\s'
+"   return
+"   \ non_blank_char_exists_p
+"   \ ? ['v', head_pos, tail_pos]
+"   \ : 0
+" endfunction
+
 
 
 "/

@@ -16,6 +16,7 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jeetsukumaran/vim-indentwise'
 Plugin 'michaeljsmith/vim-indent-object'
+Plugin 'kana/vim-textobj-user'
 Plugin 'AndrewRadev/splitjoin.vim'
 
 " Navigation

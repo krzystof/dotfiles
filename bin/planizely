@@ -27,7 +27,7 @@ tmux split-window -h -t $SESSION:"servers"
 tmux split-window -v -t $SESSION:servers.1
 tmux send-keys -t $SESSION:servers.0 "tail -f storage/logs/laravel.log" C-m
 tmux send-keys -t $SESSION:servers.1 "yarn dev" C-m
-tmux send-keys -t $SESSION:servers.2 "docker-compose up -d" C-m
+tmux send-keys -t $SESSION:servers.2 "docker-compose up" C-m
 
 tmux select-window -t $SESSION:"repo"
 
