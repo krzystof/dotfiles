@@ -87,8 +87,15 @@ set laststatus=2                         "Always display the status bar
 " color terminals like iTerm2.
 set background=dark
 let g:rehash256 = 1
-colorscheme molokai
+" colorscheme molokai
 " colorscheme wombat
+" colorscheme badwolf
+" colorscheme onedark
+colorscheme PaperColor
+" colorscheme Tomorrow-Night-Eighties
+" colorscheme one
+" colorscheme tender
+
 
 if !has('gui_running')
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
@@ -137,6 +144,7 @@ set nocursorcolumn
 set hlsearch
 set incsearch
 set ignorecase
+set smartcase
 
 
 "------Splits

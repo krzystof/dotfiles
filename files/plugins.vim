@@ -30,6 +30,9 @@ Plugin 'mileszs/ack.vim'
 
 " Visuals
 Plugin 'itchyny/lightline.vim'
+Plugin 'nlknguyen/papercolor-theme'
+Plugin 'rakr/vim-one'
+Plugin 'jacoborus/tender'
 " Plugin 'vim-airline/vim-airline'
 " Plugin 'vim-airline/vim-airline-themes'
 " Plugin 'ryanoasis/vim-devicons'
