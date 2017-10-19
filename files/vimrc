@@ -127,7 +127,7 @@ endif
 
 " highlight LineNr ctermfg=DarkGrey
 highlight Normal ctermbg=NONE
-" hi nonText ctermbg=NONE
+hi nonText ctermbg=NONE
 highlight SignColumn ctermbg=NONE
 " highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
 " highlight TabLine ctermfg=Blue ctermbg=Yellow
@@ -143,7 +143,7 @@ set nocursorcolumn
 "------Search
 set hlsearch
 set incsearch
-set ignorecase
+" set ignorecase
 set smartcase
 
 

@@ -77,7 +77,7 @@ function prompt_sorin_precmd {
   _prompt_sorin_pwd=$(promptpwd)
 
   # Define prompts.
-  RPROMPT='${editor_info[overwrite]}%(?:: %F{1}%B⨯⨯⨯ NOPE ⨯⨯⨯%f%b)${VIM:+" %B%F{6}V%f%b"}'
+  RPROMPT='${editor_info[overwrite]}%(?:: %F{1}%B✗%f%b)${VIM:+" %B%F{6}V%f%b"}'
 
   # Kill the old process of slow commands if it is still running.
   if (( _prompt_sorin_precmd_async_pid > 0 )); then
@@ -105,9 +105,9 @@ function prompt_sorin_setup {
 
   # Set editor-info parameters.
   zstyle ':prezto:module:editor:info:completing' format '%B%F{7}...%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{2}●%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary' format ' %B%F{2}➜%f%b'
   zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format ' %F{3}♺%f'
-  zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{1}●%f%b'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format ' %B%F{1}➜%f%b'
 
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
