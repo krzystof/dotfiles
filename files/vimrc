@@ -1,3 +1,5 @@
+" vim:fdm=marker:ts=2:sw=2:et:
+
  " General basic necessary plugins
 set nocompatible                "Be iMproved, required
 set backspace=indent,eol,start  "Make backspace behave well
@@ -5,17 +7,11 @@ syntax on                       "Enable syntax highlighting
 filetype plugin indent on       "Enable file type detection and do language-dependent indenting.
 so ~/.vim/plugins.vim           " Source the plugins file
 
-"/ gogen ----> GENERAL CONFIG
-"/ goplu ----> PLUGINS
-"/ gofun ----> FUNCTIONS
-"/ gomap ----> MAPPINGS
-"/ gocom ----> AUTOCOMMANDS
-
-"/
-"/ gogen ----> GENERAL CONFIG
-"/
+" Section: General config {{{1
+"------------------------------------------------------------------------------
 
 syntax enable
+
 let mapleader = ','
 set smartindent
 set number
@@ -27,8 +23,33 @@ set shiftwidth=2                         " Spaces when using < and >
 set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+silent! set foldmethod=marker " Use braces by default"
 " set nojoinspaces
 " set foldmethod=marker
+
+" What's that? https://github.com/statico/dotfiles/blob/202e30b23e5216ffb6526cce66a0ef4fa7070456/.vim/vimrc#L39
+" nmap <C-e> :e#<CR>
+"
+" " Emacs-like bindings in command line -- `:help emacs-keys`
+" cnoremap <C-a>  <Home>
+" cnoremap <C-b>  <Left>
+" cnoremap <C-f>  <Right>
+" cnoremap <C-d>  <Del>
+" cnoremap <C-e>  <End>
+" cnoremap <M-b>  <S-Left>
+" cnoremap <M-f>  <S-Right>
+" cnoremap <M-d>  <S-right><Delete>
+" cnoremap <Esc>b <S-Left>
+" cnoremap <Esc>f <S-Right>
+" cnoremap <Esc>d <S-right><Delete>
+" cnoremap <C-g>  <C-c>"
+
+" Why not use the space or return keys to toggle folds?
+" nnoremap <M-f> za
+" vnoremap <M-f> zf
+
+nnoremap <space> :
 
 set autoread
 runtime! macros/matchit.vim
@@ -48,10 +69,45 @@ nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 nmap k gk
 nmap j gj
 
-"------Visuals
-colorscheme srcery
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+
+
+" Section: Visual {{{1
+"------------------------------------------------------------------------------
+
 " dfferent colorscheme for ruby and markdown, for example
 " autocmd FileType ruby colorscheme railcasts
+
+set laststatus=2                         "Always display the status bar
+
+" Make sure colored syntax mode is on, and make it Just Work with newer 256
+" color terminals like iTerm2.
+set background=dark
+let g:rehash256 = 1
+colorscheme molokai
+" colorscheme wombat
+
+if !has('gui_running')
+  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256
+  elseif has("terminfo")
+    colorscheme default
+    set t_Co=8
+    set t_Sf=[3%p1%dm
+    set t_Sb=[4%p1%dm
+  else
+    colorscheme default
+    set t_Co=8
+    set t_Sf=[3%dm
+    set t_Sb=[4%dm
+  endif
+  " Disable Background Color Erase when within tmux - https://stackoverflow.com/q/6427650/102704
+  if $TMUX != ""
+  endif
+endif
 
 " function! CleanBg()
 "     hi Normal ctermbg=NONE
@@ -59,17 +115,20 @@ colorscheme srcery
 "     hi SignColumn ctermbg=NONE
 "     hi TabLineFill ctermbg=NONE
 " endfunction
+
 " autocmd FileType php colorscheme jellybeans NEED TO RERUN THE BG NONE!
 
-set t_CO=256                             "Use 256 colors
-set laststatus=2                         "Always display the status bar
-let g:airline_powerline_fonts = 0
-let g:airline_theme='aurora'
-hi LineNr ctermfg=DarkGrey
-hi Normal ctermbg=NONE
-hi nonText ctermbg=NONE
-hi SignColumn ctermbg=NONE
-hi TabLineFill ctermbg=NONE
+" highlight LineNr ctermfg=DarkGrey
+highlight Normal ctermbg=NONE
+" hi nonText ctermbg=NONE
+highlight SignColumn ctermbg=NONE
+" highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
+" highlight TabLine ctermfg=Blue ctermbg=Yellow
+" highlight TabLineSel ctermfg=Red ctermbg=Yellow
+" highlight Normal ctermbg=darkBlue
+highlight StatusLine   cterm=NONE ctermbg=blue ctermfg=white
+highlight StatusLineNC cterm=NONE ctermbg=black ctermfg=white
+highlight VertSplit    cterm=NONE ctermbg=black ctermfg=white
 
 set nocursorline
 set nocursorcolumn
@@ -86,9 +145,8 @@ set splitright
 
 
 
-"/
-"/ gofun ----> FUNCTIONS
-"/
+" Section: Functions {{{1
+"------------------------------------------------------------------------------
 
 function! RenameFile()
   let old_name = expand('%')
@@ -112,9 +170,8 @@ endfunction
 
 
 
-"/
-"/ gomap ----> MAPPINGS
-"/
+" Section: Mappings {{{1
+"------------------------------------------------------------------------------
 
 " ctrl+s to save
 nmap <C-s> :w<CR>
@@ -128,9 +185,8 @@ nmap <C-l> <C-w><C-l>
 " ctrl+m to increment next number on the line
 noremap     <C-m>               <C-a>
 
-noremap     <Space>             :
+" noremap     <Space>             :
 
-nmap        <Leader><space>     :nohlsearch<cr>
 nnoremap    <Leader>]           :CtrlPTag<cr>
 inoremap    <c-x><c-]>          <c-]>
 nmap        <Leader>\|          :vsp<cr>
@@ -206,9 +262,8 @@ nnoremap    ]w                  :tabnext<CR>
 
 
 
-"/
-"/ goplu ----> PLUGINS
-"/
+"/ ----> PLUGINS
+" Section: Plugins {{{1
 
 "/ VimCommentary
 autocmd FileType php setlocal commentstring=\/\/\ %s
@@ -245,24 +300,108 @@ let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 "/ VimAck
 let g:ackprg = 'ag --vimgrep'
 
+"/ Supertab
+let g:SuperTabLongestEnhanced=1
+let g:SuperTabLongestHighlight=1
+
 "/ Syntastic
 " set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
 
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+
+"/ incsearch.vim
+" :h g:incsearch#auto_nohlsearch
+set hlsearch
+let g:incsearch#auto_nohlsearch = 1
+map n  <Plug>(incsearch-nohl-n)
+map N  <Plug>(incsearch-nohl-N)
+map *  <Plug>(incsearch-nohl-*)
+map #  <Plug>(incsearch-nohl-#)
+map g* <Plug>(incsearch-nohl-g*)
+map g# <Plug>(incsearch-nohl-g#)"
 
 " PHP
-let g:syntastic_php_checkers = ['php', 'phpcs']
-let g:syntastic_php_phpcs_args = "--standard=phpcs.xml"
+" let g:syntastic_php_checkers = ['php', 'phpcs']
+" let g:syntastic_php_phpcs_args = "--standard=phpcs.xml"
 
 " JS
-let g:syntastic_javascript_checkers = ['eslint']
-let g:syntastic_javascript_eslint_exe = 'eslint %'  " Just lint the current file
+" let g:syntastic_javascript_checkers = ['eslint']
+" let g:syntastic_javascript_eslint_exe = 'eslint %'  " Just lint the current file
+
+"/ ALE
+let g:ale_sign_warning = '▲'
+let g:ale_sign_error = '✗'
+
+highlight link ALEWarningSign String
+highlight link ALEErrorSign Title
+
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+
+let g:ale_linters = {
+\  'php': ['phpcs', 'phpmd']
+\}
+
+" php
+let g:ale_php_phpcs_standard = 'phpcs.xml'
+let g:ale_php_phpmd_ruleset = 'phpmd.xml'
+
+"/ Lightline
+let g:lightline = {
+\ 'colorscheme': 'wombat',
+\ 'active': {
+\   'left': [['mode', 'paste'], ['filename', 'modified']],
+\   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
+\ },
+\ 'component_expand': {
+\   'linter_warnings': 'LightlineLinterWarnings',
+\   'linter_errors': 'LightlineLinterErrors',
+\   'linter_ok': 'LightlineLinterOK'
+\ },
+\ 'component_type': {
+\   'readonly': 'error',
+\   'linter_warnings': 'warning',
+\   'linter_errors': 'error'
+\ },
+\ }
+
+function! LightlineLinterWarnings() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ◆', all_non_errors)
+endfunction
+
+function! LightlineLinterErrors() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '' : printf('%d ✗', all_errors)
+endfunction
+
+function! LightlineLinterOK() abort
+  let l:counts = ale#statusline#Count(bufnr(''))
+  let l:all_errors = l:counts.error + l:counts.style_error
+  let l:all_non_errors = l:counts.total - l:all_errors
+  return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+autocmd User ALELint call s:MaybeUpdateLightline()
+
+" Update and show lightline but only if it's visible (e.g., not in Goyo)
+function! s:MaybeUpdateLightline()
+  if exists('#lightline')
+    call lightline#update()
+  end
+endfunction
+
 
 "/ VimAck
 " Use the silversearcher
