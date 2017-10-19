@@ -125,20 +125,25 @@ endif
 
 " autocmd FileType php colorscheme jellybeans NEED TO RERUN THE BG NONE!
 
-" highlight LineNr ctermfg=DarkGrey
-highlight Normal ctermbg=NONE
-hi nonText ctermbg=NONE
-highlight SignColumn ctermbg=NONE
+highlight LineNr        ctermbg=NONE
+highlight CursorLineNr  ctermbg=NONE
+highlight Normal        ctermbg=NONE
+highlight nonText       ctermbg=NONE
+highlight SignColumn    ctermbg=NONE
 " highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
 " highlight TabLine ctermfg=Blue ctermbg=Yellow
 " highlight TabLineSel ctermfg=Red ctermbg=Yellow
-" highlight Normal ctermbg=darkBlue
-highlight StatusLine   cterm=NONE ctermbg=blue ctermfg=white
-highlight StatusLineNC cterm=NONE ctermbg=black ctermfg=white
-highlight VertSplit    cterm=NONE ctermbg=black ctermfg=white
+highlight Normal        ctermbg=NONE
+highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
+highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
+highlight VertSplit     cterm=NONE ctermbg=black ctermfg=white
 
 set nocursorline
 set nocursorcolumn
+
+" Fix the & command in normal and visual modes
+nnoremap & :&&<Enter>
+xnoremap & :&&<Enter>
 
 "------Search
 set hlsearch
