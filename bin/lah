@@ -1,0 +1,27 @@
+#!/bin/bash
+
+SESSION=LaddersAtHome
+PROJECT="${HOME}/Code/llah"
+
+if tmux has-session -t $SESSION ; then
+  tmux attach-session -t $SESSION
+  exit 0
+fi
+
+cd $PROJECT
+
+tmux new-session -d -s $SESSION
+
+tmux rename-window "code"
+tmux send-keys -t $SESSION:code.0 "vim ." "C-m"
+
+tmux new-window -n "server"
+tmux split-window -h
+tmux split-window -v
+tmux send-keys -t $SESSION:server.1 "node_modules/.bin/gulp watch" "C-m"
+tmux send-keys -t $SESSION:server.2 "docker-compose -f docker-compose.yml up" "C-m"
+
+tmux new-window -n "mysql"
+tmux send-keys -t $SESSION:mysql.0 "mysql -u root -h db -P 3308 -prootyroot" "C-m"
+
+tmux attach-session -t $SESSION:code

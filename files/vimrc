@@ -5,7 +5,9 @@ set nocompatible                "Be iMproved, required
 set backspace=indent,eol,start  "Make backspace behave well
 syntax on                       "Enable syntax highlighting
 filetype plugin indent on       "Enable file type detection and do language-dependent indenting.
-so ~/.vim/plugins.vim           " Source the plugins file
+so ~/.vim/plugins.vim           "Source the plugins file
+
+
 
 " Section: General config {{{1
 "------------------------------------------------------------------------------
@@ -23,13 +25,33 @@ set shiftwidth=2                         " Spaces when using < and >
 set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set nojoinspaces
+" set foldmethod=marker
+set listchars=tab:▸\ ,eol:¬              " Custom invisible chars
+
+
+set nocursorline
+set nocursorcolumn
+
+
+"------Search
+set nohlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+
+"------Splits
+set splitbelow
+set splitright
+
 
 silent! set foldmethod=marker " Use braces by default"
-" set nojoinspaces
-" set foldmethod=marker
+
+
 
 " What's that? https://github.com/statico/dotfiles/blob/202e30b23e5216ffb6526cce66a0ef4fa7070456/.vim/vimrc#L39
-" nmap <C-e> :e#<CR>
+" nmap <C-e> :e#<CR>                    " Switch to previous buffer
 "
 " " Emacs-like bindings in command line -- `:help emacs-keys`
 " cnoremap <C-a>  <Home>
@@ -45,6 +67,8 @@ silent! set foldmethod=marker " Use braces by default"
 " cnoremap <Esc>d <S-right><Delete>
 " cnoremap <C-g>  <C-c>"
 
+
+
 " Why not use the space or return keys to toggle folds?
 " nnoremap <M-f> za
 " vnoremap <M-f> zf
@@ -57,12 +81,7 @@ runtime! macros/matchit.vim
 set mouse=a 
 set clipboard=unnamed
 
-" Map ctrl+s to save
-nmap <c-s> :w<CR>
-imap <c-s> <Esc>:w<CR>
-" Substitute word under the cursor
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
-
+set showbreak=…                       " Nice ellipsis when wrapping lines
 
 
 " Move up and down by screen line
@@ -75,13 +94,13 @@ map g/ <Plug>(incsearch-stay)
 
 
 
-" Section: Visual {{{1
+" Section: Visual {{{2
 "------------------------------------------------------------------------------
 
 " dfferent colorscheme for ruby and markdown, for example
 " autocmd FileType ruby colorscheme railcasts
 
-set laststatus=2                         "Always display the status bar
+set laststatus=2                         " Always display the status bar
 
 " Make sure colored syntax mode is on, and make it Just Work with newer 256
 " color terminals like iTerm2.
@@ -123,8 +142,6 @@ endif
 "     hi TabLineFill ctermbg=NONE
 " endfunction
 
-" autocmd FileType php colorscheme jellybeans NEED TO RERUN THE BG NONE!
-
 highlight LineNr        ctermbg=NONE
 highlight CursorLineNr  ctermbg=NONE
 highlight Normal        ctermbg=NONE
@@ -138,25 +155,11 @@ highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
 highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
 highlight VertSplit     cterm=NONE ctermbg=black ctermfg=white
 
-set nocursorline
-set nocursorcolumn
-
 " Fix the & command in normal and visual modes
 nnoremap & :&&<Enter>
 xnoremap & :&&<Enter>
 
-"------Search
-set hlsearch
-set incsearch
-" set ignorecase
-set smartcase
-
-
-"------Splits
-set splitbelow
-set splitright
-
-
+" 1}}}
 
 " Section: Functions {{{1
 "------------------------------------------------------------------------------
@@ -181,13 +184,21 @@ function! IPhpExpandClass()
     call feedkeys('a', 'n')
 endfunction
 
-
+" 1}}}
 
 " Section: Mappings {{{1
 "------------------------------------------------------------------------------
 
+
+
+" Move up and down by screen line
+nmap k gk
+nmap j gj
+
+
 " ctrl+s to save
 nmap <C-s> :w<CR>
+imap <c-s> <Esc>:w<CR>
 
 " ctrl+[hjkl] to move between panes
 nmap <C-j> <C-w><C-j>
@@ -198,7 +209,8 @@ nmap <C-l> <C-w><C-l>
 " ctrl+m to increment next number on the line
 noremap     <C-m>               <C-a>
 
-" noremap     <Space>             :
+" Substitute word under the cursor
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 nnoremap    <Leader>]           :CtrlPTag<cr>
 inoremap    <c-x><c-]>          <c-]>
@@ -256,7 +268,6 @@ nnoremap    <Leader>rw          :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 " s for search
 nmap        <Leader>sr          :CtrlPMRUFiles<cr>
-nmap        <Leader>st          :CtrlPTag<cr>
 
 " t for test
 nnoremap    <silent><leader>tt  :TestNearest<CR>
@@ -271,19 +282,26 @@ nnoremap    <leader>tsd         :let test#strategy = 'dispatch'<CR>
 nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
 
+"/
+"/ 5: TIPS & TRICKS
+"/
+
+" Expand %% to current file directory
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 
 
 
-"/ ----> PLUGINS
 " Section: Plugins {{{1
+
+
 
 "/ VimCommentary
 autocmd FileType php setlocal commentstring=\/\/\ %s
 
 "/ CtrlP
 let g:ctrlp_extensions = ['tag']
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:10'    " window to the top and other settings
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$' " ignore package managers huge folders
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 
@@ -302,13 +320,13 @@ let test#strategy = "dispatch"
 let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 "/ Emmet
-" Use ,, to trigger emmet
+" Use `,,` to trigger emmet
 let g:user_emmet_leader_key=','
 
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsJumpForwardTrigger="<C-n>"
-let g:UltiSnipsJumpBackwardTrigger="<C-p>"
+" let g:UltiSnipsJumpForwardTrigger="<C-n>"
+" let g:UltiSnipsJumpBackwardTrigger="<C-p>"
 
 "/ VimAck
 let g:ackprg = 'ag --vimgrep'
@@ -421,6 +439,7 @@ endfunction
 let g:ackprg = 'ag --vimgrep'
 
 
+
 "/ Autocorrect abbrev
 iabbrev ret return
 iabbrev rq request
@@ -478,7 +497,7 @@ endfunction
 
 
 "/
-"/ gocom ----> AUTO-COMMANDS
+"/ 5: AUTO-COMMANDS
 "/
 
 autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab

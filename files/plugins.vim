@@ -20,6 +20,9 @@ Plugin 'kana/vim-textobj-user'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'haya14busa/incsearch.vim'
 
+" Custom text objects
+Plugin 'kana/vim-textobj-line'
+
 " Navigation
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-vinegar'
@@ -49,6 +52,8 @@ Plugin 'w0rp/ale'
 " Completion
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
+Plugin 'mattn/emmet-vim'
+Plugin 'tpope/vim-endwise'
 Plugin 'ervandew/supertab'
 
 " Languages
@@ -63,7 +68,7 @@ Plugin 'mattn/emmet-vim'
 " Plugin 'mxw/vim-jsx'
 Plugin 'arnaud-lb/vim-php-namespace'
 Plugin 'prettier/vim-prettier'
+Plugin 'shawncplus/phpcomplete.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
-

@@ -1,23 +1,25 @@
 #!/bin/bash
 
 SESSION=Whooks
-PROJECT="${HOME}/Fun/whooks"
+PROJECT="${HOME}/Code/whooks"
 
-if tmux has-session $SESSION ; then
-  tmux attach-session -t $SESSION
+if tmux has-session -t ${SESSION} ; then
+  tmux attach-session -t ${SESSION}
   exit 0
 fi
 
+trk whooks
+
 cd $PROJECT
 
-tmux new-session -d -s $SESSION
-tmux rename-window -n "vim"
+tmux new-session -d -s ${SESSION}
+tmux rename-window -n "code"
 
-tmux select-window -t $SESSION:"vim"
+tmux send-keys -t ${SESSION}:code "vim ." "C-m"
 
 tmux new-window -n "npm"
-tmux split-window -t $SESSION:"npm"
-tmux send-keys $SESSION:"npm":0 "cd web && npm run elm" "C-m"
-tmux send-keys $SESSION:"npm":1 "cd api && npm start" "C-m"
+tmux split-window -t ${SESSION}:npm
+tmux send-keys -t ${SESSION}:npm.0 "cd web && npm run elm" "C-m"
+tmux send-keys -t ${SESSION}:npm.1 "cd api && npm start" "C-m"
 
-tmux attach-session -t $SESSION
+tmux attach-session -t ${SESSION}
