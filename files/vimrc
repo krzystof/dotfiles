@@ -1,3 +1,5 @@
+" Section: Setup {{{1
+
 " vim:fdm=marker:ts=2:sw=2:et:
 
  " General basic necessary plugins
@@ -7,8 +9,7 @@ syntax on                       "Enable syntax highlighting
 filetype plugin indent on       "Enable file type detection and do language-dependent indenting.
 so ~/.vim/plugins.vim           "Source the plugins file
 
-
-
+"}}}
 " Section: General config {{{1
 "------------------------------------------------------------------------------
 
@@ -92,9 +93,8 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-
-
-" Section: Visual {{{2
+"}}}
+" Section: Visual {{{1
 "------------------------------------------------------------------------------
 
 " dfferent colorscheme for ruby and markdown, for example
@@ -110,10 +110,12 @@ let g:rehash256 = 1
 " colorscheme wombat
 " colorscheme badwolf
 " colorscheme onedark
-colorscheme PaperColor
+" colorscheme PaperColor
 " colorscheme Tomorrow-Night-Eighties
 " colorscheme one
 " colorscheme tender
+"
+colorscheme onedark
 
 
 if !has('gui_running')
@@ -150,7 +152,7 @@ highlight SignColumn    ctermbg=NONE
 " highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
 " highlight TabLine ctermfg=Blue ctermbg=Yellow
 " highlight TabLineSel ctermfg=Red ctermbg=Yellow
-highlight Normal        ctermbg=NONE
+highlight Normal        cterm=NONE ctermbg=NONE
 highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
 highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
 highlight VertSplit     cterm=NONE ctermbg=black ctermfg=white
@@ -160,7 +162,6 @@ nnoremap & :&&<Enter>
 xnoremap & :&&<Enter>
 
 " 1}}}
-
 " Section: Functions {{{1
 "------------------------------------------------------------------------------
 
@@ -185,7 +186,6 @@ function! IPhpExpandClass()
 endfunction
 
 " 1}}}
-
 " Section: Mappings {{{1
 "------------------------------------------------------------------------------
 
@@ -290,8 +290,7 @@ nnoremap    ]w                  :tabnext<CR>
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 
-
-
+"}}}
 " Section: Plugins {{{1
 
 
@@ -310,7 +309,8 @@ let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 let NERDTreeHijackNetrw = 0                                           
 
 "/ Elm
-let g:elm_format_autosave = 1
+" Try to use ALE instead
+" let g:elm_format_autosave = 1
 
 "/ VIM Test
 " Dispatch to use the quickfix window. I like my terminal
@@ -368,16 +368,26 @@ map g# <Plug>(incsearch-nohl-g#)"
 "/ ALE
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
-
-highlight link ALEWarningSign String
-highlight link ALEErrorSign Title
+highlight NiceError ctermfg=red
+highlight NiceWarning ctermfg=yellow
+highlight link ALEWarningSign NiceWarning
+highlight link ALEErrorSign NiceError
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
+let g:ale_fix_on_save = 1
+nmap <F8> <Plug>(ale_fix)
+
 let g:ale_linters = {
-\  'php': ['phpcs', 'phpmd']
+\  'php': ['php', 'phpcs', 'phpmd']
+\}
+
+let g:ale_fixers = {
+\   'elm': [
+\       'format'
+\   ],
 \}
 
 " php
@@ -451,8 +461,8 @@ iabbrev gropu group
 
 
 "/ Prettier
-let g:prettier#autoformat = 0
-autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
+" let g:prettier#autoformat = 0
+" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
 
 
 "/
@@ -508,3 +518,6 @@ augroup autosourcing
     autocmd!
     autocmd BufWritePost .vimrc source %
 augroup END
+
+" Load a specific config if available
+silent! so .vimlocal

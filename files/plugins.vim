@@ -58,16 +58,14 @@ Plugin 'ervandew/supertab'
 
 " Languages
 Plugin 'sheerun/vim-polyglot'
-Plugin 'tpope/vim-endwise'
-Plugin 'mattn/emmet-vim'
 " Plugin 'elixir-lang/vim-elixir'
 " Plugin 'posva/vim-vue'
-" Plugin 'elmcast/elm-vim'
+Plugin 'elmcast/elm-vim'
 " Plugin 'wavded/vim-stylus'
 " Plugin 'pangloss/vim-javascript'
 " Plugin 'mxw/vim-jsx'
 Plugin 'arnaud-lb/vim-php-namespace'
-Plugin 'prettier/vim-prettier'
+" Plugin 'prettier/vim-prettier'
 Plugin 'shawncplus/phpcomplete.vim'
 
 call vundle#end()            " required
