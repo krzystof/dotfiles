@@ -72,11 +72,6 @@ function github {
     echo "Opening ${url} $(\google-chrome ${url})"
 }
 
-function ts {
-  args=$@
-  tmux send-keys -t right "$args" C-m
-}
-
 alias gh=github
 
 export NVM_DIR="$HOME/.nvm"

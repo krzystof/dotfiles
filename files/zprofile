@@ -117,3 +117,8 @@ TMPPREFIX="${TMPDIR%/}/zsh"
 function runLL () {
     docker-compose -f ops/docker/docker-compose.yml run php protected/ll.php $1 --schooldb="learningladders"
 }
+
+function ts {
+  args=$@
+  tmux send-keys -t right "$args" C-m
+}

@@ -48,6 +48,7 @@ Plugin 'janko-m/vim-test'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'w0rp/ale'
+Plugin 'jebaum/vim-tmuxify'
 
 " Completion
 Plugin 'jiangmiao/auto-pairs'
@@ -58,11 +59,13 @@ Plugin 'ervandew/supertab'
 
 " Languages
 Plugin 'sheerun/vim-polyglot'
+Plugin 'tpope/vim-endwise'
+Plugin 'mattn/emmet-vim'
 " Plugin 'elixir-lang/vim-elixir'
-" Plugin 'posva/vim-vue'
 Plugin 'elmcast/elm-vim'
+Plugin 'posva/vim-vue'
 " Plugin 'wavded/vim-stylus'
-" Plugin 'pangloss/vim-javascript'
+Plugin 'pangloss/vim-javascript'
 " Plugin 'mxw/vim-jsx'
 Plugin 'arnaud-lb/vim-php-namespace'
 " Plugin 'prettier/vim-prettier'
