@@ -23,7 +23,8 @@
   [[default]]
     background_color = "#252525"
     cursor_blink = False
-    cursor_color = "#ffeb10"
+    cursor_color = "#ffffdd"
+    cursor_color_fg = False
     font = SauceCodePro Nerd Font 10
     foreground_color = "#a1b0b8"
     icon_bell = False

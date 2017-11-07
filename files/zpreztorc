@@ -36,6 +36,7 @@ zstyle ':prezto:load' pmodule \
   'dpkg' \
   'syntax-highlighting' \
   'history-substring-search' \
+  'autosuggestions' \
   'prompt'
 
 #
@@ -46,7 +47,7 @@ zstyle ':prezto:load' pmodule \
 zstyle ':prezto:module:editor' key-bindings 'vi'
 
 # Auto convert .... to ../..
-# zstyle ':prezto:module:editor' dot-expansion 'yes'
+zstyle ':prezto:module:editor' dot-expansion 'yes'
 
 #
 # Git
@@ -164,6 +165,9 @@ zstyle ':prezto:module:tmux:auto-start' local 'yes'
 zstyle ':completion:*:manuals'    separate-sections true
 zstyle ':completion:*:manuals.*'  insert-sections   true
 zstyle ':completion:*:man:*'      menu yes select
+
+
+bindkey '^ ' autosuggest-accept
 
 
 # Disable ctrl-s freezing the terminal

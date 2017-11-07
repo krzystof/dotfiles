@@ -19,6 +19,7 @@ Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'kana/vim-textobj-user'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'haya14busa/incsearch.vim'
+Plugin 'embear/vim-localvimrc'
 
 " Custom text objects
 Plugin 'kana/vim-textobj-line'
@@ -36,9 +37,6 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'nlknguyen/papercolor-theme'
 Plugin 'rakr/vim-one'
 Plugin 'jacoborus/tender'
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-" Plugin 'ryanoasis/vim-devicons'
 Plugin 'flazz/vim-colorschemes'
 
 " Powertools
@@ -67,8 +65,8 @@ Plugin 'posva/vim-vue'
 " Plugin 'wavded/vim-stylus'
 Plugin 'pangloss/vim-javascript'
 " Plugin 'mxw/vim-jsx'
-Plugin 'arnaud-lb/vim-php-namespace'
 " Plugin 'prettier/vim-prettier'
+Plugin 'arnaud-lb/vim-php-namespace'
 Plugin 'shawncplus/phpcomplete.vim'
 
 call vundle#end()            " required

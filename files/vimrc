@@ -1,3 +1,9 @@
+
+"  _   __(_)___ ___  __________
+" | | / / / __ `__ \/ ___/ ___/
+" | |/ / / / / / / / /  / /__  
+" |___/_/_/ /_/ /_/_/   \___/ 
+
 " Section: Setup {{{1
 
 " vim:fdm=marker:ts=2:sw=2:et:
@@ -10,91 +16,61 @@ filetype plugin indent on       "Enable file type detection and do language-depe
 so ~/.vim/plugins.vim           "Source the plugins file
 
 "}}}
+
 " Section: General config {{{1
-"------------------------------------------------------------------------------
 
 syntax enable
 
 let mapleader = ','
+let maplocalleader = '\\'
+
 set smartindent
 set number
 set relativenumber
 set expandtab
 set tabstop=2
-set softtabstop=2                        " Insert mode
-set shiftwidth=2                         " Spaces when using < and >
-set complete=.,w,b,u                     " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
+set softtabstop=2                         " Insert mode
+set shiftwidth=2                          " Spaces when using < and >
+set complete=.,w,b,u                      " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
 set wildmenu
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip
 set nojoinspaces
-" set foldmethod=marker
-set listchars=tab:▸\ ,eol:¬              " Custom invisible chars
+set listchars=tab:▸\ ,eol:¬               " Custom invisible chars
 
+set foldmethod=marker                     " Use braces by default
+set foldlevelstart=20                     " Do not open folds by default
+
+set autoread                              " Update buffers if file changed outside of VIM
 
 set nocursorline
 set nocursorcolumn
 
 
-"------Search
+" Search
 set nohlsearch
 set incsearch
 set ignorecase
 set smartcase
 
 
-"------Splits
+" Splits
 set splitbelow
 set splitright
 
 set signcolumn=yes
 
-silent! set foldmethod=marker " Use braces by default"
 
-
-
-" What's that? https://github.com/statico/dotfiles/blob/202e30b23e5216ffb6526cce66a0ef4fa7070456/.vim/vimrc#L39
-" nmap <C-e> :e#<CR>                    " Switch to previous buffer
-"
-" " Emacs-like bindings in command line -- `:help emacs-keys`
-" cnoremap <C-a>  <Home>
-" cnoremap <C-b>  <Left>
-" cnoremap <C-f>  <Right>
-" cnoremap <C-d>  <Del>
-" cnoremap <C-e>  <End>
-" cnoremap <M-b>  <S-Left>
-" cnoremap <M-f>  <S-Right>
-" cnoremap <M-d>  <S-right><Delete>
-" cnoremap <Esc>b <S-Left>
-" cnoremap <Esc>f <S-Right>
-" cnoremap <Esc>d <S-right><Delete>
-" cnoremap <C-g>  <C-c>"
-
-
-
-" Why not use the space or return keys to toggle folds?
-" nnoremap <M-f> za
-" vnoremap <M-f> zf
-
-nnoremap <space> :
-
-set autoread
 runtime! macros/matchit.vim
 
-set mouse=a 
+silent! set mouse=nvc
+
 set clipboard=unnamed
 
 set showbreak=…                       " Nice ellipsis when wrapping lines
 
 
-" Move up and down by screen line
-nmap k gk
-nmap j gj
-
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
 "}}}
+
 " Section: Visual {{{1
 "------------------------------------------------------------------------------
 
@@ -115,7 +91,6 @@ let g:rehash256 = 1
 " colorscheme Tomorrow-Night-Eighties
 " colorscheme one
 " colorscheme tender
-"
 colorscheme onedark
 
 
@@ -157,112 +132,117 @@ highlight Normal        cterm=NONE ctermbg=NONE
 highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
 highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
 highlight VertSplit     cterm=NONE ctermbg=black ctermfg=white
+highlight MatchParen    cterm=none ctermbg=darkgrey ctermfg=white
 
 " Fix the & command in normal and visual modes
 nnoremap & :&&<Enter>
 xnoremap & :&&<Enter>
 
 " 1}}}
-" Section: Functions {{{1
-"------------------------------------------------------------------------------
 
-function! RenameFile()
-  let old_name = expand('%')
-  let new_name = input('New file name: ', expand('%'), 'file')
-  if new_name != '' && new_name != old_name
-    exec ':saveas ' . new_name
-    exec ':silent !rm ' . old_name
-    redraw!
-  endif
-endfunction
-
-function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
-endfunction
-
-function! IPhpExpandClass()
-    call PhpExpandClass()
-    call feedkeys('a', 'n')
-endfunction
-
-" 1}}}
 " Section: Mappings {{{1
 "------------------------------------------------------------------------------
 
 
-
 " Move up and down by screen line
-nmap k gk
-nmap j gj
+noremap k gk
+noremap j gj
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
+
+
+" Switch to previous buffer
+nnoremap <C-e> :e#<CR>
+
+"
+" " Emacs-like bindings in command line -- `:help emacs-keys`
+cnoremap <C-a>  <Home>
+" cnoremap <C-b>  <Left>
+" cnoremap <C-f>  <Right>
+" cnoremap <C-d>  <Del>
+cnoremap <C-e>  <End>
+cnoremap <M-b>  <S-Left>
+cnoremap <M-f>  <S-Right>
+" cnoremap <M-d>  <S-right><Delete>
+" cnoremap <Esc>b <S-Left>
+" cnoremap <Esc>f <S-Right>
+" cnoremap <Esc>d <S-right><Delete>
+" cnoremap <C-g>  <C-c>"
+
+
+
+" Why not use the space or return keys to toggle folds?
+" nnoremap <M-f> za
+" vnoremap <M-f> zf
+
+nnoremap <space> :
 
 
 " ctrl+s to save
-nmap <C-s> :w<CR>
-imap <c-s> <Esc>:w<CR>
+nnoremap <C-s> :w<CR>
+inoremap <C-s> <Esc>:w<CR>
+
+" in insert mode, uppercase the current word
+inoremap <c-u> <esc>gUiwea
 
 " ctrl+[hjkl] to move between panes
-nmap <C-j> <C-w><C-j>
-nmap <C-k> <C-w><C-k>
-nmap <C-h> <C-w><C-h>
-nmap <C-l> <C-w><C-l>
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-l> <C-w><C-l>
 
 " ctrl+m to increment next number on the line
 noremap     <C-m>               <C-a>
 
 " Substitute word under the cursor
-nnoremap <Leader>s :%s/\<<C-r><C-w>\>//g<Left><Left>
+nnoremap    <leader>s           :%s/\<<cword>>\>//g<Left><Left>
 
-nnoremap    <Leader>]           :CtrlPTag<cr>
 inoremap    <c-x><c-]>          <c-]>
-nmap        <Leader>\|          :vsp<cr>
-nmap        <Leader>-           :sp<cr>
-nmap        <Leader><           :SyntasticToggleMode<cr>
-nmap        <Leader>q           :cclose<CR>
-nnoremap    <Leader>W           :res +10<CR>
-nnoremap    <Leader>w           :res -10<CR>
+nnoremap    <leader>]           :CtrlPTag<cr>
+nmap        <leader>\|          :vsp<cr>
+nmap        <leader>-           :sp<cr>
+nnoremap    <leader>w           :res -10<CR>
+nnoremap    <leader>W           :res +10<CR>
 
-nmap        <Leader>1           :NERDTreeToggle<cr>
-nnoremap    <Leader>2           :TagbarToggle<CR>
+nnoremap    <leader>1           :NERDTreeToggle<cr>
+nnoremap    <leader>2           :TagbarToggle<CR>
 
-" a for ack
-nmap        <Leader>aa          :Ack<space>
-nnoremap    <Leader>aw          :Ack <C-r><C-w><cr>
+nnoremap    <leader>a           :Ack<space>
+nnoremap    <leader>b           :CtrlPBuffer<cr>
+
+" Insert Now or Date
+nnoremap    <leader>n           "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
+inoremap    <leader>n           <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
+nnoremap    <leader>d           "=strftime("%d/%m/%Y")<CR>P
+inoremap    <leader>d           <C-R>=strftime("%d/%m/%Y")<CR>
 
 "e for edit
-nmap        <Leader>ev          :tabedit ~/.vimrc<cr>
-nmap        <Leader>ep          :tabedit ~/.vim/plugins.vim<cr>
-nmap        <Leader>es          :tabedit ~/.vim/UltiSnips/
+nmap        <leader>ev          :tabedit ~/.vimrc<cr>
+nmap        <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
+nmap        <leader>es          :tabedit ~/.vim/UltiSnips/
+nnoremap    <leader>er          :edit bootstrap/routes.php<CR>
+nnoremap    <leader>et          :edit ~/Dropbox/todo.md<CR>
 
-" f for file
-map         <Leader>fr          :call RenameFile()<cr>
+noremap     <leader>i          :call PhpInsertUse()<CR>
+inoremap    <leader>i          <Esc>:call IPhpInsertUse()<CR>
 
-" g for go or git
-nnoremap    <Leader>gr          :e bootstrap/routes.php<CR>
-nnoremap    <Leader>gg          :Gstatus<CR>
-
-" i for insert
-nnoremap    <Leader>id          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
-inoremap    <Leader>id          <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
+nnoremap    <leader>g           :Gstatus<CR>
 
 " l for last
-nnoremap    <Leader>ld          mz$x`z
-nnoremap    <Leader>l;          mzA;<Esc>`z
-nnoremap    <Leader>l,          mzA,<Esc>`z
-nnoremap    <Leader>lr;         mz$r;`z
-nnoremap    <Leader>lr,         mz$r,`z
-nnoremap    <Leader>l<Space>    :%s/\s\+$//e<CR>
-
-" n for numbers
-map         <Leader>n           :set relativenumber<CR>
-map         <Leader>N           :set norelativenumber<CR>
+nnoremap    <leader>ld          mz$x`z
+nnoremap    <leader>l;          mzA;<Esc>`z
+nnoremap    <leader>l,          mzA,<Esc>`z
+nnoremap    <leader>lr;         mz$r;`z
+nnoremap    <leader>lr,         mz$r,`z
+nnoremap    <leader>l<Space>    :%s/\s\+$//e<CR>
 
 " p for php
-inoremap    <Leader>pi          <Esc>:call IPhpInsertUse()<CR>
-noremap     <Leader>pi          :call PhpInsertUse()<CR>
-inoremap    <Leader>pe          <Esc>:call IPhpExpandClass()<CR>
-noremap     <Leader>pe          :call PhpExpandClass()<CR>
-noremap     <Leader>ps          :call PhpSortUse()<CR>
+inoremap    <leader>pe          <Esc>:call IPhpExpandClass()<CR>
+noremap     <leader>pe          :call PhpExpandClass()<CR>
+noremap     <leader>ps          :call PhpSortUse()<CR>
 
 " r for replace
 nnoremap    <Leader>rw          :%s/\<<C-r><C-w>\>//g<Left><Left>
@@ -270,6 +250,8 @@ nnoremap    <Leader>rw          :%s/\<<C-r><C-w>\>//g<Left><Left>
 " s for search or sort
 nmap        <Leader>i           vip:sort<CR>
 nmap        <Leader>sr          :CtrlPMRUFiles<cr>
+
+nnoremap        <leader>q           :cclose<CR>
 
 " t for test
 nnoremap    <silent><leader>tt  :TestNearest<CR>
@@ -279,21 +261,30 @@ nnoremap    <silent><leader>tl  :TestLast<CR>
 nnoremap    <silent><leader>tg  :TestVisit<CR>
 nnoremap    <leader>tsb         :let test#strategy = 'basic'<CR>
 nnoremap    <leader>tsd         :let test#strategy = 'dispatch'<CR>
+nnoremap    <leader>w           :Ack <C-r><C-w><cr>
 
 
 nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
 
+
+onoremap    p                   i(
+onoremap    in(                 :<c-u>normal! f(vi(<cr>
+onoremap    il(                 :<c-u>normal! F)vi(<cr>
+
+
 "/
 "/ 5: TIPS & TRICKS
 "/
 
-" Expand %% to current file directory
+" Expand %% to current file directory in command line mode
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 
 "}}}
+
 " Section: Plugins {{{1
+"------------------------------------------------------------------------------
 
 
 
@@ -451,11 +442,12 @@ endfunction
 let g:ackprg = 'ag --vimgrep'
 
 
-
 "/ Autocorrect abbrev
-iabbrev ret return
+iabbrev r return
+iabbrev return NOPENOPENOPE
 iabbrev rq request
 iabbrev rs response
+iabbrev f function
 iabbrev reutrn return
 iabbrev retrun return
 iabbrev repsonse response
@@ -507,6 +499,7 @@ endfunction
 "   \ : 0
 " endfunction
 
+"}}}
 
 " Debugging helpers
 autocmd BufEnter *.js iabbr xxx console.log('XXX',
@@ -516,19 +509,51 @@ autocmd BufEnter *.vue iabbr xxx console.log('XXX',
 autocmd BufEnter *.vue iabbr yyy console.log('YYY',
 autocmd BufEnter *.vue iabbr zzz console.log('ZZZ',
 
+" Section: Functions {{{1
+"------------------------------------------------------------------------------
 
-"/
-"/ 5: AUTO-COMMANDS
-"/
+function! IPhpInsertUse()
+    call PhpInsertUse()
+    call feedkeys('a',  'n')
+endfunction
 
-autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
-autocmd FileType elm setlocal ts=4 sts=4 sw=4 expandtab
+function! IPhpExpandClass()
+    call PhpExpandClass()
+    call feedkeys('a', 'n')
+endfunction
+
+" 1}}}
+
+" Section: Auto commands {{{1
+
+augroup autosyntax
+  autocmd!
+  autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+  autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType elm setlocal ts=4 sts=4 sw=4 expandtab
+augroup END
+
+augroup specialabbrev
+  autocmd!
+  autocmd FileType php :iabbrev <buffer> $ $this->
+  autocmd FileType php :iabbrev <buffer> $this-> NOPENOPENOPE
+augroup END
+
+augroup html
+  autocmd!
+  autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+augroup END
+
+" Enable that with Elixir 1.6! or try to use it with ALE
+" autocmd BufWritePost *.exs silent :!mix format %
+" autocmd BufWritePost *.ex silent :!mix format %
+"
+"
 
 augroup autosourcing
     autocmd!
     autocmd BufWritePost .vimrc source %
 augroup END
 
-" Load a specific config if available
-silent! so .vimlocal
+let g:localvimrc_whitelist='/home/krzystof/Code/.*'
