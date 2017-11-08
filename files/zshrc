@@ -33,6 +33,10 @@ fpath=(~/.zsh/completion $fpath)
 autoload -Uz compinit && compinit -i
 
 
+
+bindkey '^ ' autosuggest-accept
+
+
 # Run a local conf if its there
 LOCAL_CONF=$HOME/.zshlocal
 

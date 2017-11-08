@@ -167,8 +167,5 @@ zstyle ':completion:*:manuals.*'  insert-sections   true
 zstyle ':completion:*:man:*'      menu yes select
 
 
-bindkey '^ ' autosuggest-accept
-
-
 # Disable ctrl-s freezing the terminal
 stty -ixon
