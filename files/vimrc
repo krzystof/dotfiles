@@ -8,6 +8,8 @@
 
 " vim:fdm=marker:ts=2:sw=2:et:
 
+" Section: Setup {{{1
+
  " General basic necessary plugins
 set nocompatible                "Be iMproved, required
 set backspace=indent,eol,start  "Make backspace behave well
@@ -91,6 +93,7 @@ let g:rehash256 = 1
 " colorscheme Tomorrow-Night-Eighties
 " colorscheme one
 " colorscheme tender
+
 colorscheme onedark
 
 
@@ -133,6 +136,10 @@ highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
 highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
 highlight VertSplit     cterm=NONE ctermbg=black ctermfg=white
 highlight MatchParen    cterm=none ctermbg=darkgrey ctermfg=white
+highlight Visual        ctermbg=darkgrey
+highlight Pmenu         ctermbg=lightgrey
+highlight PmenuSel      ctermbg=darkgrey ctermfg=white
+
 
 " Fix the & command in normal and visual modes
 nnoremap & :&&<Enter>
@@ -152,6 +159,7 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
+command! Wip call VimuxRunCommand("u --group wip")
 
 
 " Switch to previous buffer
@@ -218,6 +226,8 @@ nnoremap    <leader>n           "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 inoremap    <leader>n           <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 nnoremap    <leader>d           "=strftime("%d/%m/%Y")<CR>P
 inoremap    <leader>d           <C-R>=strftime("%d/%m/%Y")<CR>
+
+nnoremap    <Leader>ee          :edit ~/.texpander/<cr>
 
 "e for edit
 nmap        <leader>ev          :tabedit ~/.vimrc<cr>
@@ -286,8 +296,6 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 " Section: Plugins {{{1
 "------------------------------------------------------------------------------
 
-
-
 "/ VimCommentary
 autocmd FileType php setlocal commentstring=\/\/\ %s
 
@@ -306,8 +314,8 @@ let NERDTreeHijackNetrw = 0
 " let g:elm_format_autosave = 1
 
 "/ VIM Test
-" Dispatch to use the quickfix window. I like my terminal
 let test#strategy = "dispatch"
+" let test#strategy = "vimux"
 
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
@@ -438,7 +446,6 @@ endfunction
 
 
 "/ VimAck
-" Use the silversearcher
 let g:ackprg = 'ag --vimgrep'
 
 
@@ -487,6 +494,18 @@ function! CurrentFunctionA()
   endif
 endfunction
 
+
+
+" vim-tmuxify
+" https://github.com/jebaum/vim-tmuxify
+let g:tmuxify_run = {
+\   'php': 'phpunit %',
+\   'js': 'jest %'
+\ }
+
+" casestrate
+let g:casetrate_leader = '<leader>c'
+
 " function! CurrentFunctionI()
 "   normal! ^
 "   let head_pos = getpos('.')
@@ -508,6 +527,7 @@ autocmd BufEnter *.js iabbr zzz console.log('ZZZ',
 autocmd BufEnter *.vue iabbr xxx console.log('XXX',
 autocmd BufEnter *.vue iabbr yyy console.log('YYY',
 autocmd BufEnter *.vue iabbr zzz console.log('ZZZ',
+autocmd BufEnter .vimlocal set filetype=vim
 
 " Section: Functions {{{1
 "------------------------------------------------------------------------------

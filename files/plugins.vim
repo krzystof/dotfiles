@@ -46,7 +46,9 @@ Plugin 'janko-m/vim-test'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'w0rp/ale'
-Plugin 'jebaum/vim-tmuxify'
+" Plugin 'jebaum/vim-tmuxify'
+Plugin 'benmills/vimux'
+Plugin 'idanarye/vim-casetrate'
 
 " Completion
 Plugin 'jiangmiao/auto-pairs'
@@ -57,8 +59,6 @@ Plugin 'ervandew/supertab'
 
 " Languages
 Plugin 'sheerun/vim-polyglot'
-Plugin 'tpope/vim-endwise'
-Plugin 'mattn/emmet-vim'
 " Plugin 'elixir-lang/vim-elixir'
 Plugin 'elmcast/elm-vim'
 Plugin 'posva/vim-vue'

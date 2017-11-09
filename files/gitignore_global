@@ -42,9 +42,9 @@ Thumbs.db
 *.sublime-project
 *.sublime-workspace
 *.tmux
+.lvimrc
 .phpintel
 .idea
 .ackrc
 # Vim tags
 tags
-
