@@ -19,7 +19,7 @@ tmux send-keys -t ${SESSION}:code "vim ." "C-m"
 
 tmux new-window -n "npm"
 tmux split-window -t ${SESSION}:npm
-tmux send-keys -t ${SESSION}:npm.0 "cd web && npm run elm" "C-m"
-tmux send-keys -t ${SESSION}:npm.1 "cd api && npm start" "C-m"
+tmux send-keys -t ${SESSION}:npm.0 "cd web && yarn start" "C-m"
+tmux send-keys -t ${SESSION}:npm.1 "cd api && yarn start" "C-m"
 
 tmux attach-session -t ${SESSION}

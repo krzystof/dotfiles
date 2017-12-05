@@ -16,9 +16,7 @@ tmux send-keys -t $SESSION:code.0 "vim ."
 
 tmux new-window -n "yarn"
 tmux split-window -h
-tmux split-window -v
 tmux send-keys -t $SESSION:yarn.0 "git status" "C-m"
-tmux send-keys -t $SESSION:yarn.1 "cd web && yarn start" "C-m"
-tmux send-keys -t $SESSION:yarn.2 "cd api && yarn start" "C-m"
+tmux send-keys -t $SESSION:yarn.1 "yarn start" "C-m"
 
 tmux attach-session -t $SESSION

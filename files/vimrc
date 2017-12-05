@@ -70,7 +70,6 @@ set clipboard=unnamed
 
 set showbreak=…                       " Nice ellipsis when wrapping lines
 
-
 "}}}
 
 " Section: Visual {{{1
@@ -132,8 +131,8 @@ highlight SignColumn    ctermbg=NONE
 " highlight TabLine ctermfg=Blue ctermbg=Yellow
 " highlight TabLineSel ctermfg=Red ctermbg=Yellow
 highlight Normal        cterm=NONE ctermbg=NONE
-highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
-highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
+" highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
+" highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
 highlight VertSplit     cterm=NONE ctermbg=black ctermfg=white
 highlight MatchParen    cterm=none ctermbg=darkgrey ctermfg=white
 highlight Visual        ctermbg=darkgrey
@@ -155,12 +154,17 @@ xnoremap & :&&<Enter>
 noremap k gk
 noremap j gj
 
+
+inoremap jk <Esc>
+
+
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 command! Wip call VimuxRunCommand("u --group wip")
 
+nnoremap K     <nop>
 
 " Switch to previous buffer
 nnoremap <C-e> :e#<CR>
@@ -172,8 +176,8 @@ cnoremap <C-a>  <Home>
 " cnoremap <C-f>  <Right>
 " cnoremap <C-d>  <Del>
 cnoremap <C-e>  <End>
-cnoremap <M-b>  <S-Left>
-cnoremap <M-f>  <S-Right>
+cnoremap <C-b>  <S-Left>
+cnoremap <C-f>  <S-Right>
 " cnoremap <M-d>  <S-right><Delete>
 " cnoremap <Esc>b <S-Left>
 " cnoremap <Esc>f <S-Right>
@@ -205,9 +209,6 @@ nnoremap <C-l> <C-w><C-l>
 " ctrl+m to increment next number on the line
 noremap     <C-m>               <C-a>
 
-" Substitute word under the cursor
-nnoremap    <leader>s           :%s/\<<cword>>\>//g<Left><Left>
-
 inoremap    <c-x><c-]>          <c-]>
 nnoremap    <leader>]           :CtrlPTag<cr>
 nmap        <leader>\|          :vsp<cr>
@@ -218,7 +219,11 @@ nnoremap    <leader>W           :res +10<CR>
 nnoremap    <leader>1           :NERDTreeToggle<cr>
 nnoremap    <leader>2           :TagbarToggle<CR>
 
-nnoremap    <leader>a           :Ack<space>
+nnoremap    <leader>aa          :Ack<space>
+nnoremap    <leader>aw          :Ack <C-r><C-w><space>
+vnoremap    <leader>aw          y :Ack <C-r>"<space>
+
+nnoremap    <leader>rr          :CtrlPMRU<cr>
 nnoremap    <leader>b           :CtrlPBuffer<cr>
 
 " Insert Now or Date
@@ -227,17 +232,14 @@ inoremap    <leader>n           <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 nnoremap    <leader>d           "=strftime("%d/%m/%Y")<CR>P
 inoremap    <leader>d           <C-R>=strftime("%d/%m/%Y")<CR>
 
-nnoremap    <Leader>ee          :edit ~/.texpander/<cr>
-
 "e for edit
-nmap        <leader>ev          :tabedit ~/.vimrc<cr>
-nmap        <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
-nmap        <leader>es          :tabedit ~/.vim/UltiSnips/
-nnoremap    <leader>er          :edit bootstrap/routes.php<CR>
+nnoremap    <Leader>ee          :edit ~/.texpander/<cr>
+nnoremap    <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
+nnoremap    <leader>es          :tabedit ~/.vim/UltiSnips/
 nnoremap    <leader>et          :edit ~/Dropbox/todo.md<CR>
+nnoremap    <leader>ev          :tabedit $MYVIMRC<cr>
 
-noremap     <leader>i          :call PhpInsertUse()<CR>
-inoremap    <leader>i          <Esc>:call IPhpInsertUse()<CR>
+nmap        <Leader>i           vip:sort<CR>
 
 nnoremap    <leader>g           :Gstatus<CR>
 
@@ -253,15 +255,13 @@ nnoremap    <leader>l<Space>    :%s/\s\+$//e<CR>
 inoremap    <leader>pe          <Esc>:call IPhpExpandClass()<CR>
 noremap     <leader>pe          :call PhpExpandClass()<CR>
 noremap     <leader>ps          :call PhpSortUse()<CR>
+noremap     <leader>pi          :call PhpInsertUse()<CR>
+inoremap    <leader>pi          <Esc>:call IPhpInsertUse()<CR>
+
+nnoremap    <leader>q           :cclose<CR>
 
 " r for replace
-nnoremap    <Leader>rw          :%s/\<<C-r><C-w>\>//g<Left><Left>
-
-" s for search or sort
-nmap        <Leader>i           vip:sort<CR>
-nmap        <Leader>sr          :CtrlPMRUFiles<cr>
-
-nnoremap        <leader>q           :cclose<CR>
+nnoremap    <leader>rw          :%s/\<<cword>>\>//g<Left><Left>
 
 " t for test
 nnoremap    <silent><leader>tt  :TestNearest<CR>
@@ -278,6 +278,8 @@ nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
 
 
+" Operator pending movement.
+" Interesting. Keep in mind.
 onoremap    p                   i(
 onoremap    in(                 :<c-u>normal! f(vi(<cr>
 onoremap    il(                 :<c-u>normal! F)vi(<cr>
@@ -309,13 +311,9 @@ let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor)$'
 " messing with vinegar...
 let NERDTreeHijackNetrw = 0                                           
 
-"/ Elm
-" Try to use ALE instead
-" let g:elm_format_autosave = 1
-
 "/ VIM Test
-let test#strategy = "dispatch"
-" let test#strategy = "vimux"
+" let test#strategy = "dispatch"
+let test#strategy = "vimux"
 
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
@@ -358,9 +356,8 @@ map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)"
 
-" PHP
-" let g:syntastic_php_checkers = ['php', 'phpcs']
-" let g:syntastic_php_phpcs_args = "--standard=phpcs.xml"
+" VDebug
+" let g:vdebug_keymap['run'] = '<C-z>'
 
 " JS
 " let g:syntastic_javascript_checkers = ['eslint']
@@ -382,7 +379,7 @@ let g:ale_fix_on_save = 1
 nmap <F8> <Plug>(ale_fix)
 
 let g:ale_linters = {
-\  'php': ['php', 'phpcs', 'phpmd']
+\  'php': ['php', 'phpcs', 'phpmd', 'phpstan']
 \}
 
 let g:ale_fixers = {
@@ -466,6 +463,10 @@ iabbrev gropu group
 " autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
 
 
+"/ Splitjoin
+nnoremap <Leader>j :SplitjoinJoin<cr>
+nnoremap <Leader>s :SplitjoinSplit<cr>
+
 
 "/
 "/ Custom text objects
@@ -502,6 +503,13 @@ let g:tmuxify_run = {
 \   'php': 'phpunit %',
 \   'js': 'jest %'
 \ }
+
+
+"/ VDebug
+let g:vdebug_options = {
+\   "port" : 9001
+\}
+
 
 " casestrate
 let g:casetrate_leader = '<leader>c'
@@ -576,4 +584,4 @@ augroup autosourcing
     autocmd BufWritePost .vimrc source %
 augroup END
 
-let g:localvimrc_whitelist='/home/krzystof/Code/.*'
+let g:localvimrc_whitelist='/home/krzystof/Code/learning-ladders/.*'
