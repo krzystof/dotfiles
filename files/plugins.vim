@@ -19,7 +19,6 @@ Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'kana/vim-textobj-user'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'haya14busa/incsearch.vim'
-Plugin 'embear/vim-localvimrc'
 
 " Custom text objects
 Plugin 'kana/vim-textobj-line'
@@ -48,6 +47,7 @@ Plugin 'w0rp/ale'
 Plugin 'benmills/vimux'
 Plugin 'idanarye/vim-casetrate'
 Plugin 'joonty/vdebug'
+Plugin 'embear/vim-localvimrc'
 
 " Completion
 Plugin 'jiangmiao/auto-pairs'
