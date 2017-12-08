@@ -36,7 +36,9 @@ Plugin 'itchyny/lightline.vim'
 Plugin 'nlknguyen/papercolor-theme'
 Plugin 'rakr/vim-one'
 Plugin 'jacoborus/tender'
-Plugin 'flazz/vim-colorschemes'
+" Plugin 'flazz/vim-colorschemes'
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'tomasr/molokai'
 
 " Powertools
 Plugin 'tpope/vim-dispatch'

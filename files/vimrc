@@ -92,8 +92,10 @@ let g:rehash256 = 1
 " colorscheme Tomorrow-Night-Eighties
 " colorscheme one
 " colorscheme tender
+colorscheme jellybeans
 
-colorscheme onedark
+" colorscheme PaperColor
+" colorscheme molokai
 
 
 if !has('gui_running')
@@ -130,14 +132,14 @@ highlight SignColumn    ctermbg=NONE
 " highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
 " highlight TabLine ctermfg=Blue ctermbg=Yellow
 " highlight TabLineSel ctermfg=Red ctermbg=Yellow
-highlight Normal        cterm=NONE ctermbg=NONE
+" highlight Normal        cterm=NONE ctermbg=NONE
 " highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
 " highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
-highlight VertSplit     cterm=NONE ctermbg=black ctermfg=white
-highlight MatchParen    cterm=none ctermbg=darkgrey ctermfg=white
-highlight Visual        ctermbg=darkgrey
-highlight Pmenu         ctermbg=lightgrey
-highlight PmenuSel      ctermbg=darkgrey ctermfg=white
+" highlight VertSplit     cterm=NONE ctermbg=black ctermfg=white
+" highlight MatchParen    cterm=none ctermbg=darkgrey ctermfg=white
+" highlight Visual        ctermbg=darkgrey
+" highlight Pmenu         ctermbg=lightgrey
+" highlight PmenuSel      ctermbg=darkgrey ctermfg=white
 
 
 " Fix the & command in normal and visual modes
@@ -295,6 +297,18 @@ onoremap    in(                 :<c-u>normal! f(vi(<cr>
 onoremap    il(                 :<c-u>normal! F)vi(<cr>
 
 
+"----------------------------------------------------------
+" Special project access using localleader
+"----------------------------------------------------------
+
+"   l = ladders
+nnoremap <leader>.lr :edit bootstrap/routes.php<CR>
+
+"   ww = whooks web
+"   wa = whooks api
+"   p = planizely
+
+
 "/
 "/ 5: TIPS & TRICKS
 "/
@@ -313,8 +327,10 @@ autocmd FileType php setlocal commentstring=\/\/\ %s
 
 "/ CtrlP
 let g:ctrlp_extensions = ['tag']
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
+let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_use_caching = 0
 
 "/ NERDTree
 " messing with vinegar...
@@ -473,6 +489,8 @@ iabbrev gropu group
 
 
 "/ Splitjoin
+let g:splitjoin_split_mapping = ''
+let g:splitjoin_join_mapping = ''
 nnoremap <Leader>j :SplitjoinJoin<cr>
 nnoremap <Leader>s :SplitjoinSplit<cr>
 
@@ -591,5 +609,3 @@ augroup autosourcing
     autocmd!
     autocmd BufWritePost .vimrc source %
 augroup END
-
-let g:localvimrc_whitelist='/home/krzystof/Code/learning-ladders/.*'
