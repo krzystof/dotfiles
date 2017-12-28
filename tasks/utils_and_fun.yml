@@ -4,7 +4,7 @@
 
 - apt: name=clementine state=latest
 
-- file: 
+- file:
     path: "{{ home }}/.config/Clementine"
     state: directory
     owner: krzystof
@@ -15,4 +15,3 @@
     - albumcovers
     - Clementine.conf
     - clementine.db
-  when: dropbox.stat.exists

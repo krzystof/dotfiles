@@ -26,4 +26,4 @@ tmux send-keys -t $SESSION:mysql.0 "llsql"
 
 tmux select-window "code"
 
-tmux attach-session -t $SESSION
+tmux attach-session -t $SESSION:code.0

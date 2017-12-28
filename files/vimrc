@@ -1,8 +1,8 @@
 
 "  _   __(_)___ ___  __________
 " | | / / / __ `__ \/ ___/ ___/
-" | |/ / / / / / / / /  / /__  
-" |___/_/_/ /_/ /_/_/   \___/ 
+" | |/ / / / / / / / /  / /__
+" |___/_/_/ /_/ /_/_/   \___/
 
 " Section: Setup {{{1
 
@@ -92,11 +92,12 @@ let g:rehash256 = 1
 " colorscheme Tomorrow-Night-Eighties
 " colorscheme one
 " colorscheme tender
-colorscheme jellybeans
 
+" autocmd FileType vue colorscheme molokai
 " colorscheme PaperColor
 " colorscheme molokai
 
+colorscheme jellybeans
 
 if !has('gui_running')
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
@@ -114,21 +115,22 @@ if !has('gui_running')
   endif
   " Disable Background Color Erase when within tmux - https://stackoverflow.com/q/6427650/102704
   if $TMUX != ""
+    set t_ut=
   endif
 endif
 
 " function! CleanBg()
-"     hi Normal ctermbg=NONE
-"     hi nonText ctermbg=NONE
-"     hi SignColumn ctermbg=NONE
-"     hi TabLineFill ctermbg=NONE
+hi Normal ctermbg=NONE
+hi nonText ctermbg=NONE
+hi SignColumn ctermbg=NONE
+hi TabLineFill ctermbg=NONE
 " endfunction
 
 highlight LineNr        ctermbg=NONE
 highlight CursorLineNr  ctermbg=NONE
 highlight Normal        ctermbg=NONE
 highlight nonText       ctermbg=NONE
-highlight SignColumn    ctermbg=NONE
+" highlight SignColumn    ctermbg=NONE
 " highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
 " highlight TabLine ctermfg=Blue ctermbg=Yellow
 " highlight TabLineSel ctermfg=Red ctermbg=Yellow
@@ -151,7 +153,6 @@ xnoremap & :&&<Enter>
 " Section: Mappings {{{1
 "------------------------------------------------------------------------------
 
-
 " Move up and down by screen line
 noremap k gk
 noremap j gj
@@ -167,6 +168,7 @@ map g/ <Plug>(incsearch-stay)
 command! Wip call VimuxRunCommand("u --group wip")
 
 nnoremap K     <nop>
+nnoremap Q     <nop>
 
 " Switch to previous buffer
 nnoremap <C-e> :e#<CR>
@@ -250,6 +252,7 @@ nmap        <Leader>i           vip:sort<CR>
 nnoremap    <leader>g           :Gstatus<CR>
 
 " l for last
+" TODO -> use a function that toggle the last character of the line
 nnoremap    <leader>ld          mz$x`z
 nnoremap    <leader>l;          mzA;<Esc>`z
 nnoremap    <leader>l,          mzA,<Esc>`z
@@ -258,12 +261,12 @@ nnoremap    <leader>lr,         mz$r,`z
 nnoremap    <leader>l<Space>    :%s/\s\+$//e<CR>
 
 " p for php
-noremap     <leader>pi          :call PhpInsertUse()<CR>
+nnoremap     <leader>pi          :call PhpInsertUse()<CR>
 inoremap    <leader>pi          <Esc>:call IPhpInsertUse()<CR>
 inoremap    <leader>pe          <Esc>:call IPhpExpandClass()<CR>
-noremap     <leader>pe          :call PhpExpandClass()<CR>
-noremap     <leader>ps          :call PhpSortUse()<CR>
-noremap     <leader>pi          :call PhpInsertUse()<CR>
+nnoremap    <leader>pe          :call PhpExpandClass()<CR>
+nnoremap    <leader>ps          :call PhpSortUse()<CR>
+nnoremap    <leader>pi          :call PhpInsertUse()<CR>
 inoremap    <leader>pi          <Esc>:call IPhpInsertUse()<CR>
 
 nnoremap    <leader>q           :cclose<CR>
@@ -273,9 +276,8 @@ nnoremap    <Leader>rw          :%s/\<<C-r><C-w>\>//g<Left><Left>
 
 nmap        <Leader>rr          :CtrlPMRUFiles<cr>
 
-" t for test
-nnoremap    <silent><leader>tt  :TestNearest<CR>
-nnoremap    <silent><leader>tT  :TestFile<CR>
+nnoremap    <leader>tt  :TestNearest<CR>
+nnoremap    <silent><leader>tf  :TestFile<CR>
 nnoremap    <silent><leader>ta  :TestSuite<CR>
 nnoremap    <silent><leader>tl  :TestLast<CR>
 nnoremap    <silent><leader>tg  :TestVisit<CR>
@@ -283,11 +285,11 @@ nnoremap    <leader>tsb         :let test#strategy = 'basic'<CR>
 nnoremap    <leader>tsd         :let test#strategy = 'dispatch'<CR>
 
 nnoremap    <leader>vr          :call VimuxRunLastCommand()<CR>
-nnoremap    <leader>w           :Ack <C-r><C-w><cr>
-
 
 nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
+
+nnoremap   <leader>wt           :e test<CR>
 
 
 " Operator pending movement.
@@ -327,14 +329,14 @@ autocmd FileType php setlocal commentstring=\/\/\ %s
 
 "/ CtrlP
 let g:ctrlp_extensions = ['tag']
-let g:ctrlp_match_window = 'bottom,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
+let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 let g:ctrlp_use_caching = 0
 
 "/ NERDTree
 " messing with vinegar...
-let NERDTreeHijackNetrw = 0                                           
+let NERDTreeHijackNetrw = 0
 
 "/ VIM Test
 " let test#strategy = "dispatch"
@@ -345,30 +347,17 @@ let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 "/ Emmet
 " Use `,,` to trigger emmet
+" TODO -> get rid of emmet for more simple tag solution?
 let g:user_emmet_leader_key=','
 
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<C-n>"
-" let g:UltiSnipsJumpBackwardTrigger="<C-p>"
-
-"/ VimAck
-let g:ackprg = 'ag --vimgrep'
 
 "/ Supertab
 let g:SuperTabLongestEnhanced=1
 let g:SuperTabLongestHighlight=1
 
-"/ Syntastic
-" set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
-" set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-" set statusline+=%*
 
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
 
 "/ incsearch.vim
 " :h g:incsearch#auto_nohlsearch
@@ -381,12 +370,12 @@ map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)"
 
-" VDebug
+
+
+" VDebug (need python 2 support...)
 " let g:vdebug_keymap['run'] = '<C-z>'
 
-" JS
-" let g:syntastic_javascript_checkers = ['eslint']
-" let g:syntastic_javascript_eslint_exe = 'eslint %'  " Just lint the current file
+
 
 "/ ALE
 let g:ale_sign_warning = '▲'
@@ -411,11 +400,17 @@ let g:ale_fixers = {
 \   'elm': [
 \       'format'
 \   ],
+\   'javascript': [
+\       'prettier',
+\       'eslint'
+\   ]
 \}
 
 " php
 let g:ale_php_phpcs_standard = 'phpcs.xml'
 let g:ale_php_phpmd_ruleset = 'phpmd.xml'
+
+
 
 "/ Lightline
 let g:lightline = {
@@ -483,16 +478,13 @@ iabbrev repsonse response
 iabbrev gropu group
 
 
-"/ Prettier
-" let g:prettier#autoformat = 0
-" autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql PrettierAsync
-
 
 "/ Splitjoin
 let g:splitjoin_split_mapping = ''
 let g:splitjoin_join_mapping = ''
 nnoremap <Leader>j :SplitjoinJoin<cr>
 nnoremap <Leader>s :SplitjoinSplit<cr>
+
 
 
 "/
@@ -596,14 +588,21 @@ augroup END
 
 augroup html
   autocmd!
+  " fold with \ f
   autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
 augroup END
+
+
+"/ Vim vue
+" Prevent syntax highlighting quirks
+autocmd FileType vue syntax sync fromstart
 
 " Enable that with Elixir 1.6! or try to use it with ALE
 " autocmd BufWritePost *.exs silent :!mix format %
 " autocmd BufWritePost *.ex silent :!mix format %
-"
-"
+
+" Trim trailing spaces
+autocmd BufWritePre * %s/\s\+$//e
 
 augroup autosourcing
     autocmd!

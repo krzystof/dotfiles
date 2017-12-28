@@ -1,20 +1,6 @@
 ---
-# Install my custom theme and keyboard shortcuts
-- name: THEME ~> add repositories
-  apt_repository: repo={{ item }} state=present
-  with_items:
-    - ppa:moka/daily
-
-- name: THEME ~> install packages
-  apt: name={{ item }} state=latest
-  with_items:
-    - arc-theme
-    - moka-icon-theme
-
 - name: THEME ~> copy bridge cursors
   copy: src=bridge dest=/usr/share/icons
-
-  # copy Arc icon and plank theme
 
 - name: THEME ~> remove current dconf
   file: path={{ home }}/.config/dconf/user state=absent

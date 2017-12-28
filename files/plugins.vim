@@ -16,12 +16,13 @@ Plugin 'tpope/vim-eunuch'
 Plugin 'editorconfig/editorconfig-vim'
 Plugin 'jeetsukumaran/vim-indentwise'
 Plugin 'michaeljsmith/vim-indent-object'
-Plugin 'kana/vim-textobj-user'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'haya14busa/incsearch.vim'
 
 " Custom text objects
+Plugin 'kana/vim-textobj-user'
 Plugin 'kana/vim-textobj-line'
+Plugin 'andyl/vim-textobj-elixir'
 
 " Navigation
 Plugin 'christoomey/vim-tmux-navigator'
@@ -55,6 +56,8 @@ Plugin 'embear/vim-localvimrc'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
 Plugin 'mattn/emmet-vim'
+" Plugin 'rstacruz/sparkup'
+Plugin 'gregsexton/matchtag'
 Plugin 'ervandew/supertab'
 
 " Languages

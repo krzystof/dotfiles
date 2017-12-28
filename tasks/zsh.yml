@@ -23,8 +23,14 @@
 - name: ZSH ~> create the completion dir
   file: src={{ home }}/Dotfiles/completion dest="{{ home }}/.zsh/completion" state=link
 
+- name: ZSH ~> set default shell
+  user:
+    name: krzystof
+    shell: /bin/zsh
+  # command: chsh -s /bin/zsh
+
 - name: Symlink my custom theme
-  file: 
-    src: "{{ home }}/Dotfiles/files/prompt_polly_setup" 
-    dest: "{{ home }}/.zprezto/modules/prompt/functions/prompt_polly_setup" 
+  file:
+    src: "{{ home }}/Dotfiles/files/prompt_polly_setup"
+    dest: "{{ home }}/.zprezto/modules/prompt/functions/prompt_polly_setup"
     state: link

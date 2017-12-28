@@ -1,6 +1,7 @@
 ---
 - apt: name={{ item }} update_cache=no state=present
   with_items:
+    - git
     - zsh
     - vim
     - tmux
@@ -14,14 +15,6 @@
     owner: krzystof
     group: krzystof
     state: directory
-
-- file:
-    name: "{{ home }}/.vim/colors"
-    owner: krzystof
-    group: krzystof
-    state: directory
-
-- copy: src=srcery.vim dest={{ home }}/.vim/colors/srcery.vim
 
 - file:
     src: "{{ home }}/Dotfiles/files/plugins.vim"
