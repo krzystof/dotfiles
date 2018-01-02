@@ -56,7 +56,6 @@ Plugin 'embear/vim-localvimrc'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
 Plugin 'mattn/emmet-vim'
-" Plugin 'rstacruz/sparkup'
 Plugin 'gregsexton/matchtag'
 Plugin 'ervandew/supertab'
 

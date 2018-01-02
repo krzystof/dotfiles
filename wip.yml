@@ -1,0 +1,22 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  vars:
+    username: krzystof
+    home: /home/krzystof
+  become: yes
+  become_method: sudo
+  tasks:
+
+  - name: Install xcape
+    apt:
+      name: xcape
+
+  - name: Firefox repo
+    apt_repository:
+      repo: "ppa:mozillateam/firefox-next"
+      state: present
+
+  - name: Firefox
+    apt:
+      name: firefox

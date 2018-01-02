@@ -24,6 +24,7 @@
       - tmux.conf
       - gitconfig
       - gitignore_global
+      - xprofile
 
   - include: tasks/tools.yml
   - include: tasks/zsh.yml

@@ -1,0 +1,23 @@
+#!/bin/bash
+
+SESSION=Whooksixir
+PROJECT="${HOME}/Code/whooksapi"
+
+if tmux has-session -t ${SESSION} ; then
+  tmux attach-session -t ${SESSION}
+  exit 0
+fi
+
+trk whooks
+
+cd $PROJECT
+
+tmux new-session -d -s ${SESSION}
+tmux rename-window -n "code"
+
+tmux send-keys -t ${SESSION}:code "vim ." "C-m"
+
+tmux new-window -n "postgres"
+tmux send-keys -t ${SESSION}:postgres.0 "sudo -u postgres psql" "C-m"
+
+tmux attach-session -t ${SESSION}

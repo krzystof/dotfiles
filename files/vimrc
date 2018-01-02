@@ -86,7 +86,6 @@ set background=dark
 let g:rehash256 = 1
 " colorscheme molokai
 " colorscheme wombat
-" colorscheme badwolf
 " colorscheme onedark
 " colorscheme PaperColor
 " colorscheme Tomorrow-Night-Eighties
@@ -119,17 +118,16 @@ if !has('gui_running')
   endif
 endif
 
-" function! CleanBg()
-hi Normal ctermbg=NONE
-hi nonText ctermbg=NONE
-hi SignColumn ctermbg=NONE
-hi TabLineFill ctermbg=NONE
-" endfunction
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
+highlight SignColumn ctermbg=NONE
+highlight TabLineFill ctermbg=NONE
 
-highlight LineNr        ctermbg=NONE
 highlight CursorLineNr  ctermbg=NONE
 highlight Normal        ctermbg=NONE
 highlight nonText       ctermbg=NONE
+highlight LineNr        ctermbg=NONE
+
 " highlight SignColumn    ctermbg=NONE
 " highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
 " highlight TabLine ctermfg=Blue ctermbg=Yellow
@@ -166,6 +164,7 @@ map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 command! Wip call VimuxRunCommand("u --group wip")
+command! Source :source $MYVIMRC
 
 nnoremap K     <nop>
 nnoremap Q     <nop>
@@ -242,8 +241,6 @@ nmap        <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
 nmap        <leader>es          :tabedit ~/.vim/UltiSnips/
 nnoremap    <Leader>ee          :edit ~/.texpander/<cr>
 
-nnoremap    <leader>er          :edit bootstrap/routes.php<CR>
-
 nnoremap    <leader>et          :edit ~/Dropbox/todo.md<CR>
 
 nmap        <Leader>i           vip:sort<CR>
@@ -251,14 +248,17 @@ nmap        <Leader>i           vip:sort<CR>
 " Git
 nnoremap    <leader>g           :Gstatus<CR>
 
+nnoremap    <leader>lr          :edit bootstrap/routes.php<CR>
+nnoremap    <leader>pr          :edit routes/api.php<cr>
+
 " l for last
 " TODO -> use a function that toggle the last character of the line
-nnoremap    <leader>ld          mz$x`z
-nnoremap    <leader>l;          mzA;<Esc>`z
-nnoremap    <leader>l,          mzA,<Esc>`z
-nnoremap    <leader>lr;         mz$r;`z
-nnoremap    <leader>lr,         mz$r,`z
-nnoremap    <leader>l<Space>    :%s/\s\+$//e<CR>
+" nnoremap    <leader>ld          mz$x`z
+" nnoremap    <leader>l;          mzA;<Esc>`z
+" nnoremap    <leader>l,          mzA,<Esc>`z
+" nnoremap    <leader>lr;         mz$r;`z
+" nnoremap    <leader>lr,         mz$r,`z
+" nnoremap    <leader>l<Space>    :%s/\s\+$//e<CR>
 
 " p for php
 nnoremap     <leader>pi          :call PhpInsertUse()<CR>
@@ -299,15 +299,8 @@ onoremap    in(                 :<c-u>normal! f(vi(<cr>
 onoremap    il(                 :<c-u>normal! F)vi(<cr>
 
 
-"----------------------------------------------------------
-" Special project access using localleader
-"----------------------------------------------------------
-
-"   l = ladders
-nnoremap <leader>.lr :edit bootstrap/routes.php<CR>
-
-"   ww = whooks web
-"   wa = whooks api
+"   w = whooks web
+"   a = whooks api
 "   p = planizely
 
 
@@ -348,7 +341,7 @@ let g:AutoPairsShortcutBackInsert = '<C-b>'
 "/ Emmet
 " Use `,,` to trigger emmet
 " TODO -> get rid of emmet for more simple tag solution?
-let g:user_emmet_leader_key=','
+" let g:user_emmet_leader_key=','
 
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -380,10 +373,11 @@ map g# <Plug>(incsearch-nohl-g#)"
 "/ ALE
 let g:ale_sign_warning = '▲'
 let g:ale_sign_error = '✗'
-highlight NiceError ctermfg=red
-highlight NiceWarning ctermfg=yellow
+highlight NiceError ctermfg=red ctermbg=NONE
+highlight NiceWarning ctermfg=yellow ctermbg=NONE
 highlight link ALEWarningSign NiceWarning
 highlight link ALEErrorSign NiceError
+
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
@@ -401,7 +395,6 @@ let g:ale_fixers = {
 \       'format'
 \   ],
 \   'javascript': [
-\       'prettier',
 \       'eslint'
 \   ]
 \}
@@ -414,7 +407,7 @@ let g:ale_php_phpmd_ruleset = 'phpmd.xml'
 
 "/ Lightline
 let g:lightline = {
-\ 'colorscheme': 'wombat',
+\ 'colorscheme': 'jellybeans',
 \ 'active': {
 \   'left': [['mode', 'paste'], ['filename', 'modified']],
 \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
@@ -604,7 +597,30 @@ autocmd FileType vue syntax sync fromstart
 " Trim trailing spaces
 autocmd BufWritePre * %s/\s\+$//e
 
+" Experimental stuff {{{1
+
+" A function that toggles the last character of the line
+function! ToggleLast()
+  let line = getline('.')
+  let last = strpart(line, strlen(line) - 1)
+  echo 'yay'
+  " normal mz$
+  " if last == ';'
+  "   normal r,
+  " elseif last == ','
+  "   normal x
+  " else
+  "   normal a;
+  " endif
+  " normal `z
+endfunction
+
+nnoremap <silent> <leader>l :call ToggleLast()<cr>
+
+" }}}
+
 augroup autosourcing
     autocmd!
-    autocmd BufWritePost .vimrc source %
+    " autocmd BufWritePost .vimrc source $MYVIMRC
+    " autocmd BufWritePost call Source()
 augroup END
