@@ -75,28 +75,24 @@ set showbreak=…                       " Nice ellipsis when wrapping lines
 " Section: Visual {{{1
 "------------------------------------------------------------------------------
 
-" dfferent colorscheme for ruby and markdown, for example
-" autocmd FileType ruby colorscheme railcasts
+" defferent colorscheme for ruby and markdown, for
+" example autocmd FileType ruby colorscheme railcasts
 
 set laststatus=2                         " Always display the status bar
 
-" Make sure colored syntax mode is on, and make it Just Work with newer 256
-" color terminals like iTerm2.
+" Make sure colored syntax mode is on, and make it
+" Just Work with newer 256 color terminals like
+" iTerm2.
 set background=dark
 let g:rehash256 = 1
+
 " colorscheme molokai
-" colorscheme wombat
-" colorscheme onedark
 " colorscheme PaperColor
-" colorscheme Tomorrow-Night-Eighties
 " colorscheme one
 " colorscheme tender
+colorscheme jellybeans
 
 " autocmd FileType vue colorscheme molokai
-" colorscheme PaperColor
-" colorscheme molokai
-
-colorscheme jellybeans
 
 if !has('gui_running')
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
@@ -118,24 +114,20 @@ if !has('gui_running')
   endif
 endif
 
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
-highlight SignColumn ctermbg=NONE
-highlight TabLineFill ctermbg=NONE
-
+highlight Normal        ctermbg=NONE
+highlight nonText       ctermbg=NONE
+highlight TabLineFill   ctermbg=NONE
 highlight CursorLineNr  ctermbg=NONE
 highlight Normal        ctermbg=NONE
 highlight nonText       ctermbg=NONE
 highlight LineNr        ctermbg=NONE
+highlight SignColumn    ctermbg=NONE
+highlight VertSplit     cterm=NONE ctermbg=black ctermfg=blue
 
-" highlight SignColumn    ctermbg=NONE
-" highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
-" highlight TabLine ctermfg=Blue ctermbg=Yellow
 " highlight TabLineSel ctermfg=Red ctermbg=Yellow
 " highlight Normal        cterm=NONE ctermbg=NONE
 " highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
 " highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
-" highlight VertSplit     cterm=NONE ctermbg=black ctermfg=white
 " highlight MatchParen    cterm=none ctermbg=darkgrey ctermfg=white
 " highlight Visual        ctermbg=darkgrey
 " highlight Pmenu         ctermbg=lightgrey
@@ -365,9 +357,11 @@ map g# <Plug>(incsearch-nohl-g#)"
 
 
 
-" VDebug (need python 2 support...)
-" let g:vdebug_keymap['run'] = '<C-z>'
-
+"/ Gitgutter
+highlight GitGutterAdd ctermfg=darkgreen ctermbg=NONE
+highlight GitGutterChange ctermfg=yellow ctermbg=NONE
+highlight GitGutterDelete ctermfg=darkred ctermbg=NONE
+" highlight GitGutterChangeDelete ctermfg=lightgreen ctermbg=NONE
 
 
 "/ ALE
@@ -600,22 +594,14 @@ autocmd BufWritePre * %s/\s\+$//e
 " Experimental stuff {{{1
 
 " A function that toggles the last character of the line
-function! ToggleLast()
-  let line = getline('.')
-  let last = strpart(line, strlen(line) - 1)
-  echo 'yay'
-  " normal mz$
-  " if last == ';'
-  "   normal r,
-  " elseif last == ','
-  "   normal x
-  " else
-  "   normal a;
-  " endif
-  " normal `z
+function! ToggleLast(charToMatch)
+  normal mm
+  s/\v(.)$/\=submatch(1)==a:charToMatch ? '' : submatch(1).a:charToMatch
+  normal `m
 endfunction
 
-nnoremap <silent> <leader>l :call ToggleLast()<cr>
+nnoremap <silent> <leader>; :call ToggleLast(';')<cr>
+nnoremap <silent> <leader>, :call ToggleLast(',')<cr>
 
 " }}}
 
