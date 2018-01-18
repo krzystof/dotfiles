@@ -276,7 +276,11 @@ nnoremap    <silent><leader>tg  :TestVisit<CR>
 nnoremap    <leader>tsb         :let test#strategy = 'basic'<CR>
 nnoremap    <leader>tsd         :let test#strategy = 'dispatch'<CR>
 
-nnoremap    <leader>vr          :call VimuxRunLastCommand()<CR>
+nnoremap    <Leader>vq :VimuxCloseRunner<CR>
+nnoremap <Leader>vz :call VimuxZoomRunner()<CR>
+nnoremap <Leader>vi :VimuxInspectRunner<CR>
+map <Leader>vl :VimuxRunLastCommand<CR>
+map <Leader>vp :VimuxPromptCommand<CR>
 
 nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
@@ -354,6 +358,11 @@ map *  <Plug>(incsearch-nohl-*)
 map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)"
+
+
+"/ vimux
+let g:VimuxOrientation = "v"
+" let g:VimuxHeight = "40"
 
 
 

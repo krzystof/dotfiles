@@ -26,6 +26,13 @@
       - gitignore_global
       - xprofile
 
+  - name: SYMLINK ~> albert key values
+    become_user: krzystof
+    file:
+      src: "{{ home }}/Dropbox/AlbertKeyValues/kvstore.db"
+      dest: "{{ home }}/.config/albert/org.albert.extension.kvstore/kvstore.db"
+      state: link
+
   - include: tasks/tools.yml
   - include: tasks/zsh.yml
   - include: tasks/theme.yml

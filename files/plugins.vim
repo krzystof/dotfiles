@@ -19,6 +19,7 @@ Plugin 'jeetsukumaran/vim-indentwise'
 Plugin 'michaeljsmith/vim-indent-object'
 Plugin 'AndrewRadev/splitjoin.vim'
 Plugin 'haya14busa/incsearch.vim'
+Plugin 'gregsexton/matchtag'
 
 " Custom text objects
 Plugin 'kana/vim-textobj-user'
@@ -35,12 +36,7 @@ Plugin 'mileszs/ack.vim'
 
 " Visuals
 Plugin 'itchyny/lightline.vim'
-Plugin 'nlknguyen/papercolor-theme'
-Plugin 'rakr/vim-one'
-Plugin 'jacoborus/tender'
-" Plugin 'flazz/vim-colorschemes'
 Plugin 'nanotech/jellybeans.vim'
-Plugin 'tomasr/molokai'
 
 " Powertools
 Plugin 'tpope/vim-dispatch'
@@ -50,14 +46,13 @@ Plugin 'airblade/vim-gitgutter'
 Plugin 'w0rp/ale'
 Plugin 'benmills/vimux'
 Plugin 'idanarye/vim-casetrate'
-Plugin 'joonty/vdebug'
 Plugin 'embear/vim-localvimrc'
+Plugin 'greplace'
 
 " Completion
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
 Plugin 'mattn/emmet-vim'
-Plugin 'gregsexton/matchtag'
 Plugin 'ervandew/supertab'
 
 " Languages

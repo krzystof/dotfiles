@@ -29,6 +29,8 @@ tmux send-keys -t $SESSION:servers.0 "tail -f storage/logs/laravel.log" C-m
 tmux send-keys -t $SESSION:servers.1 "yarn dev" C-m
 tmux send-keys -t $SESSION:servers.2 "docker-compose up" C-m
 
+tmux new-window -t $SESSION -n "stuff"
+
 tmux select-window -t $SESSION:"repo"
 
 trk planizely
