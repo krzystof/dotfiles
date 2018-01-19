@@ -48,6 +48,7 @@ Plugin 'benmills/vimux'
 Plugin 'idanarye/vim-casetrate'
 Plugin 'embear/vim-localvimrc'
 Plugin 'greplace'
+Plugin 'dbext.vim'
 
 " Completion
 Plugin 'jiangmiao/auto-pairs'

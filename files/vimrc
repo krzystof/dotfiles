@@ -75,24 +75,28 @@ set showbreak=…                       " Nice ellipsis when wrapping lines
 " Section: Visual {{{1
 "------------------------------------------------------------------------------
 
-" defferent colorscheme for ruby and markdown, for
-" example autocmd FileType ruby colorscheme railcasts
+" dfferent colorscheme for ruby and markdown, for example
+" autocmd FileType ruby colorscheme railcasts
 
 set laststatus=2                         " Always display the status bar
 
-" Make sure colored syntax mode is on, and make it
-" Just Work with newer 256 color terminals like
-" iTerm2.
+" Make sure colored syntax mode is on, and make it Just Work with newer 256
+" color terminals like iTerm2.
 set background=dark
 let g:rehash256 = 1
-
 " colorscheme molokai
+" colorscheme wombat
+" colorscheme onedark
 " colorscheme PaperColor
+" colorscheme Tomorrow-Night-Eighties
 " colorscheme one
 " colorscheme tender
-colorscheme jellybeans
 
 " autocmd FileType vue colorscheme molokai
+" colorscheme PaperColor
+" colorscheme molokai
+
+colorscheme jellybeans
 
 if !has('gui_running')
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
@@ -114,26 +118,22 @@ if !has('gui_running')
   endif
 endif
 
-highlight Normal        ctermbg=NONE
-highlight nonText       ctermbg=NONE
-highlight TabLineFill   ctermbg=NONE
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
+highlight SignColumn ctermbg=NONE
+highlight TabLineFill ctermbg=NONE
+
 highlight CursorLineNr  ctermbg=NONE
 highlight Normal        ctermbg=NONE
 highlight nonText       ctermbg=NONE
 highlight LineNr        ctermbg=NONE
-highlight SignColumn    ctermbg=NONE
-highlight VertSplit     cterm=NONE ctermbg=black ctermfg=blue
 
+" highlight SignColumn    ctermbg=NONE
+" highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
+" highlight TabLine ctermfg=Blue ctermbg=Yellow
 " highlight TabLineSel ctermfg=Red ctermbg=Yellow
 " highlight Normal        cterm=NONE ctermbg=NONE
 " highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
-" highlight StatusLineNC  cterm=NONE ctermbg=black ctermfg=white
-" highlight MatchParen    cterm=none ctermbg=darkgrey ctermfg=white
-" highlight Visual        ctermbg=darkgrey
-" highlight Pmenu         ctermbg=lightgrey
-" highlight PmenuSel      ctermbg=darkgrey ctermfg=white
-
-
 " Fix the & command in normal and visual modes
 nnoremap & :&&<Enter>
 xnoremap & :&&<Enter>
@@ -182,8 +182,9 @@ cnoremap <C-f>  <S-Right>
 
 
 " Why not use the space or return keys to toggle folds?
-" nnoremap <M-f> za
+nnoremap <M-f> za
 " vnoremap <M-f> zf
+" nnoremap <cr> za
 
 nnoremap <space> :
 
@@ -233,14 +234,18 @@ nmap        <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
 nmap        <leader>es          :tabedit ~/.vim/UltiSnips/
 nnoremap    <Leader>ee          :edit ~/.texpander/<cr>
 
-nnoremap    <leader>et          :edit ~/Dropbox/todo.md<CR>
+" nnoremap p =p
+" nnoremap P =P
 
 nmap        <Leader>i           vip:sort<CR>
 
 " Git
 nnoremap    <leader>g           :Gstatus<CR>
 
-nnoremap    <leader>lr          :edit bootstrap/routes.php<CR>
+" Ladders
+nnoremap   <leader>lr          :edit bootstrap/routes.php<CR>
+nnoremap   <leader>lm          :edit src/Ladders/Database/Migrations<CR>
+" Planizely
 nnoremap    <leader>pr          :edit routes/api.php<cr>
 
 " l for last
@@ -265,8 +270,7 @@ nnoremap    <leader>q           :cclose<CR>
 
 " r for replace
 nnoremap    <Leader>rw          :%s/\<<C-r><C-w>\>//g<Left><Left>
-
-nmap        <Leader>rr          :CtrlPMRUFiles<cr>
+nnoremap        <Leader>rr          :CtrlPMRUFiles<cr>
 
 nnoremap    <leader>tt  :TestNearest<CR>
 nnoremap    <silent><leader>tf  :TestFile<CR>
@@ -281,11 +285,13 @@ nnoremap <Leader>vz :call VimuxZoomRunner()<CR>
 nnoremap <Leader>vi :VimuxInspectRunner<CR>
 map <Leader>vl :VimuxRunLastCommand<CR>
 map <Leader>vp :VimuxPromptCommand<CR>
+nnoremap    <leader>vr          :call VimuxRunLastCommand()<CR>
 
 nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
 
 nnoremap   <leader>wt           :e test<CR>
+nnoremap   <leader>zx           :ZZ
 
 
 " Operator pending movement.
@@ -525,7 +531,6 @@ let g:vdebug_options = {
 \   "port" : 9001
 \}
 
-
 " casestrate
 let g:casetrate_leader = '<leader>c'
 
@@ -537,15 +542,6 @@ let g:casetrate_leader = '<leader>c'
 "   let non_blank_char_exists_p = getline('.')[head_pos[2] - 1] !~# '\s'
 "   return
 "   \ non_blank_char_exists_p
-"   \ ? ['v', head_pos, tail_pos]
-"   \ : 0
-" endfunction
-
-"}}}
-
-" Debugging helpers
-autocmd BufEnter *.js iabbr xxx console.log('XXX',
-autocmd BufEnter *.js iabbr yyy console.log('YYY',
 autocmd BufEnter *.js iabbr zzz console.log('ZZZ',
 autocmd BufEnter *.vue iabbr xxx console.log('XXX',
 autocmd BufEnter *.vue iabbr yyy console.log('YYY',
@@ -603,14 +599,22 @@ autocmd BufWritePre * %s/\s\+$//e
 " Experimental stuff {{{1
 
 " A function that toggles the last character of the line
-function! ToggleLast(charToMatch)
-  normal mm
-  s/\v(.)$/\=submatch(1)==a:charToMatch ? '' : submatch(1).a:charToMatch
-  normal `m
+function! ToggleLast()
+  let line = getline('.')
+  let last = strpart(line, strlen(line) - 1)
+  echo 'yay'
+  " normal mz$
+  " if last == ';'
+  "   normal r,
+  " elseif last == ','
+  "   normal x
+  " else
+  "   normal a;
+  " endif
+  " normal `z
 endfunction
 
-nnoremap <silent> <leader>; :call ToggleLast(';')<cr>
-nnoremap <silent> <leader>, :call ToggleLast(',')<cr>
+nnoremap <silent> <leader>l :call ToggleLast()<cr>
 
 " }}}
 
@@ -618,4 +622,13 @@ augroup autosourcing
     autocmd!
     " autocmd BufWritePost .vimrc source $MYVIMRC
     " autocmd BufWritePost call Source()
+augroup END
+
+"/ DBExt
+let g:dbext_default_profile_mysql_ll = 'type=MYSQL:host=db:user=root:passwd=rootyroot:dbname=learningladders'
+let g:dbext_default_window_width = 50
+
+augroup learningladders
+    autocmd!
+    autocmd BufRead */learning-ladders/* DBSetOption profile=mysql_ll
 augroup END
