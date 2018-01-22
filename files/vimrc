@@ -203,7 +203,7 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-l> <C-w><C-l>
 
 " ctrl+m to increment next number on the line
-noremap     <C-m>               <C-a>
+nnoremap     <C-m>               <C-a>
 
 inoremap    <c-x><c-]>          <c-]>
 nnoremap    <leader>]           :CtrlPTag<cr>
@@ -221,6 +221,7 @@ vnoremap    <leader>aw          y :Ack <C-r>"<space>
 
 nnoremap    <leader>rr          :CtrlPMRU<cr>
 nnoremap    <leader>b           :CtrlPBuffer<cr>
+" inoremap    <C-k>               <esc>ysaW>yaW$pT<i/<esc>hi
 
 " Insert Now or Date
 nnoremap    <leader>n           "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
