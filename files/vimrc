@@ -68,6 +68,7 @@ silent! set mouse=nvc
 
 set clipboard=unnamed
 
+set nowrap
 set showbreak=…                       " Nice ellipsis when wrapping lines
 
 "}}}
@@ -368,8 +369,8 @@ map g# <Plug>(incsearch-nohl-g#)"
 
 
 "/ vimux
-let g:VimuxOrientation = "v"
-" let g:VimuxHeight = "40"
+let g:VimuxOrientation = "h"
+let g:VimuxHeight = "30"
 
 
 
