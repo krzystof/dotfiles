@@ -29,7 +29,6 @@ Plugin 'andyl/vim-textobj-elixir'
 " Navigation
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'tpope/vim-vinegar'
-Plugin 'scrooloose/nerdtree'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
@@ -47,7 +46,7 @@ Plugin 'w0rp/ale'
 Plugin 'benmills/vimux'
 Plugin 'idanarye/vim-casetrate'
 Plugin 'embear/vim-localvimrc'
-Plugin 'greplace'
+Plugin 'skwp/greplace.vim'
 Plugin 'dbext.vim'
 
 " Completion

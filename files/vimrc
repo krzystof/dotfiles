@@ -288,6 +288,7 @@ nnoremap <Leader>vi :VimuxInspectRunner<CR>
 map <Leader>vl :VimuxRunLastCommand<CR>
 map <Leader>vp :VimuxPromptCommand<CR>
 nnoremap    <leader>vr          :call VimuxRunLastCommand()<CR>
+nnoremap    <leader>vc          :call VimuxCloseRunner()<CR>
 
 nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
