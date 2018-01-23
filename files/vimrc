@@ -68,7 +68,7 @@ silent! set mouse=nvc
 
 set clipboard=unnamed
 
-set nowrap
+" set nowrap
 set showbreak=…                       " Nice ellipsis when wrapping lines
 
 "}}}

@@ -48,11 +48,12 @@ Plugin 'idanarye/vim-casetrate'
 Plugin 'embear/vim-localvimrc'
 Plugin 'skwp/greplace.vim'
 Plugin 'dbext.vim'
+Plugin 'rstacruz/sparkup'
 
 " Completion
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'SirVer/ultisnips'
-Plugin 'mattn/emmet-vim'
+" Plugin 'mattn/emmet-vim'
 Plugin 'ervandew/supertab'
 
 " Languages

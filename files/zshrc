@@ -34,6 +34,7 @@ autoload -Uz compinit && compinit -i
 
 
 
+# Ctrl+Space to accept shell suggestion
 bindkey '^ ' autosuggest-accept
 
 
@@ -78,8 +79,5 @@ function github {
 
 alias gh=github
 
-export TODO_DIR="$HOME/Dropbox/TodoTxt"
-
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+. ~/Dotfiles/files/lazynvm.sh
