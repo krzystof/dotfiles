@@ -1,9 +1,0 @@
----
-- name: THEME ~> copy bridge cursors
-  copy: src=bridge dest=/usr/share/icons
-
-- name: THEME ~> remove current dconf
-  file: path={{ home }}/.config/dconf/user state=absent
-
-- name: THEME ~> copy my dconf (keyboard shortcuts)
-  copy: src={{ home }}/Dotfiles/files/dconf dest={{ home }}/.config/dconf/user
