@@ -7,59 +7,6 @@ release=`lsb_release -cs`
 . ./prompt_utils.sh
 . ./helpers.sh
 
-function add_ppa() {
-  ppa=$1
-  if ! grep -q "^deb .*${ppa}" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
-    sudo add-apt-repository -y ppa:${ppa}
-    e_ok "${ppa} ppa added"
-  fi
-}
-
-function apt_install() {
-  pkg=$1
-  if [ -v ${pkg} ]; then
-    e_arrow "Installing ${pkg}"
-    sudo apt-get install -y ${pkg}
-    e_ok "${pkg} installed"
-  fi
-}
-
-function symlink_dropbox() {
-  dest=${HOME}/Dropbox/${1}
-  link=${HOME}/$2
-
-  if [ ! -L ${link} ] || [ `readlink ${link}` != $dest ]; then
-    ln -s ${dest} ${link}
-    e_ok "Symlink to Dropbox/${dest}"
-  fi
-}
-
-function clone_github_repo() {
-  cd ${DOTFILES}/repos
-  repo=https://github.com/${1}.git
-  if [ ! -d ${DOTFILES}/repos/${2} ]; then
-    e_arrow "cloning from ${repo}"
-    git clone --recursive ${repo} &> /dev/null
-    e_ok "${1} cloned successfully"
-  fi
-}
-
-function install_nerd_font() {
-  font_dir=${HOME}/.local/share/fonts
-  mkdir -p ${font_dir}
-  if [ -d ${font_dir}/${1} ]; then
-    ./nerd-fonts/install.sh $1
-  fi
-}
-
-not_installed() {
-  if type_exists $1 &> /dev/null; then
-    return 0
-  else
-    return 1
-  fi
-}
-
 e_header "Let's setup a new machine with Elementary OS, shall we"
 echo
 cd ${HOME}/Dotfiles
@@ -68,16 +15,15 @@ e_arrow "Updating the Dotfiles repo..."
 git pull
 
 add_ppa jonathonf/vim
-add_ppa me-davidsansome/clementine
 add_ppa mozillateam/firefox-next
 
 sudo apt-get update &> /dev/null
 
 apt_install vim
-apt_install clementine
 apt_install zsh
 apt_install xcape
 apt_install firefox
+apt_install gdebi
 
 clone_github_repo ryanoasis/nerd-fonts nerd-fonts
 clone_github_repo sorin-ionescu/prezto prezto
@@ -95,6 +41,7 @@ if ! type_exists dropbox; then
   cd ${HOME}/Downloads
   wget https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
   gdebi dropbox_2015.10.28_amd64.deb
+  rm -f dropbox_2015.10.28_amd64.deb
   e_ok "dropbox installed, just login"
   seek_confirmation "is it synced yet?"
   if ! is_confirmed; then
@@ -106,6 +53,13 @@ fi
 if [ ! -d ${HOME}/Dropbox/Clementine ]; then
   e_error "dropbox not synced yet! Please sign in and rerun this script after"
   exit 1
+fi
+
+if ! type_exists clementine; then
+  cd "${HOME}/Downloads"
+  wget https://github.com/clementine-player/Clementine/releases/download/1.3.1/clementine_1.3.1-xenial_amd64.deb
+  gdebi clementine_1.3.1-xenial_amd64.deb
+  rm -f clementine_1.3.1-xenial_amd64.deb
 fi
 
 symlink_dropbox Clementine/albumcovers .config/Clementine/albumcovers
