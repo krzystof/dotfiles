@@ -39,6 +39,8 @@ function install_nerd_font() {
   font_dir=${HOME}/.local/share/fonts
   mkdir -p ${font_dir}
   if [ -d ${font_dir}/${1} ]; then
+    e_arrow "installing nerd font ${1}"
     ./nerd-fonts/install.sh $1
+    e_ok "${1} font installed"
   fi
 }

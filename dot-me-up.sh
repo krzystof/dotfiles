@@ -28,9 +28,14 @@ apt_install gdebi
 clone_github_repo ryanoasis/nerd-fonts nerd-fonts
 clone_github_repo sorin-ionescu/prezto prezto
 
+if [ ! -L ${HOME}/.zprezto ]; then
+  ln -s ${DOTFILES}/repos/prezto ${HOME}/.zprezto
+  e_ok "Symlinked prezto dir"
+fi
+
 if [ ! -f ${DOTFILES}/repos/prezto/modules/prompt/functions/prompt_polly_setup ]; then
   ln -s ${DOTFILES}/files/prompt_polly_setup  ${DOTFILES}/repos/prezto/modules/prompt/functions/prompt_polly_setup
-  e_arrow "Symlinked prezto prompt"
+  e_ok "Symlinked prezto prompt"
 fi
 
 install_nerd_font SauceCodePro
@@ -56,10 +61,12 @@ if [ ! -d ${HOME}/Dropbox/Clementine ]; then
 fi
 
 if ! type_exists clementine; then
+  e_arrow "installing clementine"
   cd "${HOME}/Downloads"
   wget https://github.com/clementine-player/Clementine/releases/download/1.3.1/clementine_1.3.1-xenial_amd64.deb
   gdebi clementine_1.3.1-xenial_amd64.deb
   rm -f clementine_1.3.1-xenial_amd64.deb
+  e_ok "clementine installed"
 fi
 
 symlink_dropbox Clementine/albumcovers .config/Clementine/albumcovers
@@ -82,6 +89,7 @@ done
 
 if [ ! -L "${HOME}/.zsh/completion" ]; then
   ln -s "${DOTFILES}/completion" "${HOME}/.zsh/completion"
+  e_ok "symlinked zsh completion"
 fi
 
 if [ `echo $SHELL` != /bin/zsh ]; then
@@ -90,8 +98,10 @@ if [ `echo $SHELL` != /bin/zsh ]; then
 fi
 
 if [ ! -d ${HOME}/.local/share/icons/bridge ]; then
+  e_arrow "installing bridge cursor"
   mkdir -p ${HOME}/.local/share/icons
   cp -R ${DOTFILES}/files/bridge ${HOME}/.local/share/icons/
+  e_ok "bridge cursor copied"
 fi
 
 if ! type_exists tmux; then
