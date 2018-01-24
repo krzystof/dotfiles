@@ -2,15 +2,14 @@
 
 > Renewing with the shell
 
+### Setup a machine
+
 ```bash
-./dot-me-up.sh   # setup a new computer
-# login to dropbox
-# login to firefox and lastpass
-# set keymaps
+./dot-me-up.sh
 ```
 
 ## TODO
 - [  ] server.sh script
-- [  ] zsh prompt for server
+- [  ] bashit prompt for server (customise for production or not)
 - [  ] set key repeat
 - [  ] set keyboard shortcuts

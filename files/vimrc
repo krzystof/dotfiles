@@ -225,10 +225,12 @@ nnoremap    <leader>b           :CtrlPBuffer<cr>
 " inoremap    <C-k>               <esc>ysaW>yaW$pT<i/<esc>hi
 
 " Insert Now or Date
-nnoremap    <leader>n           "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
-inoremap    <leader>n           <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
-nnoremap    <leader>d           "=strftime("%d/%m/%Y")<CR>P
-inoremap    <leader>d           <C-R>=strftime("%d/%m/%Y")<CR>
+nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
+inoremap    <leader>dl          <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
+nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
+inoremap    <leader>ds          <C-R>=strftime("%d/%m/%Y")<CR>
+nnoremap    <leader>dj          :+d
+nnoremap    <leader>dk          :-d
 
 "e for edit
 nnoremap    <leader>ev          :tabedit $MYVIMRC<cr>

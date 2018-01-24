@@ -4,8 +4,6 @@
 # all props goes to http://broken-by.me/lazy-load-nvm/
 # grabbed from reddit @ https://www.reddit.com/r/node/comments/4tg5jg/lazy_load_nvm_for_faster_shell_start/
 
-export NVM_DIR=~/.nvm
-
 lazynvm() {
   if ! [ -x nvm ]; then
     unset -f nvm node npm yarn
