@@ -246,6 +246,8 @@ nmap        <Leader>i           vip:sort<CR>
 " Git
 nnoremap    <leader>g           :Gstatus<CR>
 
+inoremap     <c-l>          <Esc>ysiw>yiW$p
+
 " Ladders
 nnoremap   <leader>lr          :edit bootstrap/routes.php<CR>
 nnoremap   <leader>lm          :edit src/Ladders/Database/Migrations<CR>
@@ -326,6 +328,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 "/ VimCommentary
 autocmd FileType php setlocal commentstring=\/\/\ %s
+autocmd FileType vue setlocal commentstring=\/\/\ %s
 
 "/ CtrlP
 let g:ctrlp_extensions = ['tag']
@@ -593,6 +596,8 @@ augroup END
 "/ Vim vue
 " Prevent syntax highlighting quirks
 autocmd FileType vue syntax sync fromstart
+
+" autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
 
 " Enable that with Elixir 1.6! or try to use it with ALE
 " autocmd BufWritePost *.exs silent :!mix format %

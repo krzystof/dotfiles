@@ -74,8 +74,12 @@ symlink_dropbox Clementine/Clementine.conf .config/Clementine/Clementine.conf
 symlink_dropbox Clementine/clementine.db .config/Clementine/clementine.db
 
 if [ ! -e ${HOME}/.vim ]; then
-  ln -s ${HOME}/Dropbox/Vim ${HOME}/.vim
-  e_ok "vim dir symlinked"
+  mkdir -p ${HOME}/.vim
+  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+  ln -s ${HOME}/Dropbox/Vim/after ${HOME}/.vim/after
+  ln -s ${HOME}/Dropbox/Vim/UltiSnips ${HOME}/.vim/UltiSnips
+  ln -s ${HOME}/Dropbox/Vim/plugins.vim ${HOME}/.vim/plugins.vim
+  e_ok "vim dir ready"
 fi
 
 symlinks=(zlogin zlogout zpreztorc zprofile zshenv zshrc tmux.conf gitconfig gitignore_global xprofile ctags vimrc)

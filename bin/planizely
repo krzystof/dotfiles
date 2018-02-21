@@ -19,7 +19,7 @@ cd $PROJECT
 tmux new-session -d -s $SESSION
 
 tmux rename-window "repo"
-tmux send-keys -t $SESSION:"repo" "nvm use latest" C-m
+tmux send-keys -t $SESSION:"repo" "nvm use default" C-m
 tmux send-keys -t $SESSION:"repo" "vim ." C-m
 
 tmux new-window -t $SESSION -n "servers"
