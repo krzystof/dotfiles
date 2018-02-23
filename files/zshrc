@@ -74,10 +74,15 @@ function github {
 
     url="${url}/${action}/${base}${branch}"
 
-    echo "Opening ${url} $(\google-chrome ${url})"
+    # echo "Opening ${url} $(\google-chrome ${url})"
+    echo "Opening ${url} $(\firefox -new-tab ${url})"
 }
 
 alias gh=github
 
 export NVM_DIR="$HOME/.nvm"
-. ~/Dotfiles/files/lazynvm.sh
+
+# . ~/Dotfiles/files/lazynvm.sh
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

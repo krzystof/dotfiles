@@ -14,8 +14,12 @@ cd ${HOME}/Dotfiles
 e_arrow "Updating the Dotfiles repo..."
 git pull
 
+sudo apt-get update &> /dev/null
+apt_install software-properties-common
+
 add_ppa jonathonf/vim
 add_ppa mozillateam/firefox-next
+add_ppa hnakamur/tmux
 
 sudo apt-get update &> /dev/null
 
@@ -24,6 +28,10 @@ apt_install zsh
 apt_install xcape
 apt_install firefox
 apt_install gdebi
+apt_install tmux
+apt_install libevent-dev
+apt_install terminator
+apt_install silversearcher-ag
 
 clone_github_repo ryanoasis/nerd-fonts nerd-fonts
 clone_github_repo sorin-ionescu/prezto prezto
@@ -44,8 +52,8 @@ install_nerd_font Inconsolata
 if ! type_exists dropbox; then
   e_arrow "installing dropbox"
   cd ${HOME}/Downloads
-  wget https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
-  gdebi dropbox_2015.10.28_amd64.deb
+  wget -O dropbox_2015.10.28_amd64.deb https://www.dropbox.com/download?dl=packages/ubuntu/dropbox_2015.10.28_amd64.deb
+  sudo gdebi -q dropbox_2015.10.28_amd64.deb
   rm -f dropbox_2015.10.28_amd64.deb
   e_ok "dropbox installed, just login"
   seek_confirmation "is it synced yet?"
@@ -64,10 +72,12 @@ if ! type_exists clementine; then
   e_arrow "installing clementine"
   cd "${HOME}/Downloads"
   wget https://github.com/clementine-player/Clementine/releases/download/1.3.1/clementine_1.3.1-xenial_amd64.deb
-  gdebi clementine_1.3.1-xenial_amd64.deb
+  sudo gdebi clementine_1.3.1-xenial_amd64.deb &> /dev/null
   rm -f clementine_1.3.1-xenial_amd64.deb
   e_ok "clementine installed"
 fi
+
+mkdir -p ${HOME}/.config/Clementine
 
 symlink_dropbox Clementine/albumcovers .config/Clementine/albumcovers
 symlink_dropbox Clementine/Clementine.conf .config/Clementine/Clementine.conf
@@ -91,6 +101,8 @@ for symlink in "${symlinks[@]}"; do
   fi
 done
 
+mkdir -p ${HOME}/.zsh
+
 if [ ! -L "${HOME}/.zsh/completion" ]; then
   ln -s "${DOTFILES}/completion" "${HOME}/.zsh/completion"
   e_ok "symlinked zsh completion"
@@ -101,21 +113,17 @@ if [ `echo $SHELL` != /bin/zsh ]; then
   e_ok "changed default shell to zsh"
 fi
 
+mkdir -p ${HOME}/.config/terminator
+
+if [! -L ${HOME}/.config/terminator/conf ]; then
+  ln -s ${DOTFILES}/files/terminator ${HOME}/.config/terminator/config
+fi
+
 if [ ! -d ${HOME}/.local/share/icons/bridge ]; then
   e_arrow "installing bridge cursor"
   mkdir -p ${HOME}/.local/share/icons
   cp -R ${DOTFILES}/files/bridge ${HOME}/.local/share/icons/
   e_ok "bridge cursor copied"
-fi
-
-if ! type_exists tmux; then
-  e_arrow "installing tmux 2.6"
-  cd ${HOME}/Downloads
-  wget https://github.com/tmux/tmux/releases/download/2.6/tmux-2.6.tar.gz
-  tar -zcvf tmux-2.6.tar.gz
-  ./configure && make
-  sudo make install
-  e_ok "tmux installed"
 fi
 
 if ! type_exists albert; then
@@ -127,19 +135,21 @@ if ! type_exists albert; then
   rm -f Release.key
   sudo apt-get update
   sudo sh -c "echo 'deb http://download.opensuse.org/repositories/home:/manuelschneid3r/xUbuntu_16.04/ /' > /etc/apt/sources.list.d/albert.list"
-  sudo apt-get install albert
+  sudo apt-get update && apt_install albert
   mkdir -p "${HOME}/.config/albert/org.albert.extension.kvstore"
-  ln -s "${HOME}/Dropbox/AlbertKeyValues/kvstore.db" "${HOME}/.config/albert/org.albert.extension.kvstore/kvstoredb"
+  ln -s "${HOME}/Dropbox/AlbertKeyValues/kvstore.db" "${HOME}/.config/albert/org.albert.extension.kvstore/kvstore.db"
   e_ok "albert installed"
 fi
 
 if [ ! -d ${NVM_DIR} ]; then
+  sudo apt-get remove nodejs
   e_arrow "installing nvm"
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
-  sed '/$NVM_DIR/nvm.sh/d' "${HOME}/.zshrc"
+  sed '/$NVM_DIR/nvm.sh/d' ${HOME}/.zshrc
   . "$NVM_DIR/nvm.sh"
   e_arrow "installing node"
   nvm install v8.1.3
+  echo fs.inotify.max_user_watches=582222 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
   e_ok "nvm and node installed successfully"
 fi
 
@@ -153,22 +163,17 @@ fi
 
 if ! type_exists docker; then
   e_arrow "installing docker"
-  sudo apt-get install \
-      apt-transport-https \
-      ca-certificates \
-      curl \
-      software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-  sudo add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) \
-    stable"
-  sudo apt-get update && sudo apt-get install -y docker-ce
-  sudo groupadd docker
+  sudo add-apt-repository -y \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
+  sudo apt-get update && apt_install docker-ce
+  if ! grep -q docker /etc/group; then
+    sudo groupadd docker
+  fi
   sudo usermod -aG docker $USER
   sudo systemctl enable docker
   e_arrow "installing docker-compose"
-  sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+  sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
   e_ok "docker installed successfully"
 fi
@@ -176,7 +181,7 @@ fi
 if ! type_exists php; then
   e_arrow "installing php7.1"
   add_ppa ondrej/php
-  sudo apt-get update && sudo apt-get install php7.1-cli php7.1-pdo php7.1-xml php7.1-curl php7.1-dom php7.1-gd php7.1-mbstring php7.1-zip
+  sudo apt-get update && sudo apt-get install -y php7.1-cli php7.1-pdo php7.1-xml php7.1-curl php7.1-dom php7.1-gd php7.1-mbstring php7.1-zip
   e_ok "php7.1 installed"
 fi
 
@@ -200,13 +205,13 @@ if ! type_exists valet; then
   e_ok "valet installed"
 fi
 
+add_ppa philip.scott/elementary-tweaks
+sudo apt-get update && apt_install elementary-tweaks
+
 # What needs to be done on a brand new system?
 # - install elm
 # - install elixir
-# - move all helpers to helpers.sh
-
 # symlinks:
 # dconf
-# terminator?
 # elementary tweaks
 # maybe sublime?

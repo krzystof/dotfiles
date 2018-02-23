@@ -22,7 +22,8 @@
   showUntrackedFiles = all
 
 [transfer]
-  fsckobjects = true
+  fsckobjects = true # toggle this value if cannot clone a repo
+  # fsckobjects = false
 
 [core]
   excludesfile = /home/krzystof/.gitignore_global

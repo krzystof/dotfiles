@@ -35,7 +35,7 @@ set softtabstop=2                         " Insert mode
 set shiftwidth=2                          " Spaces when using < and >
 set complete=.,w,b,u                      " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
 set wildmenu
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
 set nojoinspaces
 set listchars=tab:▸\ ,eol:¬               " Custom invisible chars
 
@@ -47,6 +47,7 @@ set autoread                              " Update buffers if file changed outsi
 set nocursorline
 set nocursorcolumn
 
+set rtp+=~/.fzf
 
 " Search
 set nohlsearch
@@ -224,18 +225,19 @@ nnoremap    <leader>rr          :CtrlPMRU<cr>
 nnoremap    <leader>b           :CtrlPBuffer<cr>
 " inoremap    <C-k>               <esc>ysaW>yaW$pT<i/<esc>hi
 
+
 " Insert Now or Date
 nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 inoremap    <leader>dl          <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
 inoremap    <leader>ds          <C-R>=strftime("%d/%m/%Y")<CR>
-nnoremap    <leader>dj          :+d
-nnoremap    <leader>dk          :-d
+nnoremap    <leader>dj          :+d<cr>
+nnoremap    <leader>dk          :-d<cr>
 
 "e for edit
 nnoremap    <leader>ev          :tabedit $MYVIMRC<cr>
 nmap        <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
-nmap        <leader>es          :tabedit ~/.vim/UltiSnips/
+nmap        <leader>es          :call UltiSnipsEdit()<cr>
 nnoremap    <Leader>ee          :edit ~/.texpander/<cr>
 
 " nnoremap p =p
@@ -334,8 +336,14 @@ autocmd FileType vue setlocal commentstring=\/\/\ %s
 let g:ctrlp_extensions = ['tag']
 let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
+
+set grepprg=ag\ --nogroup\ --nocolor
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-let g:ctrlp_use_caching = 0
+let g:ctrlp_use_caching = 1
+
+" set grepprg=rg\ --color=never
+" let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+" let g:ctrlp_use_caching = 0
 
 "/ NERDTree
 " messing with vinegar...
@@ -375,8 +383,8 @@ map g# <Plug>(incsearch-nohl-g#)"
 
 
 "/ vimux
-let g:VimuxOrientation = "h"
-let g:VimuxHeight = "30"
+" let g:VimuxOrientation = "h"
+" let g:VimuxHeight = "30"
 
 
 
@@ -398,7 +406,7 @@ highlight link ALEErrorSign NiceError
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 
 let g:ale_fix_on_save = 1
 nmap <F8> <Plug>(ale_fix)
@@ -408,6 +416,9 @@ let g:ale_linters = {
 \}
 
 let g:ale_fixers = {
+\   'php': [
+\       'phpcbf'
+\   ],
 \   'elm': [
 \       'format'
 \   ],
@@ -473,12 +484,11 @@ endfunction
 
 
 "/ VimAck
-let g:ackprg = 'ag --vimgrep'
+let g:ackprg = 'rg --vimgrep'
 
 
 "/ Autocorrect abbrev
 iabbrev r return
-iabbrev return NOPENOPENOPE
 iabbrev rq request
 iabbrev rs response
 iabbrev f function
@@ -503,7 +513,7 @@ nnoremap <Leader>s :SplitjoinSplit<cr>
 call textobj#user#plugin('function', {
 \   '-': {
 \     'select-a-function': 'CurrentFunctionA',
-\     'select-a': 'af',
+\     'select-a': 'am',
 \   },
 \ })
 
@@ -533,7 +543,6 @@ let g:tmuxify_run = {
 \   'js': 'jest %'
 \ }
 
-
 "/ VDebug
 let g:vdebug_options = {
 \   "port" : 9001
@@ -550,7 +559,8 @@ let g:casetrate_leader = '<leader>c'
 "   let non_blank_char_exists_p = getline('.')[head_pos[2] - 1] !~# '\s'
 "   return
 "   \ non_blank_char_exists_p
-autocmd BufEnter *.js iabbr zzz console.log('ZZZ',
+
+autocmd BufEnter *.js  iabbr zzz console.log('ZZZ',
 autocmd BufEnter *.vue iabbr xxx console.log('XXX',
 autocmd BufEnter *.vue iabbr yyy console.log('YYY',
 autocmd BufEnter *.vue iabbr zzz console.log('ZZZ',
@@ -635,7 +645,7 @@ augroup autosourcing
 augroup END
 
 "/ DBExt
-let g:dbext_default_profile_mysql_ll = 'type=MYSQL:host=db:user=root:passwd=rootyroot:dbname=learningladders'
+let g:dbext_default_profile_mysql_ll = 'type=MYSQL:host=db:user=root:passwd=rootyroot:dbname=ll'
 let g:dbext_default_window_width = 50
 
 augroup learningladders
