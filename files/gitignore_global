@@ -41,6 +41,7 @@ Thumbs.db
 ##########################
 *.sublime-project
 *.sublime-workspace
+.projections.json
 *.tmux
 .lvimrc
 .phpintel

@@ -23,7 +23,9 @@ so ~/.vim/plugins.vim           "Source the plugins file
 
 syntax enable
 
-let mapleader = ','
+let mapleader = "\<Space>"
+
+" let mapleader = ','
 let maplocalleader = '\\'
 
 set smartindent
@@ -61,7 +63,6 @@ set splitbelow
 set splitright
 
 set signcolumn=yes
-
 
 runtime! macros/matchit.vim
 
@@ -124,7 +125,6 @@ highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 highlight SignColumn ctermbg=NONE
 highlight TabLineFill ctermbg=NONE
-
 highlight CursorLineNr  ctermbg=NONE
 highlight Normal        ctermbg=NONE
 highlight nonText       ctermbg=NONE
@@ -152,43 +152,36 @@ noremap j gj
 
 inoremap jk <Esc>
 
+nnoremap K <nop>
+
 
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
 command! Wip call VimuxRunCommand("u --group wip")
-command! Source :source $MYVIMRC
-
-nnoremap K     <nop>
-nnoremap Q     <nop>
+command! So :source $MYVIMRC
 
 " Switch to previous buffer
 nnoremap <C-e> :e#<CR>
 
 "
 " " Emacs-like bindings in command line -- `:help emacs-keys`
-cnoremap <C-a>  <Home>
 " cnoremap <C-b>  <Left>
 " cnoremap <C-f>  <Right>
 " cnoremap <C-d>  <Del>
+cnoremap <C-a>  <Home>
 cnoremap <C-e>  <End>
 cnoremap <C-b>  <S-Left>
 cnoremap <C-f>  <S-Right>
 " cnoremap <M-d>  <S-right><Delete>
-" cnoremap <Esc>b <S-Left>
-" cnoremap <Esc>f <S-Right>
 " cnoremap <Esc>d <S-right><Delete>
 " cnoremap <C-g>  <C-c>"
 
-
-
-" Why not use the space or return keys to toggle folds?
+" Supposed to be alt...?
 nnoremap <M-f> za
 " vnoremap <M-f> zf
 " nnoremap <cr> za
-
-nnoremap <space> :
 
 
 " ctrl+s to save
@@ -204,27 +197,41 @@ nnoremap <C-k> <C-w><C-k>
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-l> <C-w><C-l>
 
+
+" Mapping selecting mappings
+nmap        <leader><tab>       <plug>(fzf-maps-n)
+xmap        <leader><tab>       <plug>(fzf-maps-x)
+omap        <leader><tab>       <plug>(fzf-maps-o)
+nnoremap    <leader>f           :Files<cr>
+
+" completion super stuff
+" imap <c-x><c-k> <plug>(fzf-complete-word)
+" imap <c-x><c-f> <plug>(fzf-complete-path)
+" imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+" imap <c-x><c-l> <plug>(fzf-complete-line)
+
 " ctrl+m to increment next number on the line
 nnoremap     <C-m>               <C-a>
 
 inoremap    <c-x><c-]>          <c-]>
-nnoremap    <leader>]           :CtrlPTag<cr>
-nmap        <leader>\|          :vsp<cr>
-nmap        <leader>-           :sp<cr>
-nnoremap    <leader>w           :res -10<CR>
-nnoremap    <leader>W           :res +10<CR>
+nnoremap    <leader>\|          :vsp<cr>
+nnoremap    <leader>-           :sp<cr>
 
-nnoremap    <leader>1           :NERDTreeToggle<cr>
+nnoremap    <leader>-           :res -10<CR>
+nnoremap    <leader>+           :res +10<CR>
+
 nnoremap    <leader>2           :TagbarToggle<CR>
 
-nnoremap    <leader>aa          :Ack<space>
-nnoremap    <leader>aw          :Ack <C-r><C-w><space>
-vnoremap    <leader>aw          y :Ack <C-r>"<space>
+nnoremap    <leader>a           :Ack<space>
+nnoremap    <leader>aa          :Ack<space>''<space>app
+nnoremap    <leader>aj          :Ack<space>''<space>jsapp<S-left><left><left>
 
-nnoremap    <leader>rr          :CtrlPMRU<cr>
+nnoremap    <leader>wa          :Ack <C-r><C-w><cr>
+vnoremap    <leader>wa          y :Ack <C-r>"<cr>
+
+" fuzzy stuff
 nnoremap    <leader>b           :CtrlPBuffer<cr>
-" inoremap    <C-k>               <esc>ysaW>yaW$pT<i/<esc>hi
-
+nnoremap    <leader>r           :CtrlPMRU<cr>
 
 " Insert Now or Date
 nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
@@ -234,53 +241,29 @@ inoremap    <leader>ds          <C-R>=strftime("%d/%m/%Y")<CR>
 nnoremap    <leader>dj          :+d<cr>
 nnoremap    <leader>dk          :-d<cr>
 
-"e for edit
 nnoremap    <leader>ev          :tabedit $MYVIMRC<cr>
-nmap        <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
-nmap        <leader>es          :call UltiSnipsEdit()<cr>
-nnoremap    <Leader>ee          :edit ~/.texpander/<cr>
-
-" nnoremap p =p
-" nnoremap P =P
-
-nmap        <Leader>i           vip:sort<CR>
-
-" Git
+nnoremap    <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
+nnoremap    <leader>es          :call UltiSnipsEdit()<cr>
+nnoremap    <Leader>i           vip:sort<CR>
 nnoremap    <leader>g           :Gstatus<CR>
 
-inoremap     <c-l>          <Esc>ysiw>yiW$p
+nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-" Ladders
-nnoremap   <leader>lr          :edit bootstrap/routes.php<CR>
-nnoremap   <leader>lm          :edit src/Ladders/Database/Migrations<CR>
 " Planizely
 nnoremap    <leader>pr          :edit routes/api.php<cr>
 
-" l for last
-" TODO -> use a function that toggle the last character of the line
-" nnoremap    <leader>ld          mz$x`z
-" nnoremap    <leader>l;          mzA;<Esc>`z
-" nnoremap    <leader>l,          mzA,<Esc>`z
-" nnoremap    <leader>lr;         mz$r;`z
-" nnoremap    <leader>lr,         mz$r,`z
-" nnoremap    <leader>l<Space>    :%s/\s\+$//e<CR>
-
 " p for php
-nnoremap     <leader>pi          :call PhpInsertUse()<CR>
+nnoremap    <leader>pi          :call PhpInsertUse()<CR>
 inoremap    <leader>pi          <Esc>:call IPhpInsertUse()<CR>
 inoremap    <leader>pe          <Esc>:call IPhpExpandClass()<CR>
 nnoremap    <leader>pe          :call PhpExpandClass()<CR>
 nnoremap    <leader>ps          :call PhpSortUse()<CR>
 nnoremap    <leader>pi          :call PhpInsertUse()<CR>
-inoremap    <leader>pi          <Esc>:call IPhpInsertUse()<CR>
 
 nnoremap    <leader>q           :cclose<CR>
+nnoremap    Q                   :BD<cr>
 
-" r for replace
-nnoremap    <Leader>rw          :%s/\<<C-r><C-w>\>//g<Left><Left>
-nnoremap        <Leader>rr          :CtrlPMRUFiles<cr>
-
-nnoremap    <leader>tt  :TestNearest<CR>
+nnoremap    <leader>tt          :TestNearest<CR>
 nnoremap    <silent><leader>tf  :TestFile<CR>
 nnoremap    <silent><leader>ta  :TestSuite<CR>
 nnoremap    <silent><leader>tl  :TestLast<CR>
@@ -300,19 +283,28 @@ nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
 
 nnoremap   <leader>wt           :e test<CR>
-nnoremap   <leader>zx           :ZZ
+nnoremap   zx                   :wq<cr>
 
 
 " Operator pending movement.
 " Interesting. Keep in mind.
+" Need to re-read "learn vimscript the hard way" chapter
 onoremap    p                   i(
 onoremap    in(                 :<c-u>normal! f(vi(<cr>
 onoremap    il(                 :<c-u>normal! F)vi(<cr>
 
 
-"   w = whooks web
-"   a = whooks api
-"   p = planizely
+
+"
+" Abbreviations
+"
+autocmd BufEnter *.js  iabbr zzz console.log('ZZZ',
+autocmd BufEnter *.vue iabbr xxx console.log('XXX',
+autocmd BufEnter *.vue iabbr yyy console.log('YYY',
+autocmd BufEnter *.vue iabbr zzz console.log('ZZZ',
+autocmd BufEnter .vimlocal set filetype=vim
+
+
 
 
 "/
@@ -321,7 +313,6 @@ onoremap    il(                 :<c-u>normal! F)vi(<cr>
 
 " Expand %% to current file directory in command line mode
 cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-
 
 "}}}
 
@@ -332,22 +323,16 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 autocmd FileType php setlocal commentstring=\/\/\ %s
 autocmd FileType vue setlocal commentstring=\/\/\ %s
 
-"/ CtrlP
+""/ CtrlP
 let g:ctrlp_extensions = ['tag']
-let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
+"let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
 
-set grepprg=ag\ --nogroup\ --nocolor
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" set grepprg=ag\ --nogroup\ --nocolor
+" let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+set grepprg=rg\ --color=never
+let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_use_caching = 1
-
-" set grepprg=rg\ --color=never
-" let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-" let g:ctrlp_use_caching = 0
-
-"/ NERDTree
-" messing with vinegar...
-let NERDTreeHijackNetrw = 0
 
 "/ VIM Test
 " let test#strategy = "dispatch"
@@ -356,18 +341,12 @@ let test#strategy = "vimux"
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
 
-"/ Emmet
-" Use `,,` to trigger emmet
-" TODO -> get rid of emmet for more simple tag solution?
-" let g:user_emmet_leader_key=','
-
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
 
 "/ Supertab
 let g:SuperTabLongestEnhanced=1
 let g:SuperTabLongestHighlight=1
-
 
 
 "/ incsearch.vim
@@ -385,7 +364,6 @@ map g# <Plug>(incsearch-nohl-g#)"
 "/ vimux
 " let g:VimuxOrientation = "h"
 " let g:VimuxHeight = "30"
-
 
 
 "/ Gitgutter
@@ -560,11 +538,10 @@ let g:casetrate_leader = '<leader>c'
 "   return
 "   \ non_blank_char_exists_p
 
-autocmd BufEnter *.js  iabbr zzz console.log('ZZZ',
-autocmd BufEnter *.vue iabbr xxx console.log('XXX',
-autocmd BufEnter *.vue iabbr yyy console.log('YYY',
-autocmd BufEnter *.vue iabbr zzz console.log('ZZZ',
-autocmd BufEnter .vimlocal set filetype=vim
+
+"/ DBExt
+let g:dbext_default_profile_mysql_ll = 'type=MYSQL:host=db:user=root:passwd=rootyroot:dbname=ll'
+let g:dbext_default_window_width = 50
 
 " Section: Functions {{{1
 "------------------------------------------------------------------------------
@@ -643,10 +620,6 @@ augroup autosourcing
     " autocmd BufWritePost .vimrc source $MYVIMRC
     " autocmd BufWritePost call Source()
 augroup END
-
-"/ DBExt
-let g:dbext_default_profile_mysql_ll = 'type=MYSQL:host=db:user=root:passwd=rootyroot:dbname=ll'
-let g:dbext_default_window_width = 50
 
 augroup learningladders
     autocmd!

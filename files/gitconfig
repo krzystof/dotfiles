@@ -23,7 +23,7 @@
 
 [transfer]
   fsckobjects = true # toggle this value if cannot clone a repo
-  # fsckobjects = false
+  ; fsckobjects = false
 
 [core]
   excludesfile = /home/krzystof/.gitignore_global
