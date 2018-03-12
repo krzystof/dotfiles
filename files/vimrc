@@ -153,6 +153,11 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
+nnoremap <Up> :resize +5<cr>
+nnoremap <Down> :resize -5<cr>
+nnoremap <Left> :vertical resize -5<cr>
+nnoremap <Right> :vertical resize +5<cr>
+
 command! Wip call VimuxRunCommand("u --group wip")
 command! So :source $MYVIMRC
 
@@ -166,8 +171,9 @@ nnoremap <C-e> :e#<CR>
 " cnoremap <C-d>  <Del>
 cnoremap <C-a>  <Home>
 cnoremap <C-e>  <End>
-cnoremap <C-b>  <S-Left>
-cnoremap <C-f>  <S-Right>
+cnoremap <C-h>  <S-Left>
+cnoremap <C-l>  <S-Right>
+
 " cnoremap <M-d>  <S-right><Delete>
 " cnoremap <Esc>d <S-right><Delete>
 " cnoremap <C-g>  <C-c>"
@@ -192,19 +198,14 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-l> <C-w><C-l>
 
 
-" Mapping selecting mappings
-nmap        <leader><tab>       <plug>(fzf-maps-n)
-xmap        <leader><tab>       <plug>(fzf-maps-x)
-omap        <leader><tab>       <plug>(fzf-maps-o)
-nnoremap    <leader>f           :Files<cr>
-nnoremap    <leader>=           =ap
-
 " completion stuff
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 " imap <c-x><c-l> <plug>(fzf-complete-line)
 inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
+
+
 
 " ctrl+m to increment next number on the line
 nnoremap     <C-m>               <C-a>
@@ -213,12 +214,9 @@ inoremap    <c-x><c-]>          <c-]>
 nnoremap    <leader>\|          :vsp<cr>
 nnoremap    <leader>-           :sp<cr>
 
-nnoremap    <leader>-           :res -10<CR>
-nnoremap    <leader>+           :res +10<CR>
-
 nnoremap    <leader>2           :TagbarToggle<CR>
 
-nnoremap    <leader>a           :Ack
+nnoremap    <leader>f           :Ack<space>
 nnoremap    <leader>aw          :Ack <C-r><C-w><cr>
 vnoremap    <leader>aw          y :Ack <C-r>"<cr>
 nnoremap    <leader>aa          :Ack <C-r><C-w> app/<cr>
@@ -238,9 +236,7 @@ nnoremap    <leader>f           :Files<cr>
 
 " Insert Now or Date
 nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
-inoremap    <leader>dl          <C-R>=strftime("%Y-%m-%d %H:%M:%S")<CR>
 nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
-inoremap    <leader>ds          <C-R>=strftime("%d/%m/%Y")<CR>
 nnoremap    <leader>dj          :+d<cr>
 nnoremap    <leader>dk          :-d<cr>
 
@@ -257,11 +253,8 @@ nnoremap    <leader>pr          :edit routes/api.php<cr>
 
 " p for php
 nnoremap    <leader>pi          :call PhpInsertUse()<CR>
-" inoremap    <leader>pi          <Esc>:call IPhpInsertUse()<CR>
-" inoremap    <leader>pe          <Esc>:call IPhpExpandClass()<CR>
 nnoremap    <leader>pe          :call PhpExpandClass()<CR>
 nnoremap    <leader>ps          :call PhpSortUse()<CR>
-nnoremap    <leader>pi          :call PhpInsertUse()<CR>
 
 nnoremap    <leader>q           :cclose<CR>
 nnoremap    Q                   :BD<cr>
@@ -369,6 +362,23 @@ map #  <Plug>(incsearch-nohl-#)
 map g* <Plug>(incsearch-nohl-g*)
 map g# <Plug>(incsearch-nohl-g#)"
 
+
+""/ Sneak
+"nnoremap s s
+"nnoremap S S
+"" 2-character Sneak (default)
+"nmap \ <Plug>Sneak_s
+"nmap \ <Plug>Sneak_S
+"" visual-mode
+"xmap \ <Plug>Sneak_s
+"xmap \ <Plug>Sneak_S
+"" operator-pending-mode
+"omap \ <Plug>Sneak_s
+"omap \ <Plug>Sneak_S
+
+"" repeat motion
+"map \ <Plug>Sneak_;
+"map \ <Plug>Sneak_,
 
 "/ vimux
 " let g:VimuxOrientation = "h"
