@@ -39,7 +39,7 @@ set complete=.,w,b,u                      " Autocomplete looks through current b
 set wildmenu
 set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
 set nojoinspaces
-set listchars=tab:▸\ ,eol:¬
+set listchars=tab:▸\ ,eol:¬, trail:-, extends:>, precedes:<, nbsp:+             " Custom invisible chars
 
 set foldmethod=marker                     " Use braces by default
 set foldlevelstart=20                     " Do not open folds by default
@@ -330,6 +330,7 @@ let g:ctrlp_extensions = ['tag']
 " let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
 
+<<<<<<< Updated upstream
 set grepprg=ag\ --nogroup\ --nocolor
 let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 let g:ctrlp_use_caching = 1
@@ -338,9 +339,32 @@ let g:ctrlp_use_caching = 1
 " let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 " let g:ctrlp_use_caching = 1
 
+||||||| merged common ancestors
+set grepprg=ag\ --nogroup\ --nocolor
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+let g:ctrlp_use_caching = 1
 
+" set grepprg=rg\ --color=never
+" let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+" let g:ctrlp_use_caching = 0
+=======
+" set grepprg=ag\ --nogroup\ --nocolor
+" let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" let g:ctrlp_use_caching = 0
+>>>>>>> Stashed changes
+
+<<<<<<< Updated upstream
 "/ fzf
 let $FZF_DEFAULT_COMMAND = 'rg --files --no-messages'
+||||||| merged common ancestors
+"/ NERDTree
+" messing with vinegar...
+let NERDTreeHijackNetrw = 0
+=======
+set grepprg=rg\ --color=never
+let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+let g:ctrlp_use_caching = 1
+>>>>>>> Stashed changes
 
 "/ VIM Test
 " let test#strategy = "dispatch"
