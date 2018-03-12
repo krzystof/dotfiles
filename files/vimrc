@@ -330,45 +330,22 @@ let g:ctrlp_extensions = ['tag']
 " let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
 
-<<<<<<< Updated upstream
-set grepprg=ag\ --nogroup\ --nocolor
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-let g:ctrlp_use_caching = 1
-
-" set grepprg=rg\ --color=never
-" let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-" let g:ctrlp_use_caching = 1
-
-||||||| merged common ancestors
-set grepprg=ag\ --nogroup\ --nocolor
-let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-let g:ctrlp_use_caching = 1
-
-" set grepprg=rg\ --color=never
-" let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-" let g:ctrlp_use_caching = 0
-=======
 " set grepprg=ag\ --nogroup\ --nocolor
 " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-" let g:ctrlp_use_caching = 0
->>>>>>> Stashed changes
+" let g:ctrlp_use_caching = 1
 
-<<<<<<< Updated upstream
-"/ fzf
-let $FZF_DEFAULT_COMMAND = 'rg --files --no-messages'
-||||||| merged common ancestors
-"/ NERDTree
-" messing with vinegar...
-let NERDTreeHijackNetrw = 0
-=======
 set grepprg=rg\ --color=never
 let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_use_caching = 1
->>>>>>> Stashed changes
+
+
+"/ fzf
+let $FZF_DEFAULT_COMMAND = 'rg --files --no-messages'
+
 
 "/ VIM Test
-" let test#strategy = "dispatch"
-let test#strategy = "vimux"
+let test#strategy = "dispatch"
+" let test#strategy = "vimux"
 
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
