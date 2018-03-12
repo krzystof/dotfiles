@@ -1,0 +1,1 @@
+highlight gitcommitSelectedFile ctermfg=darkgreen

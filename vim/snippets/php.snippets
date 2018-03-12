@@ -1,0 +1,79 @@
+snippet dd "die and dump it!"
+dd(\$${1:this});
+endsnippet
+
+snippet dvd "good ol die var dump"
+die(var_dump(${1}));
+endsnippet
+
+snippet $ "this->"
+\$this->${1}
+endsnippet
+
+snippet c "constructor"
+public function __construct(${1})
+{
+    ${1}
+}
+endsnippet
+
+snippet f "function"
+public function ${1:nameme}(${2})
+{
+    ${3}
+}
+endsnippet
+
+snippet pf "private function"
+private function ${1:nameme}(${2})
+{
+    ${3}
+}
+endsnippet
+
+snippet sf "static function"
+${1:public} static function ${2:nameme}(${3})
+{
+    ${4}
+}
+endsnippet
+
+snippet wip "wip a test"
+/** @group wip */
+endsnippet
+
+snippet t "new test"
+/** @test */
+function ${1:fillme}()
+{
+    ${2}
+}
+endsnippet
+
+snippet if "if statement"
+if (${1}) {
+    ${2}
+}
+endsnippet
+
+snippet r
+return
+endsnippet
+
+snippet pry "pry"
+eval(\Psy\sh());
+endsnippet
+
+snippet _namespaced "php file" b
+<?php
+
+namespace `!v my#php#namespace()`;
+
+class `!v my#php#classname_from_file()`
+{
+	public function ${1:doStuff}()
+	{
+		${2}
+	}
+}
+endsnippet
