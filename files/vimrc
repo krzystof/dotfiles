@@ -87,21 +87,14 @@ set laststatus=2                         " Always display the status bar
 " color terminals like iTerm2.
 set background=dark
 let g:rehash256 = 1
-" colorscheme molokai
-" colorscheme wombat
-" colorscheme onedark
-" colorscheme PaperColor
-" colorscheme Tomorrow-Night-Eighties
-" colorscheme one
-" colorscheme tender
-
-" autocmd FileType vue colorscheme molokai
-" colorscheme PaperColor
-" colorscheme molokai
 
 colorscheme jellybeans
 
-if !has('gui_running')
+if has('gui_running')
+  set guicursor+=n-v-c:blinkon0
+  set guioptions -=m
+  set guioptions -=T
+else
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256
   elseif has("terminfo")
@@ -149,6 +142,7 @@ xnoremap & :&&<Enter>
 noremap k gk
 noremap j gj
 
+map <Leader>P :set paste<CR>o<esc>"*]p:set nopaste<cr>
 
 inoremap jk <Esc>
 
@@ -203,12 +197,14 @@ nmap        <leader><tab>       <plug>(fzf-maps-n)
 xmap        <leader><tab>       <plug>(fzf-maps-x)
 omap        <leader><tab>       <plug>(fzf-maps-o)
 nnoremap    <leader>f           :Files<cr>
+nnoremap    <leader>=           =ap
 
-" completion super stuff
-" imap <c-x><c-k> <plug>(fzf-complete-word)
-" imap <c-x><c-f> <plug>(fzf-complete-path)
-" imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+" completion stuff
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 " imap <c-x><c-l> <plug>(fzf-complete-line)
+inoremap <expr> <c-x><c-k> fzf#vim#complete#word({'left': '15%'})
 
 " ctrl+m to increment next number on the line
 nnoremap     <C-m>               <C-a>
@@ -222,17 +218,23 @@ nnoremap    <leader>+           :res +10<CR>
 
 nnoremap    <leader>2           :TagbarToggle<CR>
 
-nnoremap    <leader>f           :Ack<space>
+nnoremap    <leader>a           :Ack
 nnoremap    <leader>aw          :Ack <C-r><C-w><cr>
 vnoremap    <leader>aw          y :Ack <C-r>"<cr>
 nnoremap    <leader>aa          :Ack <C-r><C-w> app/<cr>
-nnoremap    <leader>av          :Ack <C-r><C-w> vendor/<cr>
 nnoremap    <leader>aj          :Ack <C-r><C-w> jsapp/<cr>
+nnoremap    <leader>ar          :Ack <C-r><C-w> resources/assets<cr>
+nnoremap    <leader>as          :Ack <C-r><C-w> src<cr>
+nnoremap    <leader>av          :Ack <C-r><C-w> vendor/<cr>
 
 " fuzzy stuff
-nnoremap    <leader>b           :CtrlPBuffer<cr>
+" nnoremap    <leader>b           :CtrlPBuffer<cr>
+nnoremap    <leader>b           :Buffers<cr>
 nnoremap    <leader>r           :CtrlPMRU<cr>
 nnoremap    <leader>]           :CtrlPTag<cr>
+nnoremap    <leader>h           :History<cr>
+" nnoremap    <leader>]           :Tags<cr>
+nnoremap    <leader>f           :Files<cr>
 
 " Insert Now or Date
 nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
@@ -255,8 +257,8 @@ nnoremap    <leader>pr          :edit routes/api.php<cr>
 
 " p for php
 nnoremap    <leader>pi          :call PhpInsertUse()<CR>
-inoremap    <leader>pi          <Esc>:call IPhpInsertUse()<CR>
-inoremap    <leader>pe          <Esc>:call IPhpExpandClass()<CR>
+" inoremap    <leader>pi          <Esc>:call IPhpInsertUse()<CR>
+" inoremap    <leader>pe          <Esc>:call IPhpExpandClass()<CR>
 nnoremap    <leader>pe          :call PhpExpandClass()<CR>
 nnoremap    <leader>ps          :call PhpSortUse()<CR>
 nnoremap    <leader>pi          :call PhpInsertUse()<CR>
@@ -283,7 +285,6 @@ nnoremap    <leader>vc          :call VimuxCloseRunner()<CR>
 nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
 
-nnoremap   <leader>wt           :e test<CR>
 nnoremap   zx                   :wq<cr>
 
 
@@ -329,13 +330,17 @@ let g:ctrlp_extensions = ['tag']
 " let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
 let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
 
-" set grepprg=ag\ --nogroup\ --nocolor
-" let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
-" let g:ctrlp_use_caching = 0
-
-set grepprg=rg\ --color=never
-let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+set grepprg=ag\ --nogroup\ --nocolor
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
 let g:ctrlp_use_caching = 1
+
+" set grepprg=rg\ --color=never
+" let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
+" let g:ctrlp_use_caching = 1
+
+
+"/ fzf
+let $FZF_DEFAULT_COMMAND = 'rg --files --no-messages'
 
 "/ VIM Test
 " let test#strategy = "dispatch"
@@ -545,6 +550,14 @@ let g:casetrate_leader = '<leader>c'
 "/ DBExt
 let g:dbext_default_profile_mysql_ll = 'type=MYSQL:host=db:user=root:passwd=rootyroot:dbname=ll'
 let g:dbext_default_window_width = 50
+
+"/ Peekaboo
+let g:peekaboo_window = 'vert bo 60new'
+let g:peekaboo_delay = 500
+let g:peekaboo_compact = 1
+
+"/ VimWiki
+let g:vimwiki_list = [{'path': '~/Dropbox/VimWiki', 'path_html': '~/DropBox/VimWiki/Html'}]
 
 " Section: Functions {{{1
 "------------------------------------------------------------------------------
