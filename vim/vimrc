@@ -1,10 +1,34 @@
+" vim:fdm=marker:ts=2:sw=2:et:
 
+" -----------------------------
+"
 "  _   __(_)___ ___  __________
 " | | / / / __ `__ \/ ___/ ___/
 " | |/ / / / / / / / /  / /__
 " |___/_/_/ /_/ /_/_/   \___/
-
-" vim:fdm=marker:ts=2:sw=2:et:
+"
+" ----------------------------
+"
+" STUFF I AM LEARNING NOW:
+"
+" VimOver
+" Projectionist projections
+" Foldings
+"
+" Text Objects
+" - i for indent
+" - m for function
+" - l for line
+" - e for elixir block
+" - f for characters
+" - c for comments
+" - , for params
+" - x for xml/html attribute
+"
+" Need Practice:
+" vim-sneak (using the \ shortcut)
+"
+"
 
 " Section: Setup {{{1
 "------------------------------------------------------------------------------
@@ -16,6 +40,7 @@ syntax on                       "Enable syntax highlighting
 
 "}}}
 
+
 " Section: Plug {{{1
 "------------------------------------------------------------------------------
 
@@ -25,7 +50,6 @@ filetype off                  " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
-" Esentials
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
@@ -36,17 +60,12 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-eunuch'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'jeetsukumaran/vim-indentwise'
-Plugin 'AndrewRadev/splitjoin.vim'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'gregsexton/matchtag'
-Plugin 'qpkorr/vim-bufkill'
 Plugin 'tpope/vim-projectionist'
-Plugin 'noahfrederick/vim-laravel'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-vinegar'
+Plugin 'tpope/vim-db'
 
-" Custom text objects
-Plugin 'michaeljsmith/vim-indent-object'
+" Text Objects
 Plugin 'kana/vim-textobj-user'
 Plugin 'thinca/vim-textobj-between'
 Plugin 'kana/vim-textobj-line'
@@ -54,47 +73,46 @@ Plugin 'andyl/vim-textobj-elixir'
 Plugin 'glts/vim-textobj-comment'
 Plugin 'sgur/vim-textobj-parameter'
 Plugin 'whatyouhide/vim-textobj-xmlattr'
+Plugin 'michaeljsmith/vim-indent-object'
 
-" Navigation
+Plugin 'AndrewRadev/sideways.vim'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'SirVer/ultisnips'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'benmills/vimux'
 Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'tpope/vim-vinegar'
 Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'ervandew/supertab'
+Plugin 'gregsexton/matchtag'
+Plugin 'haya14busa/incsearch.vim'
+Plugin 'itchyny/lightline.vim'
+Plugin 'janko-m/vim-test'
+Plugin 'jeetsukumaran/vim-indentwise'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'justinmk/vim-sneak'
+Plugin 'kshenoy/vim-signature'
 Plugin 'majutsushi/tagbar'
 Plugin 'mileszs/ack.vim'
-Plugin 'justinmk/vim-sneak'
-
-" Visuals
-Plugin 'itchyny/lightline.vim'
 Plugin 'nanotech/jellybeans.vim'
-
-" Powertools
-Plugin 'tpope/vim-dispatch'
-Plugin 'janko-m/vim-test'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'w0rp/ale'
-Plugin 'benmills/vimux'
-" Plugin 'idanarye/vim-casetrate'
-Plugin 'embear/vim-localvimrc'
-Plugin 'skwp/greplace.vim'
-Plugin 'tpope/vim-db'
-Plugin 'junegunn/vim-peekaboo'
+Plugin 'noahfrederick/vim-laravel'
 Plugin 'osyo-manga/vim-over'
-
-" Completion
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'SirVer/ultisnips'
-Plugin 'ervandew/supertab'
+Plugin 'qpkorr/vim-bufkill'
+Plugin 'skwp/greplace.vim'
+Plugin 'talek/obvious-resize'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'w0rp/ale'
 
 " Languages
-Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-endwise'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'elmcast/elm-vim'
 Plugin 'posva/vim-vue'
 Plugin 'pangloss/vim-javascript'
 Plugin 'arnaud-lb/vim-php-namespace'
 Plugin 'shawncplus/phpcomplete.vim'
+
 
 call vundle#end()            " required
 filetype plugin indent on    " Enable file type detection and do language-dependent indenting.
@@ -123,7 +141,7 @@ set wildmenu
 set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
 set nojoinspaces
 set listchars=tab:▸\ ,eol:¬
-set foldmethod=marker                     " Use braces by default
+set foldmethod=syntax
 set foldlevelstart=20                     " Do not open folds by default
 set fillchars=fold:\                      " No chars
 set autoread                              " Update buffers if file changed outside of VIM
@@ -146,6 +164,13 @@ set splitright
 
 runtime! macros/matchit.vim
 silent! set mouse=nvca
+
+function! NeatFoldText()
+  let text = v:folddashes .  getline(v:foldstart) . ' ... ' .  getline(v:foldend)
+  return substitute(text, '\v\s{2,}', ' ', 'g')
+endfunction
+
+set foldtext=NeatFoldText()
 
 "}}}
 
@@ -200,6 +225,7 @@ highlight Normal        ctermbg=NONE
 highlight nonText       ctermbg=NONE
 highlight LineNr        ctermbg=NONE
 highlight Folded        ctermbg=NONE ctermfg=lightgray
+highlight VertSplit     ctermbg=Black
 
 " highlight SignColumn    ctermbg=NONE
 " highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
@@ -207,6 +233,7 @@ highlight Folded        ctermbg=NONE ctermfg=lightgray
 " highlight TabLineSel ctermfg=Red ctermbg=Yellow
 " highlight Normal        cterm=NONE ctermbg=NONE
 " highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
+
 " Fix the & command in normal and visual modes
 nnoremap & :&&<Enter>
 xnoremap & :&&<Enter>
@@ -233,10 +260,8 @@ map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-nnoremap <Up> :resize +5<cr>
-nnoremap <Down> :resize -5<cr>
-nnoremap <Left> :vertical resize -5<cr>
-nnoremap <Right> :vertical resize +5<cr>
+nnoremap <leader>h :SidewaysLeft<cr>
+nnoremap <leader>l :SidewaysRight<cr>
 
 command! Wip call VimuxRunCommand("u --group wip")
 command! So :source $MYVIMRC
@@ -278,16 +303,13 @@ nnoremap <C-h> <C-w><C-h>
 nnoremap <C-l> <C-w><C-l>
 
 
-" ctrl+m to increment next number on the line
-nnoremap     <C-m>               <C-a>
-
 inoremap    <c-x><c-]>          <c-]>
-nnoremap    <leader>\|          :vsp<cr>
-nnoremap    <leader>-           :sp<cr>
+" nnoremap    <leader>\|          :vsp<cr>
+" nnoremap    <leader>-           :sp<cr>
+nnoremap    <leader>=           =ap
 
 nnoremap    <leader>2           :TagbarToggle<CR>
 
-nnoremap    <leader>f           :Ack<space>
 nnoremap    <leader>aw          :Ack <C-r><C-w><cr>
 vnoremap    <leader>aw          y :Ack <C-r>"<cr>
 nnoremap    <leader>aa          :Ack <C-r><C-w> app/<cr>
@@ -296,7 +318,6 @@ nnoremap    <leader>ar          :Ack <C-r><C-w> resources/assets<cr>
 nnoremap    <leader>as          :Ack <C-r><C-w> src<cr>
 nnoremap    <leader>av          :Ack <C-r><C-w> vendor/<cr>
 
-" fuzzy stuff
 nnoremap    <leader>b           :CtrlPBuffer<cr>
 nnoremap    <leader>r           :CtrlPMRU<cr>
 nnoremap    <leader>]           :CtrlPTag<cr>
@@ -304,12 +325,14 @@ nnoremap    <leader>]           :CtrlPTag<cr>
 " Insert Now or Date
 nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
-nnoremap    <leader>dj          :+d<cr>
-nnoremap    <leader>dk          :-d<cr>
+
+nnoremap    <leader>dj          :+delete<cr>
+nnoremap    <leader>dk          :-delete<cr>
 
 nnoremap    <leader>ev          :tabedit $MYVIMRC<cr>
 nnoremap    <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
-nnoremap    <leader>es          :call UltiSnipsEdit()<cr>
+nnoremap    <leader>es          :UltiSnipsEdit<cr>
+nnoremap    <leader>f           :Ack<space>
 nnoremap    <Leader>i           vip:sort<CR>
 nnoremap    <leader>g           :Gstatus<CR>
 
@@ -318,7 +341,6 @@ nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
 " Planizely
 nnoremap    <leader>pr          :edit routes/api.php<cr>
 
-" p for php
 nnoremap    <leader>pi          :call PhpInsertUse()<CR>
 nnoremap    <leader>pe          :call PhpExpandClass()<CR>
 nnoremap    <leader>ps          :call PhpSortUse()<CR>
@@ -334,18 +356,17 @@ nnoremap    <silent><leader>tg  :TestVisit<CR>
 nnoremap    <leader>tsb         :let test#strategy = 'basic'<CR>
 nnoremap    <leader>tsd         :let test#strategy = 'dispatch'<CR>
 
-nnoremap    <Leader>vq :VimuxCloseRunner<CR>
-nnoremap <Leader>vz :call VimuxZoomRunner()<CR>
-nnoremap <Leader>vi :VimuxInspectRunner<CR>
-map <Leader>vl :VimuxRunLastCommand<CR>
-map <Leader>vp :VimuxPromptCommand<CR>
+nnoremap    <Leader>vq          :VimuxCloseRunner<CR>
+nnoremap    <Leader>vz          :call VimuxZoomRunner()<CR>
+nnoremap    <Leader>vi          :VimuxInspectRunner<CR>
+map         <Leader>vl          :VimuxRunLastCommand<CR>
+map         <Leader>vp          :VimuxPromptCommand<CR>
 nnoremap    <leader>vr          :call VimuxRunLastCommand()<CR>
 nnoremap    <leader>vc          :call VimuxCloseRunner()<CR>
 
 nnoremap    [w                  :tabprevious<CR>
 nnoremap    ]w                  :tabnext<CR>
 
-nnoremap   zx                   :wq<cr>
 
 
 " Operator pending movement.
@@ -395,18 +416,22 @@ let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_use_caching = 1
 
 
+"/ Signature
+highlight Marks ctermfg=blue ctermbg=NONE
+let g:SignatureMarkTextHL = "Marks"
+
 
 
 "/ VIM Test
-let test#strategy = "dispatch"
-" let test#strategy = "vimux"
+" let test#strategy = "dispatch"
+let test#strategy = "vimux"
 
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsSnippetsDir="snippets"
+let g:UltiSnipsSnippetsDir="~/.vim/snippets"
 
 "/ Supertab
 let g:SuperTabLongestEnhanced=1
@@ -446,6 +471,14 @@ map f <Plug>Sneak_f
 map F <Plug>Sneak_F
 map t <Plug>Sneak_t
 map T <Plug>Sneak_T
+
+
+"/ Obvious Resize
+let g:obvious_resize_default = 5
+nnoremap <silent>    <Up> :<C-U>ObviousResizeUp<CR>
+nnoremap <silent>  <Down> :<C-U>ObviousResizeDown<CR>
+nnoremap <silent>  <Left> :<C-U>ObviousResizeLeft<CR>
+nnoremap <silent> <Right> :<C-U>ObviousResizeRight<CR>
 
 "/ vimux
 " let g:VimuxOrientation = "h"
@@ -554,7 +587,7 @@ let g:ackprg = 'rg --vimgrep'
 iabbrev r return
 iabbrev rq request
 iabbrev rs response
-iabbrev f function
+iabbrev fu function
 iabbrev reutrn return
 iabbrev retrun return
 iabbrev repsonse response
@@ -563,10 +596,10 @@ iabbrev gropu group
 
 
 "/ Splitjoin
-let g:splitjoin_split_mapping = ''
-let g:splitjoin_join_mapping = ''
-nnoremap <Leader>j :SplitjoinJoin<cr>
-nnoremap <Leader>s :SplitjoinSplit<cr>
+nnoremap <silent> gJ :SplitjoinJoin<CR>
+nnoremap <silent> gS :SplitjoinSplit<CR>
+" nnoremap gJ J
+" nnoremap gS S
 
 
 
@@ -628,11 +661,6 @@ let g:casetrate_leader = '<leader>c'
 " let g:dbext_default_profile_mysql_ll = 'type=MYSQL:host=db:user=root:passwd=rootyroot:dbname=ll'
 " let g:dbext_default_window_width = 50
 
-"/ Peekaboo
-let g:peekaboo_window = 'vert bo 60new'
-let g:peekaboo_delay = 500
-let g:peekaboo_compact = 1
-
 "/ Vim vue
 " Prevent syntax highlighting quirks
 autocmd FileType vue syntax sync fromstart
@@ -654,6 +682,7 @@ function! IPhpExpandClass()
     call PhpExpandClass()
     call feedkeys('a', 'n')
 endfunction
+
 
 " 1}}}
 
@@ -721,7 +750,7 @@ augroup autosourcing
     autocmd BufWritePost .vimrc source $MYVIMRC
 augroup END
 
-augroup learningladders
-    autocmd!
-    autocmd BufRead */learning-ladders/* DBSetOption profile=mysql_ll
-augroup END
+" augroup learningladders
+"     autocmd!
+"     autocmd BufRead */learning-ladders/* DBSetOption profile=mysql_ll
+" augroup END
