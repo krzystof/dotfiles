@@ -330,7 +330,7 @@ nnoremap    <leader>dj          :+delete<cr>
 nnoremap    <leader>dk          :-delete<cr>
 
 nnoremap    <leader>ev          :tabedit $MYVIMRC<cr>
-nnoremap    <leader>ep          :tabedit ~/.vim/plugins.vim<cr>
+nnoremap    <leader>ep          :vsplit ~/Dropbox/Documents/pass.md<cr>
 nnoremap    <leader>es          :UltiSnipsEdit<cr>
 nnoremap    <leader>f           :Ack<space>
 nnoremap    <Leader>i           vip:sort<CR>
@@ -431,7 +431,6 @@ let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsSnippetsDir="~/.vim/snippets"
 
 "/ Supertab
 let g:SuperTabLongestEnhanced=1

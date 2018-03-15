@@ -1,0 +1,52 @@
+extends html
+extends javascript
+
+snippet functional "Functional component" b
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
+const `!v my#js#jsx_filename_to_name()` = (${1}) => (
+	<div>
+		${2}
+	</div>
+)
+
+export default `!v my#js#jsx_filename_to_name()`
+endsnippet
+
+snippet class "Simple component" b
+import React, { Component } from 'react'
+
+export default class `!v my#js#jsx_filename_to_name()` extends Component {
+	static propTypes = {}
+
+	state = {}
+
+	render() {
+		return (
+			<div>
+				${1:go on}
+			</div>
+		)
+	}
+}
+endsnippet
+
+snippet _react "React component" b
+import React, { Component } from 'react'
+import PropTypes from 'prop-types'
+
+export default class `!v my#js#jsx_filename_to_name()` extends Component {
+	static propTypes = {}
+
+	state = {}
+
+	render() {
+		return (
+			<div>
+				${1:go on}
+			</div>
+		)
+	}
+}
+endsnippet
