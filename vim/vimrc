@@ -450,6 +450,8 @@ map g# <Plug>(incsearch-nohl-g#)"
 
 
 ""/ Sneak
+g:sneak#use_ic_scs = 1
+
 nnoremap s s
 nnoremap S S
 "" 2-character Sneak (default)
