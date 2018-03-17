@@ -695,6 +695,7 @@ augroup autosyntax
   autocmd!
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
   autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType rust setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab
   autocmd FileType elm setlocal ts=4 sts=4 sw=4 expandtab
 augroup END
