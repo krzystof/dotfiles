@@ -431,6 +431,7 @@ let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsSnippetsDir='~/.vim/snips'
 
 "/ Supertab
 let g:SuperTabLongestEnhanced=1
