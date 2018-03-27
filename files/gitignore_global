@@ -44,12 +44,15 @@ Thumbs.db
 .projections.json
 *.tmux
 .lvimrc
+.tern-project
+Session.vim
 .phpintel
 .idea
 .ackrc
 .agignore
 
 # Vim tags
+###########
 tags
 .ignore
 

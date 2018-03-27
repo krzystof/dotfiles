@@ -1,8 +1,8 @@
 #!/bin/bash
-set -ex
+set -eux
 
 cd $HOME/Downloads
 
 rename 's/ /_/g' *
-rename 's/\([a-zA-Z0-9_\-]*\)//g' *
+rename 's/\([a-zA-Z_\-]*[0-9]{3}).*\.cbr$/$1\.cbr/g' *
 rename 's/_{2,}//g' *

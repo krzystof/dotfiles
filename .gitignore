@@ -3,3 +3,4 @@ repos
 vim/bundle
 vim/.netrwhist
 vim/view
+vim/undodir

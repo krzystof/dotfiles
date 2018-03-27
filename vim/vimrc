@@ -1,4 +1,4 @@
-" vim:fdm=marker:ts=2:sw=2:et:
+" vim:foldmethod=marker :ts=2:sw=2:et:
 
 " -----------------------------
 "
@@ -73,10 +73,11 @@ Plugin 'andyl/vim-textobj-elixir'
 Plugin 'glts/vim-textobj-comment'
 Plugin 'sgur/vim-textobj-parameter'
 Plugin 'whatyouhide/vim-textobj-xmlattr'
+Plugin 'jeetsukumaran/vim-indentwise'
 Plugin 'michaeljsmith/vim-indent-object'
 
 Plugin 'AndrewRadev/sideways.vim'
-Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'krzystof/splitjoin.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'benmills/vimux'
@@ -88,7 +89,6 @@ Plugin 'gregsexton/matchtag'
 Plugin 'haya14busa/incsearch.vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'janko-m/vim-test'
-Plugin 'jeetsukumaran/vim-indentwise'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'justinmk/vim-sneak'
 Plugin 'kshenoy/vim-signature'
@@ -103,16 +103,23 @@ Plugin 'talek/obvious-resize'
 Plugin 'terryma/vim-multiple-cursors'
 Plugin 'w0rp/ale'
 
-" Languages
+" Languages and Syntax
 Plugin 'tpope/vim-endwise'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'elmcast/elm-vim'
 Plugin 'posva/vim-vue'
-Plugin 'pangloss/vim-javascript'
+" Plugin 'pangloss/vim-javascript'
+Plugin 'styled-components/vim-styled-components'
 Plugin 'arnaud-lb/vim-php-namespace'
-Plugin 'shawncplus/phpcomplete.vim'
 
+" Plugin 'moll/vim-node'
+Plugin 'noahfrederick/vim-composer'
+
+" Completion
+Plugin 'shawncplus/phpcomplete.vim'
+Plugin '1995eaton/vim-better-javascript-completion'
+Plugin 'othree/jspc.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " Enable file type detection and do language-dependent indenting.
@@ -125,6 +132,8 @@ filetype plugin indent on    " Enable file type detection and do language-depend
 syntax enable
 
 let mapleader = "\<Space>"
+
+nnoremap <cr> :
 
 " let mapleader = ','
 let maplocalleader = '\\'
@@ -172,8 +181,10 @@ endfunction
 
 set foldtext=NeatFoldText()
 
-"}}}
+set undofile                            " Persistent undo history
+set undodir=~/.vim/undodir
 
+"}}}
 
 
 
@@ -249,31 +260,66 @@ xnoremap & :&&<Enter>
 noremap k gk
 noremap j gj
 
-map <Leader>P :set paste<CR>o<esc>"*]p:set nopaste<cr>
+" map <Leader>P :set paste<CR>o<esc>"*]p:set nopaste<cr>
+
+nmap <leader>p =p
+nmap <leader>P =P
 
 inoremap jk <Esc>
-
-nnoremap K <nop>
+nnoremap K  :w<cr>
 
 
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
 
-nnoremap <leader>h :SidewaysLeft<cr>
-nnoremap <leader>l :SidewaysRight<cr>
+nnoremap gh :SidewaysLeft<cr>
+nnoremap gl :SidewaysRight<cr>
+
+function! s:snakecase(word)
+  let word = substitute(a:word,'::','/','g')
+  let word = substitute(word,'\(\u\+\)\(\u\l\)','\1_\2','g')
+  let word = substitute(word,'\(\l\|\d\)\(\u\)','\1_\2','g')
+  let word = substitute(word,'[.-]','_','g')
+  let word = tolower(word)
+  return word
+endfunction
+
+function! s:dashcase(word)
+  return substitute(s:snakecase(a:word),'_','-','g')
+endfunction
+
+function! FindDoc(...)
+  let l:name = a:0 == 1 ? a:1 : expand("<cword>")
+
+  if &filetype =~ 'javascript'
+    let module = s:dashcase(name)
+    let moduledir = "node_modules/" . module
+    if isdirectory(moduledir)
+      execute "tabedit " . moduledir
+    endif
+  endif
+
+  " if &filetype =~ 'php'
+    " Do something to use composer autoloader?
+    " Or defer to vim composer package
+  " endif
+
+  " and then
+  " - Elm
+  " - Elixir
+  " - Rust
+endfunction
 
 command! Wip call VimuxRunCommand("u --group wip")
 command! So :source $MYVIMRC
+command! Doc call FindDoc()
+" command! -nargs=1 Doc call FindDoc(<f-args>)
 
 " Switch to previous buffer
 nnoremap <C-e> :e#<CR>
 
-"
-" " Emacs-like bindings in command line -- `:help emacs-keys`
-" cnoremap <C-b>  <Left>
-" cnoremap <C-f>  <Right>
-" cnoremap <C-d>  <Del>
+" Emacs-like bindings in command line -- `:help emacs-keys`
 cnoremap <C-a>  <Home>
 cnoremap <C-e>  <End>
 cnoremap <C-h>  <S-Left>
@@ -395,6 +441,18 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 
 
+" Section: Omnifunctions {{{1
+"------------------------------------------------------------------------------
+
+" set completeopt=longest,menuone              " insert the longest common text by default
+
+" Find a way to select first match and filter on type
+
+
+"}}}
+
+
+
 " Section: Plugins {{{1
 "------------------------------------------------------------------------------
 
@@ -419,7 +477,6 @@ let g:ctrlp_use_caching = 1
 "/ Signature
 highlight Marks ctermfg=blue ctermbg=NONE
 let g:SignatureMarkTextHL = "Marks"
-
 
 
 "/ VIM Test
@@ -514,9 +571,7 @@ let g:ale_linters = {
 \}
 
 let g:ale_fixers = {
-\   'php': [
-\       'phpcbf'
-\   ],
+\   'php': [],
 \   'elm': [
 \       'format'
 \   ],
@@ -535,18 +590,21 @@ let g:ale_php_phpmd_ruleset = 'phpmd.xml'
 let g:lightline = {
 \ 'colorscheme': 'jellybeans',
 \ 'active': {
-\   'left': [['mode', 'paste'], ['filename', 'modified']],
+\   'left': [['mode', 'paste'], ['gitbranch', 'filename', 'modified']],
 \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
 \ },
 \ 'component_expand': {
 \   'linter_warnings': 'LightlineLinterWarnings',
-\   'linter_errors': 'LightlineLinterErrors',
-\   'linter_ok': 'LightlineLinterOK'
+\   'linter_errors': 'LightlineLinterErrors'
 \ },
 \ 'component_type': {
 \   'readonly': 'error',
 \   'linter_warnings': 'warning',
-\   'linter_errors': 'error'
+\   'linter_errors': 'error',
+\   'linter_ok': 'success'
+\ },
+\ 'component-function': {
+\   'gitbranch': 'fugitive#head'
 \ },
 \ }
 
@@ -598,8 +656,8 @@ iabbrev gropu group
 
 
 "/ Splitjoin
-nnoremap <silent> gJ :SplitjoinJoin<CR>
-nnoremap <silent> gS :SplitjoinSplit<CR>
+nnoremap <silent> gj :SplitjoinJoin<CR>
+nnoremap <silent> gs :SplitjoinSplit<CR>
 " nnoremap gJ J
 " nnoremap gS S
 
@@ -646,8 +704,6 @@ let g:vdebug_options = {
 \   "port" : 9001
 \}
 
-" casestrate
-let g:casetrate_leader = '<leader>c'
 
 " function! CurrentFunctionI()
 "   normal! ^
@@ -726,31 +782,43 @@ autocmd BufWritePre * %s/\s\+$//e
 
 " Experimental stuff {{{1
 
-" A function that toggles the last character of the line
 function! ToggleLast()
-  let line = getline('.')
-  let last = strpart(line, strlen(line) - 1)
-  echo 'yay'
-  " normal mz$
-  " if last == ';'
-  "   normal r,
-  " elseif last == ','
-  "   normal x
-  " else
-  "   normal a;
-  " endif
-  " normal `z
+  let l:line = getline('.')
+  let l:last = strpart(line, strlen(line) - 1)
+
+  normal! mz
+
+  if last == ';'
+    normal! $r,
+  elseif last == ','
+    normal! $x
+  else
+    normal! A;
+  endif
+
+  normal! `z
 endfunction
 
 nnoremap <silent> <leader>l :call ToggleLast()<cr>
 
+
+function! ToggleQuotes()
+  " @TODO
+endfunction
+
+" nnoremap <silent> <leader>' :call ToggleLast()<cr>
+
+"@TODO leader to suround by ()
+
 " }}}
 
-
+nmap <leader>c    <Plug>(composer-find)
 
 augroup autosourcing
     autocmd!
     autocmd BufWritePost .vimrc source $MYVIMRC
+    " autocmd BufWritePost *.exs,*.ex silent :!mix format --check-equivalent %
+    " autocmd User Composer nmap <buffer> gf <Plug>(composer-find)
 augroup END
 
 " augroup learningladders

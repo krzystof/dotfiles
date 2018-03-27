@@ -37,15 +37,21 @@ endsnippet
 
 snippet _jest "Jest Test"
 /* eslint-env jest */
+import React from 'react'
+import { mount } from 'enzyme'
+import renderer from 'react-test-renderer'
 import `!v my#js#test_file_to_name()` from '../`!v my#js#test_file_to_name()`'
 
 describe('`!v my#js#test_file_to_name()`', () => {
-  beforeEach(() => {})
-  afterEach(() => {})
-
   test('${1}', () => {
 		${2}
 		expect('stuff').toBe('tested')
   })
+})
+endsnippet
+
+snippet test "test"
+test('${1:Some things needs certainty}', () => {
+	${2}
 })
 endsnippet

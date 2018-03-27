@@ -1,7 +1,11 @@
 --recurse=yes
+--fields=+aimlS
 --tag-relative=yes
+
 --exclude=.git
 --exclude=node_modules
+--exclude=vendor
+--exclude=*.min.*
 
-# PHP
---langmap=php.engine.inc.module.theme.install.php --PHP-kinds=+cf-v
+--languages=php
+--php-kinds=-j
