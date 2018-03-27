@@ -488,7 +488,6 @@ let g:AutoPairsShortcutBackInsert = '<C-b>'
 
 "/ UltiSnips
 let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsSnippetsDir='~/.vim/snips'
 
 "/ Supertab
 let g:SuperTabLongestEnhanced=1
@@ -720,6 +719,8 @@ let g:vdebug_options = {
 " let g:dbext_default_window_width = 50
 
 "/ Vim vue
+let g:vue_disable_pre_processors=1
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.css.javascript
 " Prevent syntax highlighting quirks
 autocmd FileType vue syntax sync fromstart
 
@@ -769,8 +770,6 @@ augroup html
 augroup END
 
 
-" autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript.css
-
 " Enable that with Elixir 1.6! or try to use it with ALE
 " autocmd BufWritePost *.exs silent :!mix format %
 " autocmd BufWritePost *.ex silent :!mix format %
@@ -801,14 +800,13 @@ endfunction
 
 nnoremap <silent> <leader>l :call ToggleLast()<cr>
 
-
 function! ToggleQuotes()
   " @TODO
 endfunction
 
 " nnoremap <silent> <leader>' :call ToggleLast()<cr>
 
-"@TODO leader to suround by ()
+nmap <leader>)     ys$)
 
 " }}}
 
