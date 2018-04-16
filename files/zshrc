@@ -23,10 +23,8 @@ export TERM=xterm-256color
 # zstyle ':completion:*:manuals.*'  insert-sections   true
 # zstyle ':completion:*:man:*'      menu yes select
 
-# Custom scripts
 source $HOME/Dropbox/Scripts/aliases.sh
-
-# Load z
+source $HOME/Dropbox/Scripts/helper_functions.sh
 source $HOME/Dropbox/Scripts/z.sh
 
 fpath=(~/.zsh/completion $fpath)
@@ -49,35 +47,6 @@ fi
 # Boot rbenv
 eval "$(rbenv init -)"
 
-
-
-# Run the sync script
-# /bin/bash $HOME/Dotfiles/sync.sh
-
-mine() {
-    sudo chown -R krzystof:krzystof $1
-}
-
-
-# Open current repo in a browser on Github
-function github {
-    branch="$(git rev-parse --abbrev-ref HEAD)"
-    url="$(git config --get remote.origin.url)"
-    url=${url/git@github.com:/http://github.com/}
-    url=${url/.git/}
-
-    if [[ $1 =~ "compare"  ]]; then action="compare"
-    else action="tree"; fi
-
-    if [[ $2 != ""  ]]; then base="$2..."
-    else base=""; fi
-
-    url="${url}/${action}/${base}${branch}"
-
-    # echo "Opening ${url} $(\google-chrome ${url})"
-    echo "Opening ${url} $(\firefox -new-tab ${url})"
-}
-
 alias gh=github
 
 export NVM_DIR="$HOME/.nvm"
@@ -90,6 +59,7 @@ export NVM_DIR="$HOME/.nvm"
 # --follow: Follow symlinks
 # --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 # . ~/Dotfiles/files/lazynvm.sh
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
