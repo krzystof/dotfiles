@@ -1,212 +1,107 @@
-" vim:foldmethod=marker :ts=2:sw=2:et:
-
-" -----------------------------
 "
 "  _   __(_)___ ___  __________
 " | | / / / __ `__ \/ ___/ ___/
 " | |/ / / / / / / / /  / /__
 " |___/_/_/ /_/ /_/_/   \___/
 "
-" ----------------------------
+
+" Section: Learning stuff
+" =======================
 "
-" STUFF I AM LEARNING NOW:
+"   - & to repeat the last substitution
 "
-" VimOver
-" Projectionist projections
-" Foldings
+"   Mappings:
+"   - gV select visually the text that was last edited or pasted
+"   - projections
 "
-" Text Objects
-" - i for indent
-" - m for function
-" - l for line
-" - e for elixir block
-" - f for characters
-" - c for comments
-" - , for params
-" - x for xml/html attribute
+"   Text Objects:
+"   - i for indent
+"   - m for function
+"   - l for line
+"   - e for elixir block
+"   - f for characters
+"   - c for comments
+"   - , for params
+"   - x for xml/html attribute
 "
-" Need Practice:
-" vim-sneak (using the \ shortcut)
+"   Need Practice:
+"   - vim-sneak (using the \ shortcut)
 "
+"   Other:
+"   Using Vim for writing.
+"   Goyo (distraction free), Limelight (darken the
+"   text), set spell, and word completion (Ctrl+x Ctrl+k)
 "
 
-" Section: Setup {{{1
-"------------------------------------------------------------------------------
-
- " General basic necessary plugins
-set nocompatible                "Be iMproved, required
-set backspace=indent,eol,start  "Make backspace behave well
-syntax on                       "Enable syntax highlighting
-
-"}}}
 
 
-" Section: Plug {{{1
-"------------------------------------------------------------------------------
-
-filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-speeddating'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-vinegar'
-Plugin 'tpope/vim-db'
-
-" Text Objects
-Plugin 'kana/vim-textobj-user'
-Plugin 'thinca/vim-textobj-between'
-Plugin 'kana/vim-textobj-line'
-Plugin 'andyl/vim-textobj-elixir'
-Plugin 'glts/vim-textobj-comment'
-Plugin 'sgur/vim-textobj-parameter'
-Plugin 'whatyouhide/vim-textobj-xmlattr'
-Plugin 'jeetsukumaran/vim-indentwise'
-Plugin 'michaeljsmith/vim-indent-object'
-
-Plugin 'AndrewRadev/sideways.vim'
-Plugin 'krzystof/splitjoin.vim'
-Plugin 'SirVer/ultisnips'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'benmills/vimux'
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'ervandew/supertab'
-Plugin 'gregsexton/matchtag'
-Plugin 'haya14busa/incsearch.vim'
-Plugin 'itchyny/lightline.vim'
-Plugin 'janko-m/vim-test'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'justinmk/vim-sneak'
-Plugin 'kshenoy/vim-signature'
-Plugin 'majutsushi/tagbar'
-Plugin 'mileszs/ack.vim'
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'noahfrederick/vim-laravel'
-Plugin 'osyo-manga/vim-over'
-Plugin 'qpkorr/vim-bufkill'
-Plugin 'skwp/greplace.vim'
-Plugin 'talek/obvious-resize'
-Plugin 'terryma/vim-multiple-cursors'
-Plugin 'w0rp/ale'
-
-" Languages and Syntax
-Plugin 'tpope/vim-endwise'
-Plugin 'sheerun/vim-polyglot'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'elmcast/elm-vim'
-Plugin 'posva/vim-vue'
-" Plugin 'pangloss/vim-javascript'
-Plugin 'styled-components/vim-styled-components'
-Plugin 'arnaud-lb/vim-php-namespace'
-
-" Plugin 'moll/vim-node'
-Plugin 'noahfrederick/vim-composer'
-
-" Completion
-Plugin 'shawncplus/phpcomplete.vim'
-Plugin '1995eaton/vim-better-javascript-completion'
-Plugin 'othree/jspc.vim'
-
-call vundle#end()            " required
-filetype plugin indent on    " Enable file type detection and do language-dependent indenting.
-
-"}}}
-
-" Section: General config {{{1
-"------------------------------------------------------------------------------
+" Section: Config
+" ===============
 
 syntax enable
 
-let mapleader = "\<Space>"
-
-nnoremap <cr> :
-
-" let mapleader = ','
-let maplocalleader = '\\'
-
-set smartindent
+" set fillchars=fold:\  " <- need that empty space there
+set autoread
+set background=dark
+set backspace=indent,eol,start
+set belloff=all
+set clipboard=unnamed
+set complete=.,w,b,u
+set dictionary+=/usr/share/dict/words
+set expandtab
+set foldlevelstart=3
+set foldmethod=syntax
+set foldtext=MyFoldText()
+set hidden
+set ignorecase
+set incsearch
+set laststatus=2
+set lazyredraw
+set listchars=tab:▸\ ,eol:¬
+set mouse=nvca
+set nocompatible
+set nocursorcolumn
+set nocursorline
+set nohlsearch
+set nojoinspaces
 set number
 set relativenumber
-set expandtab
-set tabstop=2
-set softtabstop=2                         " Insert mode
-set shiftwidth=2                          " Spaces when using < and >
-set complete=.,w,b,u                      " Autocomplete looks through current buffer, window, loaded buffers, unloaded buffers
-set wildmenu
-set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
-set nojoinspaces
-set listchars=tab:▸\ ,eol:¬
-set foldmethod=syntax
-set foldlevelstart=20                     " Do not open folds by default
-set fillchars=fold:\                      " No chars
-set autoread                              " Update buffers if file changed outside of VIM
-set nocursorline
-set nocursorcolumn
-set signcolumn=yes
-set showbreak=…                       " Nice ellipsis when wrapping lines
 set rtp+=~/.fzf
-set clipboard=unnamed
-
-" Search
-set nohlsearch
-set incsearch
-set ignorecase
+set shiftwidth=2
+set showbreak=…
+set signcolumn=yes
 set smartcase
-
-" Splits
+set smartindent
+set softtabstop=2
 set splitbelow
 set splitright
+set tabstop=2
+set undodir=~/.vim/undodir
+set undofile
+set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
+set wildmenu
 
 runtime! macros/matchit.vim
-silent! set mouse=nvca
 
-function! NeatFoldText()
-  let text = v:folddashes .  getline(v:foldstart) . ' ... ' .  getline(v:foldend)
-  return substitute(text, '\v\s{2,}', ' ', 'g')
-endfunction
-
-set foldtext=NeatFoldText()
-
-set undofile                            " Persistent undo history
-set undodir=~/.vim/undodir
-
-"}}}
+let mapleader = "\<Space>"
+let maplocalleader = '\\'
 
 
 
-" Section: Visual {{{1
-"------------------------------------------------------------------------------
+" Section: Visual
+" ===============
 
 " dfferent colorscheme for ruby and markdown, for example
 " autocmd FileType ruby colorscheme railcasts
 
-set laststatus=2                         " Always display the status bar
-
 " Make sure colored syntax mode is on, and make it Just Work with newer 256
 " color terminals like iTerm2.
-set background=dark
-let g:rehash256 = 1
-
 colorscheme jellybeans
 
+let g:rehash256 = 1
 if has('gui_running')
   set guicursor+=n-v-c:blinkon0
-  set guioptions -=m
-  set guioptions -=T
+  set guioptions=
 else
   if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
     set t_Co=256
@@ -221,23 +116,23 @@ else
     set t_Sf=[3%dm
     set t_Sb=[4%dm
   endif
-  " Disable Background Color Erase when within tmux - https://stackoverflow.com/q/6427650/102704
+  " Disable Background Color Erase when within tmux -
+  " https://stackoverflow.com/q/6427650/102704
   if $TMUX != ""
     set t_ut=
   endif
 endif
 
-highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
-highlight SignColumn ctermbg=NONE
-highlight TabLineFill ctermbg=NONE
+highlight Normal        ctermbg=NONE
+highlight nonText       ctermbg=NONE
+highlight SignColumn    ctermbg=NONE
+highlight TabLineFill   ctermbg=NONE
 highlight CursorLineNr  ctermbg=NONE
 highlight Normal        ctermbg=NONE
 highlight nonText       ctermbg=NONE
 highlight LineNr        ctermbg=NONE
-highlight Folded        ctermbg=NONE ctermfg=lightgray
+highlight Folded        ctermbg=NONE ctermfg=grey
 highlight VertSplit     ctermbg=Black
-
 " highlight SignColumn    ctermbg=NONE
 " highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
 " highlight TabLine ctermfg=Blue ctermbg=Yellow
@@ -245,117 +140,169 @@ highlight VertSplit     ctermbg=Black
 " highlight Normal        cterm=NONE ctermbg=NONE
 " highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
 
-" Fix the & command in normal and visual modes
-nnoremap & :&&<Enter>
-xnoremap & :&&<Enter>
-
-" 1}}}
 
 
+" Section: Plugins
+" ================
 
-" Section: Mappings {{{1
-"------------------------------------------------------------------------------
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
-" Move up and down by screen line
-noremap k gk
-noremap j gj
+Plugin 'nanotech/jellybeans.vim'
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-repeat'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-git'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-projectionist'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-vinegar'
+Plugin 'tpope/vim-db'
+Plugin 'tommcdo/vim-exchange'
+Plugin 'machakann/vim-highlightedyank'
+
+" Text Objects
+Plugin 'kana/vim-textobj-user'
+Plugin 'thinca/vim-textobj-between'
+Plugin 'kana/vim-textobj-line'
+Plugin 'andyl/vim-textobj-elixir'
+Plugin 'glts/vim-textobj-comment'
+Plugin 'sgur/vim-textobj-parameter'
+Plugin 'whatyouhide/vim-textobj-xmlattr'
+Plugin 'jeetsukumaran/vim-indentwise'
+Plugin 'michaeljsmith/vim-indent-object'
+
+Plugin 'AndrewRadev/sideways.vim'
+  nnoremap <silent> gh :SidewaysLeft<cr>
+  nnoremap <silent> gl :SidewaysRight<cr>
+
+Plugin 'AndrewRadev/splitjoin.vim'
+  nnoremap <silent> gj :SplitjoinJoin<CR>
+  nnoremap <silent> gs :SplitjoinSplit<CR>
+
+Plugin 'SirVer/ultisnips'
+  let g:UltiSnipsExpandTrigger="<tab>"
+
+Plugin 'airblade/vim-gitgutter'
+Plugin 'benmills/vimux'                  " <-- both needed?
+Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'ctrlpvim/ctrlp.vim'
+Plugin 'junegunn/fzf.vim'
+Plugin 'editorconfig/editorconfig-vim'
+Plugin 'ervandew/supertab'
+Plugin 'gregsexton/matchtag'
+
+Plugin 'haya14busa/incsearch.vim'
+  set hlsearch
+  let g:incsearch#auto_nohlsearch = 1
+  map    /    <Plug>(incsearch-forward)
+  map    ?    <Plug>(incsearch-backward)
+  map    g/   <Plug>(incsearch-stay)
+  map    n    <Plug>(incsearch-nohl-n)
+  map    N    <Plug>(incsearch-nohl-N)
+  map    *    <Plug>(incsearch-nohl-*)
+  map    #    <Plug>(incsearch-nohl-#)
+  map    g*   <Plug>(incsearch-nohl-g*)
+  map    g#   <Plug>(incsearch-nohl-g#)"
+
+
+Plugin 'itchyny/lightline.vim'
+Plugin 'janko-m/vim-test'
+Plugin 'jiangmiao/auto-pairs'
+Plugin 'justinmk/vim-sneak'
+Plugin 'kshenoy/vim-signature'         " <-- needed?
+Plugin 'majutsushi/tagbar'
+
+Plugin 'mileszs/ack.vim'
+  let g:ackprg = 'rg --vimgrep'
+
+Plugin 'noahfrederick/vim-laravel'
+Plugin 'qpkorr/vim-bufkill'
+Plugin 'skwp/greplace.vim'             " <-- replace with workflow
+Plugin 'talek/obvious-resize'          " <-- what?
+Plugin 'w0rp/ale'                      " <-- optimizable?
+Plugin 'skywind3000/asyncrun.vim'      " <-- needed?
+
+" Languages and Syntax
+Plugin 'tpope/vim-endwise'             " <-- maybe not
+Plugin 'sheerun/vim-polyglot'
+Plugin 'elixir-lang/vim-elixir'
+Plugin 'elmcast/elm-vim'
+Plugin 'posva/vim-vue'
+Plugin 'styled-components/vim-styled-components'
+Plugin 'arnaud-lb/vim-php-namespace'   " <-- replace by phpactor, same for composer and complete
+Plugin 'noahfrederick/vim-composer'    " <-- just want to keep the command line stuff
+Plugin 'shawncplus/phpcomplete.vim'
+Plugin '1995eaton/vim-better-javascript-completion'
+Plugin 'othree/jspc.vim'
+
+" Writing
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
+
+call vundle#end()
+filetype plugin indent on    " Enable file type detection and do language-dependent indenting.
+
+
+
+" Section: Mappings
+" =================
+
+inoremap    jk                <Esc>
+noremap     k                 gk
+noremap     j                 gj
+nnoremap    &                 :&&<Enter>
+xnoremap    &                 :&&<Enter>
+nnoremap    <c-space>         :e#<cr>
 
 " map <Leader>P :set paste<CR>o<esc>"*]p:set nopaste<cr>
+nnoremap <leader>p      =p
+nnoremap <leader>P      =P
 
-nmap <leader>p =p
-nmap <leader>P =P
+nnoremap    K                 :w<cr>
+nnoremap    <C-s>             :w<CR>
+inoremap    <C-s>             <Esc>:w<CR>
+nnoremap    gV                `[v`]
+nnoremap    ==                mz=ap`z
 
-inoremap jk <Esc>
-nnoremap K  :w<cr>
+nmap <C-Up>   [e
+nmap <C-Down> ]e
+vmap <C-Up>   [egv
+vmap <C-Down> ]egv
 
+nnoremap    Q                   :BD<cr>
+nnoremap    [w                  :tabprevious<CR>
+nnoremap    ]w                  :tabnext<CR>
 
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-
-nnoremap gh :SidewaysLeft<cr>
-nnoremap gl :SidewaysRight<cr>
-
-function! s:snakecase(word)
-  let word = substitute(a:word,'::','/','g')
-  let word = substitute(word,'\(\u\+\)\(\u\l\)','\1_\2','g')
-  let word = substitute(word,'\(\l\|\d\)\(\u\)','\1_\2','g')
-  let word = substitute(word,'[.-]','_','g')
-  let word = tolower(word)
-  return word
-endfunction
-
-function! s:dashcase(word)
-  return substitute(s:snakecase(a:word),'_','-','g')
-endfunction
-
-function! FindDoc(...)
-  let l:name = a:0 == 1 ? a:1 : expand("<cword>")
-
-  if &filetype =~ 'javascript'
-    let module = s:dashcase(name)
-    let moduledir = "node_modules/" . module
-    if isdirectory(moduledir)
-      execute "tabedit " . moduledir
-    endif
-  endif
-
-  " if &filetype =~ 'php'
-    " Do something to use composer autoloader?
-    " Or defer to vim composer package
-  " endif
-
-  " and then
-  " - Elm
-  " - Elixir
-  " - Rust
-endfunction
-
-command! Wip call VimuxRunCommand("u --group wip")
-command! So :source $MYVIMRC
-command! Doc call FindDoc()
-" command! -nargs=1 Doc call FindDoc(<f-args>)
-
-" Switch to previous buffer
-nnoremap <C-e> :e#<CR>
-
+" Command Mode:
 " Emacs-like bindings in command line -- `:help emacs-keys`
 cnoremap <C-a>  <Home>
 cnoremap <C-e>  <End>
 cnoremap <C-h>  <S-Left>
 cnoremap <C-l>  <S-Right>
 
-" cnoremap <M-d>  <S-right><Delete>
-" cnoremap <Esc>d <S-right><Delete>
-" cnoremap <C-g>  <C-c>"
+" Expand %% to current file directory in command line mode
+cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
-" Supposed to be alt...?
-nnoremap <M-f> za
+" How to toggle fold in a nice way??
 " vnoremap <M-f> zf
 " nnoremap <cr> za
 
 
-" ctrl+s to save
-nnoremap <C-s> :w<CR>
-inoremap <C-s> <Esc>:w<CR>
-
 " in insert mode, uppercase the current word
 inoremap <c-u> <esc>gUiwea
 
-" ctrl+[hjkl] to move between panes
-nnoremap <C-j> <C-w><C-j>
-nnoremap <C-k> <C-w><C-k>
-nnoremap <C-h> <C-w><C-h>
-nnoremap <C-l> <C-w><C-l>
-
-
-inoremap    <c-x><c-]>          <c-]>
-" nnoremap    <leader>\|          :vsp<cr>
-" nnoremap    <leader>-           :sp<cr>
-nnoremap    <leader>=           =ap
 
 nnoremap    <leader>2           :TagbarToggle<CR>
+nnoremap    <leader>;           :call ToggleLast()<cr>
 
+nnoremap    <leader>a           :Ack
 nnoremap    <leader>aw          :Ack <C-r><C-w><cr>
 vnoremap    <leader>aw          y :Ack <C-r>"<cr>
 nnoremap    <leader>aa          :Ack <C-r><C-w> app/<cr>
@@ -364,13 +311,13 @@ nnoremap    <leader>ar          :Ack <C-r><C-w> resources/assets<cr>
 nnoremap    <leader>as          :Ack <C-r><C-w> src<cr>
 nnoremap    <leader>av          :Ack <C-r><C-w> vendor/<cr>
 
-nnoremap    <leader>b           :CtrlPBuffer<cr>
+nnoremap    <leader>b           :ls<cr>:b
 nnoremap    <leader>r           :CtrlPMRU<cr>
 nnoremap    <leader>]           :CtrlPTag<cr>
 
 " Insert Now or Date
-nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
+nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 
 nnoremap    <leader>dj          :+delete<cr>
 nnoremap    <leader>dk          :-delete<cr>
@@ -384,21 +331,19 @@ nnoremap    <leader>g           :Gstatus<CR>
 
 nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
 
-" Planizely
-nnoremap    <leader>pr          :edit routes/api.php<cr>
+nnoremap    <leader>h           :History<cr>
 
-nnoremap    <leader>pi          :call PhpInsertUse()<CR>
-nnoremap    <leader>pe          :call PhpExpandClass()<CR>
-nnoremap    <leader>ps          :call PhpSortUse()<CR>
+nnoremap    <leader>ni          :call PhpInsertUse()<CR>
+nnoremap    <leader>ne          :call PhpExpandClass()<CR>
+nnoremap    <leader>ns          :call PhpSortUse()<CR>
 
-nnoremap    <leader>q           :cclose<CR>
-nnoremap    Q                   :BD<cr>
+nnoremap    <leader>q           :call ToggleList("Quickfix List", 'c')<CR>
 
 nnoremap    <leader>tt          :TestNearest<CR>
-nnoremap    <silent><leader>tf  :TestFile<CR>
-nnoremap    <silent><leader>ta  :TestSuite<CR>
-nnoremap    <silent><leader>tl  :TestLast<CR>
-nnoremap    <silent><leader>tg  :TestVisit<CR>
+nnoremap    <leader>tf          :TestFile<CR>
+nnoremap    <leader>ta          :TestSuite<CR>
+nnoremap    <leader>tl          :TestLast<CR>
+nnoremap    <leader>tg          :TestVisit<CR>
 nnoremap    <leader>tsb         :let test#strategy = 'basic'<CR>
 nnoremap    <leader>tsd         :let test#strategy = 'dispatch'<CR>
 
@@ -410,10 +355,19 @@ map         <Leader>vp          :VimuxPromptCommand<CR>
 nnoremap    <leader>vr          :call VimuxRunLastCommand()<CR>
 nnoremap    <leader>vc          :call VimuxCloseRunner()<CR>
 
-nnoremap    [w                  :tabprevious<CR>
-nnoremap    ]w                  :tabnext<CR>
+" Window Switching:
+nnoremap <C-j> <C-w><C-j>
+nnoremap <C-k> <C-w><C-k>
+nnoremap <C-h> <C-w><C-h>
+nnoremap <C-l> <C-w><C-l>
 
+tnoremap <C-h> <c-\><c-n><c-w>h
+tnoremap <C-j> <c-\><c-n><c-w>j
+tnoremap <C-k> <c-\><c-n><c-w>k
+tnoremap <C-l> <c-\><c-n><c-w>l
+tnoremap jk   <C-\><C-n>
 
+inoremap    <c-x><c-]>          <c-]>
 
 " Operator pending movement.
 " Interesting. Keep in mind.
@@ -423,38 +377,15 @@ onoremap    in(                 :<c-u>normal! f(vi(<cr>
 onoremap    il(                 :<c-u>normal! F)vi(<cr>
 
 
-
-"
-" Abbreviations
-"
-autocmd BufEnter *.js  iabbr zzz console.log('ZZZ',
-autocmd BufEnter *.vue iabbr xxx console.log('XXX',
-autocmd BufEnter *.vue iabbr yyy console.log('YYY',
-autocmd BufEnter *.vue iabbr zzz console.log('ZZZ',
-autocmd BufEnter .vimlocal set filetype=vim
-
-
-" Expand %% to current file directory in command line mode
-cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
-
-"}}}
+command! Wip call VimuxRunCommand("u --group wip")
+command! So :source $MYVIMRC
+command! Doc call FindDoc()
+" command! -nargs=1 Doc call FindDoc(<f-args>)
 
 
 
-" Section: Omnifunctions {{{1
-"------------------------------------------------------------------------------
-
-" set completeopt=longest,menuone              " insert the longest common text by default
-
-" Find a way to select first match and filter on type
-
-
-"}}}
-
-
-
-" Section: Plugins {{{1
-"------------------------------------------------------------------------------
+" Section: ToSort: Plugins
+" ========================
 
 "/ VimCommentary
 autocmd FileType php setlocal commentstring=\/\/\ %s
@@ -486,28 +417,22 @@ let test#strategy = "vimux"
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
 
-"/ UltiSnips
-let g:UltiSnipsExpandTrigger="<tab>"
-
 "/ Supertab
 let g:SuperTabLongestEnhanced=1
 let g:SuperTabLongestHighlight=1
 
 
-"/ incsearch.vim
-" :h g:incsearch#auto_nohlsearch
-set hlsearch
-let g:incsearch#auto_nohlsearch = 1
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)"
+
+"
+"/ Composer
+"
+nmap <leader>c    <Plug>(composer-find)
 
 
-""/ Sneak
+"/ Sneak
 let g:sneak#use_ic_scs = 1
+
+
 
 nnoremap s s
 nnoremap S S
@@ -638,29 +563,11 @@ function! s:MaybeUpdateLightline()
 endfunction
 
 
-"/ VimAck
-let g:ackprg = 'rg --vimgrep'
-
-
-"/ Autocorrect abbrev
-iabbrev r return
-iabbrev rq request
-iabbrev rs response
-iabbrev fu function
-iabbrev reutrn return
-iabbrev retrun return
-iabbrev repsonse response
-iabbrev gropu group
 
 
 
-"/ Splitjoin
-nnoremap <silent> gj :SplitjoinJoin<CR>
-nnoremap <silent> gs :SplitjoinSplit<CR>
-" nnoremap gJ J
-" nnoremap gS S
-
-
+" Section: ToSort: More Plugin Conf
+" =========================
 
 "/
 "/ Custom text objects
@@ -704,19 +611,6 @@ let g:vdebug_options = {
 \}
 
 
-" function! CurrentFunctionI()
-"   normal! ^
-"   let head_pos = getpos('.')
-"   normal! g_
-"   let tail_pos = getpos('.')
-"   let non_blank_char_exists_p = getline('.')[head_pos[2] - 1] !~# '\s'
-"   return
-"   \ non_blank_char_exists_p
-
-
-"/ DBExt
-" let g:dbext_default_profile_mysql_ll = 'type=MYSQL:host=db:user=root:passwd=rootyroot:dbname=ll'
-" let g:dbext_default_window_width = 50
 
 "/ Vim vue
 let g:vue_disable_pre_processors=1
@@ -725,61 +619,44 @@ autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.css.javascript
 autocmd FileType vue syntax sync fromstart
 
 
-"}}}
+
+" Section: Abbreviations
+" ======================
+
+iabbrev r return
+iabbrev rq request
+iabbrev rs response
+iabbrev fu function
+iabbrev reutrn return
+iabbrev retrun return
+iabbrev repsonse response
+iabbrev gropu group
+
+autocmd BufEnter *.js  iabbr zzz console.log('ZZZ',
+autocmd BufEnter *.vue iabbr xxx console.log('XXX',
+autocmd BufEnter *.vue iabbr yyy console.log('YYY',
+autocmd BufEnter *.vue iabbr zzz console.log('ZZZ',
 
 
 
-" Section: Functions {{{1
-"------------------------------------------------------------------------------
+" Section: Functions
+" ==================
 
-function! IPhpInsertUse()
-    call PhpInsertUse()
-    call feedkeys('a',  'n')
+function! MyFoldText()
+    let line = getline(v:foldstart)
+
+    let nucolwidth = &fdc + &number * &numberwidth
+    let windowwidth = winwidth(0) - nucolwidth - 3
+    let foldedlinecount = v:foldend - v:foldstart
+
+    " expand tabs into spaces
+    let onetab = strpart('          ', 0, &tabstop)
+    let line = substitute(line, '\t', onetab, 'g')
+
+    let line = strpart(line, 0, windowwidth - 2 -len(foldedlinecount))
+    let fillcharcount = windowwidth - len(line) - len(foldedlinecount)
+    return line . '…' . repeat(" ",fillcharcount) . foldedlinecount . '…' . ' '
 endfunction
-
-function! IPhpExpandClass()
-    call PhpExpandClass()
-    call feedkeys('a', 'n')
-endfunction
-
-
-" 1}}}
-
-" Section: Auto commands {{{1
-"------------------------------------------------------------------------------
-
-
-augroup autosyntax
-  autocmd!
-  autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
-  autocmd FileType php setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType rust setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab
-  autocmd FileType elm setlocal ts=4 sts=4 sw=4 expandtab
-augroup END
-
-" augroup specialabbrev
-"   autocmd!
-"   autocmd FileType php :iabbrev <buffer> $ $this->
-" augroup END
-
-augroup html
-  autocmd!
-  " fold with \ f
-  autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
-augroup END
-
-
-" Enable that with Elixir 1.6! or try to use it with ALE
-" autocmd BufWritePost *.exs silent :!mix format %
-" autocmd BufWritePost *.ex silent :!mix format %
-
-" Trim trailing spaces
-autocmd BufWritePre * %s/\s\+$//e
-
-
-
-" Experimental stuff {{{1
 
 function! ToggleLast()
   let l:line = getline('.')
@@ -798,28 +675,119 @@ function! ToggleLast()
   normal! `z
 endfunction
 
-nnoremap <silent> <leader>l :call ToggleLast()<cr>
+function! GetBufferList()
+  redir =>buflist
+  silent! ls!
+  redir END
+  return buflist
+endfunction
+
+function! ToggleList(bufname, pfx)
+  let buflist = GetBufferList()
+  for bufnum in map(filter(split(buflist, '\n'), 'v:val =~ "'.a:bufname.'"'), 'str2nr(matchstr(v:val, "\\d\\+"))')
+    if bufwinnr(bufnum) != -1
+      exec(a:pfx.'close')
+      return
+    endif
+  endfor
+  if a:pfx == 'l' && len(getloclist(0)) == 0
+      echohl ErrorMsg
+      echo "Location List is Empty."
+      return
+  endif
+  let winnr = winnr()
+  exec(a:pfx.'open')
+  if winnr() != winnr
+    wincmd p
+  endif
+endfunction
+
+nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
+
+
+
+" Section: Work In Progress
+" =========================
 
 function! ToggleQuotes()
   " @TODO
 endfunction
 
-" nnoremap <silent> <leader>' :call ToggleLast()<cr>
-
 nmap <leader>)     ys$)
 
-" }}}
 
-nmap <leader>c    <Plug>(composer-find)
 
-augroup autosourcing
-    autocmd!
-    autocmd BufWritePost .vimrc source $MYVIMRC
-    " autocmd BufWritePost *.exs,*.ex silent :!mix format --check-equivalent %
-    " autocmd User Composer nmap <buffer> gf <Plug>(composer-find)
+" Working on the FIND DOC thing
+" -----------------------------
+function! s:snakecase(word)
+  let word = substitute(a:word,'::','/','g')
+  let word = substitute(word,'\(\u\+\)\(\u\l\)','\1_\2','g')
+  let word = substitute(word,'\(\l\|\d\)\(\u\)','\1_\2','g')
+  let word = substitute(word,'[.-]','_','g')
+  let word = tolower(word)
+  return word
+endfunction
+
+function! s:dashcase(word)
+  return substitute(s:snakecase(a:word),'_','-','g')
+endfunction
+
+function! FindDoc(...)
+  let l:name = a:0 == 1 ? a:1 : expand("<cword>")
+
+  if &filetype =~ 'javascript'
+    let module = s:dashcase(name)
+    let moduledir = "node_modules/" . module
+    if isdirectory(moduledir)
+      execute "tabedit " . moduledir
+    endif
+  endif
+
+  " if &filetype =~ 'php'
+    " Do something to use composer autoloader?
+    " Or defer to vim composer package
+  " endif
+
+  " and then
+  " - Elm
+  " - Elixir
+  " - Rust
+endfunction
+
+
+
+" Section: Auto commands
+" ======================
+
+augroup autosyntax
+  autocmd!
+  autocmd FileType make   setlocal ts=8 sts=8 sw=8 noexpandtab
+  autocmd FileType php    setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType rust   setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType python setlocal ts=4 sts=4 sw=4 expandtab
+  autocmd FileType elm    setlocal ts=4 sts=4 sw=4 expandtab
 augroup END
 
-" augroup learningladders
-"     autocmd!
-"     autocmd BufRead */learning-ladders/* DBSetOption profile=mysql_ll
-" augroup END
+augroup specialabbrev
+  autocmd!
+  autocmd FileType php :iabbrev <buffer> $ $this->
+augroup END
+
+augroup html
+  autocmd!
+  " fold with \ f
+  autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+augroup END
+
+
+" Enable that with Elixir 1.6! or try to use it with ALE
+" autocmd BufWritePost *.exs silent :!mix format %
+" autocmd BufWritePost *.ex silent :!mix format %
+
+" Trim trailing spaces
+augroup fixers
+  autocmd BufWritePre * %s/\s\+$//e
+augroup END
+
+
+" vim:fdm=expr:fen:fdl=2:foldexpr=getline(v\:lnum)=~'^\"\\sSection'?'>1'\:'=':
