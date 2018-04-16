@@ -11,18 +11,24 @@ fi
 trk whooks
 
 cd $PROJECT
-docker run --name postgres -e POSTGRES_PASSWORD=mysecretpassword -d postgres
 
 tmux new-session -d -s ${SESSION}
 tmux rename-window -n "code"
 
-tmux send-keys -t ${SESSION}:code "nvm && vim ." "C-m"
+tmux send-keys -t ${SESSION}:code "vim ." "C-m"
 
 tmux new-window -n "npm"
 tmux split-window -h -t ${SESSION}:npm
 tmux split-window -v -t ${SESSION}:npm.1
-tmux send-keys -t ${SESSION}:npm.0 "cd webwhooks && yarn start" "C-m"
-tmux send-keys -t ${SESSION}:npm.1 "cd apiwhooks && yarn start" "C-m"
-tmux send-keys -t ${SESSION}:npm.2 "cd apiwhooks && docker-compose up" "C-m"
+tmux send-keys -t ${SESSION}:npm.0 "cd assets && yarn start" "C-m"
+tmux send-keys -t ${SESSION}:npm.2 "cd ~/Code/whooks-legacy && docker-compose up" "C-m"
+
+tmux new-window -n "elixir"
+tmux send-keys -t ${SESSION}:elixir.0 "docker-compose up" "C-m"
+
+tmux new-window -n "postgres"
+tmux split-window -h -t ${SESSION}:postgres
+tmux send-keys -t ${SESSION}:postgres.0 "psql -h 0.0.0.0 -p 5434 -U postgres -d whooks_dev" "C-m"
+tmux send-keys -t ${SESSION}:postgres.1 "psql -h 0.0.0.0 -p 5433 -U whooksapi -d whooks" "C-m"
 
 tmux attach-session -t ${SESSION}

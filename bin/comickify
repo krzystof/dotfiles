@@ -4,5 +4,12 @@ set -eux
 cd $HOME/Downloads
 
 rename 's/ /_/g' *
-rename 's/\([a-zA-Z_\-]*[0-9]{3}).*\.cbr$/$1\.cbr/g' *
-rename 's/_{2,}//g' *
+
+# Replace common words in the scans
+rename 's/\(([0-9]{4}|Digital|Zone-Empire)\)//g' *.cbr
+
+# Remove more than one underscores
+rename 's/_{2,}/_/g' *
+
+# Remove underscore if followed by a dot
+rename 's/_\./\./g' *
