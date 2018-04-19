@@ -52,7 +52,7 @@ set complete=.,w,b,u
 set dictionary+=/usr/share/dict/words
 set expandtab
 set fillchars=fold:\  " <- need that empty space there
-set foldlevelstart=3
+set foldlevelstart=6
 set foldmethod=syntax
 set foldtext=MyFoldText()
 set formatprg=par
@@ -84,7 +84,6 @@ set undodir=~/.vim/undodir
 set undofile
 set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
 set wildmenu
-set iskeyword+=-
 
 runtime! macros/matchit.vim
 
@@ -93,61 +92,59 @@ runtime! macros/matchit.vim
 " Section: Plugins
 " ================
 
-filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'nanotech/jellybeans.vim'
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-git'
-Plugin 'tpope/vim-fugitive'
-Plugin 'tpope/vim-abolish'
-Plugin 'tpope/vim-speeddating'
-Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-projectionist'
-Plugin 'tpope/vim-dispatch'
-Plugin 'tpope/vim-vinegar'
-Plugin 'tpope/vim-db'
-Plugin 'tommcdo/vim-exchange'
-Plugin 'machakann/vim-highlightedyank'
+Plug 'nanotech/jellybeans.vim'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-git'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-speeddating'
+Plug 'tpope/vim-eunuch'
+Plug 'tpope/vim-projectionist'
+Plug 'tpope/vim-dispatch'
+Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-db'
+Plug 'tommcdo/vim-exchange'            " <-- needed?
+Plug 'machakann/vim-highlightedyank'
 
 " Text Objects
-Plugin 'kana/vim-textobj-user'
-Plugin 'thinca/vim-textobj-between'
-Plugin 'kana/vim-textobj-line'
-Plugin 'andyl/vim-textobj-elixir'
-Plugin 'glts/vim-textobj-comment'
-Plugin 'sgur/vim-textobj-parameter'
-Plugin 'whatyouhide/vim-textobj-xmlattr'
-Plugin 'jeetsukumaran/vim-indentwise'
-Plugin 'michaeljsmith/vim-indent-object'
+Plug 'kana/vim-textobj-user'
+Plug 'thinca/vim-textobj-between'      " <-- used?
+Plug 'kana/vim-textobj-line'
+Plug 'andyl/vim-textobj-elixir'
+Plug 'glts/vim-textobj-comment'
+Plug 'sgur/vim-textobj-parameter'
+Plug 'whatyouhide/vim-textobj-xmlattr'
+Plug 'jeetsukumaran/vim-indentwise'
+Plug 'michaeljsmith/vim-indent-object'
 
-Plugin 'AndrewRadev/sideways.vim'
+Plug 'AndrewRadev/sideways.vim'
   nnoremap <silent> gh :SidewaysLeft<cr>
   nnoremap <silent> gl :SidewaysRight<cr>
 
-Plugin 'AndrewRadev/splitjoin.vim'
-  let g:splitjoin_php_method_chain_until_end_of_line = 0
+Plug 'AndrewRadev/splitjoin.vim'
+  let g:splitjoin_php_method_chain_until_end_of_line = 1
   nnoremap <silent> gj :SplitjoinJoin<CR>
   nnoremap <silent> gs :SplitjoinSplit<CR>
 
-Plugin 'SirVer/ultisnips'
+Plug 'SirVer/ultisnips'
   let g:UltiSnipsExpandTrigger="<tab>"
+  let g:UltiSnipsSnippetsDir="~/.vim/ultisnips"
 
-Plugin 'airblade/vim-gitgutter'
-Plugin 'benmills/vimux'                  " <-- both needed?
-Plugin 'christoomey/vim-tmux-navigator'
-Plugin 'ctrlpvim/ctrlp.vim'
-Plugin 'junegunn/fzf.vim'
-Plugin 'editorconfig/editorconfig-vim'
-Plugin 'ervandew/supertab'
-Plugin 'gregsexton/matchtag'
+Plug 'airblade/vim-gitgutter'
+Plug 'benmills/vimux'                  " <-- both needed?
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'ervandew/supertab'
+Plug 'gregsexton/matchtag'
 
-Plugin 'haya14busa/incsearch.vim'
+Plug 'haya14busa/incsearch.vim'
   set hlsearch
   let g:incsearch#auto_nohlsearch = 1
   map    /    <Plug>(incsearch-forward)
@@ -161,38 +158,39 @@ Plugin 'haya14busa/incsearch.vim'
   map    g#   <Plug>(incsearch-nohl-g#)"
 
 
-Plugin 'itchyny/lightline.vim'
-Plugin 'janko-m/vim-test'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'justinmk/vim-sneak'
-Plugin 'kshenoy/vim-signature'         " <-- needed?
-Plugin 'majutsushi/tagbar'
+Plug 'itchyny/lightline.vim'
+Plug 'janko-m/vim-test'
+Plug 'jiangmiao/auto-pairs'
+Plug 'justinmk/vim-sneak'
+Plug 'kshenoy/vim-signature'         " <-- needed?
+Plug 'majutsushi/tagbar'
 
-Plugin 'mileszs/ack.vim'
+Plug 'mileszs/ack.vim', { 'on': 'Ack' }
   let g:ackprg = 'rg --vimgrep'
 
-Plugin 'noahfrederick/vim-laravel'
-Plugin 'qpkorr/vim-bufkill'
-Plugin 'skwp/greplace.vim'             " <-- replace with workflow
-Plugin 'talek/obvious-resize'          " <-- what?
-Plugin 'w0rp/ale'                      " <-- optimizable?
-Plugin 'skywind3000/asyncrun.vim'      " <-- needed?
+Plug 'qpkorr/vim-bufkill', { 'on': 'BD' }
+Plug 'noahfrederick/vim-laravel'
+Plug 'skwp/greplace.vim'             " <-- replace with workflow
+
+Plug 'talek/obvious-resize'
+
+Plug 'w0rp/ale'                      " <-- optimizable?
+Plug 'skywind3000/asyncrun.vim'      " <-- needed?
 
 " Languages and Syntax
-Plugin 'tpope/vim-endwise'             " <-- maybe not
-Plugin 'sheerun/vim-polyglot'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'elmcast/elm-vim'
-Plugin 'posva/vim-vue'
-Plugin 'styled-components/vim-styled-components'
-Plugin 'arnaud-lb/vim-php-namespace'   " <-- replace by phpactor, same for composer and complete
-Plugin 'noahfrederick/vim-composer'    " <-- just want to keep the command line stuff
-Plugin 'shawncplus/phpcomplete.vim'
-Plugin '1995eaton/vim-better-javascript-completion'
-Plugin 'othree/jspc.vim'
+Plug 'tpope/vim-endwise'             " <-- maybe not
+Plug 'sheerun/vim-polyglot'
+Plug 'elixir-lang/vim-elixir'
+Plug 'elmcast/elm-vim'
+Plug 'posva/vim-vue'
+Plug 'styled-components/vim-styled-components', { 'for': 'jsx' }
+Plug 'arnaud-lb/vim-php-namespace'   " <-- replace by phpactor, same for composer and complete
+Plug 'noahfrederick/vim-composer'    " <-- just want to keep the command line stuff
+Plug 'shawncplus/phpcomplete.vim'
+Plug '1995eaton/vim-better-javascript-completion'
+" Plugin 'othree/jspc.vim'
 
-call vundle#end()
-filetype plugin indent on    " Enable file type detection and do language-dependent indenting.
+call plug#end()
 
 
 
@@ -816,6 +814,12 @@ function! DeWriteMode()
   set laststatus=2
   set formatoptions=croql
 endfunction
+
+function! YarnAdd()
+  execute ':AsyncRun yarn add ' . expand('<cword>')
+endfunction
+
+command! YarnAdd :call YarnAdd()
 
 
 

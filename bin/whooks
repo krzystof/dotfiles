@@ -31,4 +31,5 @@ tmux split-window -h -t ${SESSION}:postgres
 tmux send-keys -t ${SESSION}:postgres.0 "psql -h 0.0.0.0 -p 5434 -U postgres -d whooks_dev" "C-m"
 tmux send-keys -t ${SESSION}:postgres.1 "psql -h 0.0.0.0 -p 5433 -U whooksapi -d whooks" "C-m"
 
+tmux select-window -t ${SESSION}:code
 tmux attach-session -t ${SESSION}
