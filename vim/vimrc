@@ -29,8 +29,7 @@
 "
 "   Other:
 "   Using Vim for writing.
-"   Goyo (distraction free), Limelight (darken the
-"   text), set spell, and word completion (Ctrl+x Ctrl+k)
+"   set spell, and word completion (Ctrl+x Ctrl+k)
 "
 
 
@@ -52,9 +51,11 @@ set clipboard=unnamed
 set complete=.,w,b,u
 set dictionary+=/usr/share/dict/words
 set expandtab
+set fillchars=fold:\  " <- need that empty space there
 set foldlevelstart=3
 set foldmethod=syntax
 set foldtext=MyFoldText()
+set formatprg=par
 set hidden
 set ignorecase
 set incsearch
@@ -83,11 +84,9 @@ set undodir=~/.vim/undodir
 set undofile
 set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
 set wildmenu
+set iskeyword+=-
 
 runtime! macros/matchit.vim
-
-let mapleader = "\<Space>"
-let maplocalleader = '\\'
 
 
 
@@ -132,6 +131,7 @@ Plugin 'AndrewRadev/sideways.vim'
   nnoremap <silent> gl :SidewaysRight<cr>
 
 Plugin 'AndrewRadev/splitjoin.vim'
+  let g:splitjoin_php_method_chain_until_end_of_line = 0
   nnoremap <silent> gj :SplitjoinJoin<CR>
   nnoremap <silent> gs :SplitjoinSplit<CR>
 
@@ -190,10 +190,6 @@ Plugin 'noahfrederick/vim-composer'    " <-- just want to keep the command line 
 Plugin 'shawncplus/phpcomplete.vim'
 Plugin '1995eaton/vim-better-javascript-completion'
 Plugin 'othree/jspc.vim'
-
-" Writing
-Plugin 'junegunn/goyo.vim'
-Plugin 'junegunn/limelight.vim'
 
 call vundle#end()
 filetype plugin indent on    " Enable file type detection and do language-dependent indenting.
@@ -305,7 +301,7 @@ inoremap <c-u> <esc>gUiwea
 nnoremap    <leader>2           :TagbarToggle<CR>
 nnoremap    <leader>;           :call ToggleLast()<cr>
 
-nnoremap    <leader>a           :Ack
+nnoremap    <leader>a           :Ack<space>
 nnoremap    <leader>aw          :Ack <C-r><C-w><cr>
 vnoremap    <leader>aw          y :Ack <C-r>"<cr>
 nnoremap    <leader>aa          :Ack <C-r><C-w> app/<cr>
@@ -315,9 +311,13 @@ nnoremap    <leader>as          :Ack <C-r><C-w> src/<cr>
 nnoremap    <leader>at          :Ack <C-r><C-w> test/<cr>
 nnoremap    <leader>av          :Ack <C-r><C-w> vendor/<cr>
 
-nnoremap    <leader>b           :ls<cr>:b
-nnoremap    <leader>r           :CtrlPMRU<cr>
-nnoremap    <leader>]           :CtrlPTag<cr>
+nnoremap    <leader>b           :Buffers<cr>
+nnoremap    <leader>f           :Files<cr>
+nnoremap    <leader>l           :Lines<cr>
+nnoremap    <leader>rc          :History:<cr>
+nnoremap    <leader>]           :Tags<cr>
+nnoremap    <leader>m           :Marks<cr>
+nnoremap    <leader>h           :History<cr>
 
 " Insert Now or Date
 nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
@@ -329,13 +329,10 @@ nnoremap    <leader>dk          :-delete<cr>
 nnoremap    <leader>ev          :tabedit $MYVIMRC<cr>
 nnoremap    <leader>ep          :vsplit ~/Dropbox/Documents/pass.md<cr>
 nnoremap    <leader>es          :UltiSnipsEdit<cr>
-nnoremap    <leader>f           :Ack<space>
 nnoremap    <Leader>i           vip:sort<CR>
 nnoremap    <leader>g           :Gstatus<CR>
 
 nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-nnoremap    <leader>h           :History<cr>
 
 nnoremap    <leader>ni          :call PhpInsertUse()<CR>
 nnoremap    <leader>ne          :call PhpExpandClass()<CR>
@@ -373,7 +370,8 @@ tnoremap jk   <C-\><C-n>
 
 inoremap    <c-x><c-]>          <c-]>
 
-" Operator pending movement.
+
+" Operator Pending Movement:
 " Interesting. Keep in mind.
 " Need to re-read "learn vimscript the hard way" chapter
 onoremap    p                   i(
@@ -784,6 +782,39 @@ function! FindDoc(...)
   " - Elm
   " - Elixir
   " - Rust
+endfunction
+
+
+function! CenterPane()
+  lefta vnew
+  wincmd w
+  exec 'vertical resize '. string(&columns * 0.75)
+endfunction
+
+
+function! WriterMode()
+  set noshowmode
+  set noshowcmd
+  set scrolloff=999
+  set textwidth=80
+  set nonumber
+  set norelativenumber
+  set laststatus=0
+  set formatoptions=ta
+  call CenterPane()
+endfunction
+
+command! WriterMode :call WriterMode()
+
+function! DeWriteMode()
+  set showmode
+  set showcmd
+  set scrolloff=5
+  set textwidth=0
+  set number
+  set relativenumber
+  set laststatus=2
+  set formatoptions=croql
 endfunction
 
 
