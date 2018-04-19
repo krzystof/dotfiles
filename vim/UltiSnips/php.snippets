@@ -10,6 +10,10 @@ snippet $ "this->"
 \$this->${1}
 endsnippet
 
+snippet this "auto this->" A
+\$this->${1}
+endsnippet
+
 snippet c "constructor"
 public function __construct(${1})
 {
@@ -43,11 +47,15 @@ snippet wip "wip a test"
 endsnippet
 
 snippet t "new test"
-/** @test */
-function ${1:fillme}()
+/** @group wip */
+function test_${1:a_thing_that_should_be_a_thing}()
 {
     ${2}
 }
+endsnippet
+
+snippet weh "withoutExceptionHandling"
+$this->withoutExceptionHandling();
 endsnippet
 
 snippet if "if statement"
@@ -74,9 +82,28 @@ class `!v my#php#classname_from_file()`
 }
 endsnippet
 
-snippet "^public" "public function" Art
-public function ${1:yolo}(${2})
+snippet "^fn" "public function" Art
+${2:public} function ${1:funktion}(${3})
 {
-	${3}
+	${0}
+}
+endsnippet
+
+snippet _laravel_test
+<?php
+
+namespace Tests\Feature;
+
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class `!v my#php#classname_from_file()` extends TestCase
+{
+    use RefreshDatabase;
+
+    function test_${1:a feature}()
+    {
+			${2}
+    }
 }
 endsnippet

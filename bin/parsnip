@@ -1,0 +1,25 @@
+#!/bin/bash
+
+SESSION=Parsnip
+PROJECT="${HOME}/Code/parsnip"
+
+if tmux has-session -t ${SESSION} ; then
+  tmux attach-session -t ${SESSION}
+  exit 0
+fi
+
+trk parsnip
+
+cd $PROJECT
+
+tmux new-session -d -s ${SESSION}
+tmux rename-window -n "code"
+
+tmux send-keys -t ${SESSION}:code "vim ." "C-m"
+
+tmux new-window -n "build"
+tmux split-window -h -t ${SESSION}:build
+
+tmux select-window -t $SESSION:"code"
+
+tmux attach-session -t ${SESSION}

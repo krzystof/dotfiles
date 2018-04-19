@@ -40,6 +40,9 @@
 
 syntax enable
 
+let mapleader = "\<Space>"
+let maplocalleader = '\\'
+
 " set fillchars=fold:\  " <- need that empty space there
 set autoread
 set background=dark
@@ -85,60 +88,6 @@ runtime! macros/matchit.vim
 
 let mapleader = "\<Space>"
 let maplocalleader = '\\'
-
-
-
-" Section: Visual
-" ===============
-
-" dfferent colorscheme for ruby and markdown, for example
-" autocmd FileType ruby colorscheme railcasts
-
-" Make sure colored syntax mode is on, and make it Just Work with newer 256
-" color terminals like iTerm2.
-colorscheme jellybeans
-
-let g:rehash256 = 1
-if has('gui_running')
-  set guicursor+=n-v-c:blinkon0
-  set guioptions=
-else
-  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-    set t_Co=256
-  elseif has("terminfo")
-    colorscheme default
-    set t_Co=8
-    set t_Sf=[3%p1%dm
-    set t_Sb=[4%p1%dm
-  else
-    colorscheme default
-    set t_Co=8
-    set t_Sf=[3%dm
-    set t_Sb=[4%dm
-  endif
-  " Disable Background Color Erase when within tmux -
-  " https://stackoverflow.com/q/6427650/102704
-  if $TMUX != ""
-    set t_ut=
-  endif
-endif
-
-highlight Normal        ctermbg=NONE
-highlight nonText       ctermbg=NONE
-highlight SignColumn    ctermbg=NONE
-highlight TabLineFill   ctermbg=NONE
-highlight CursorLineNr  ctermbg=NONE
-highlight Normal        ctermbg=NONE
-highlight nonText       ctermbg=NONE
-highlight LineNr        ctermbg=NONE
-highlight Folded        ctermbg=NONE ctermfg=grey
-highlight VertSplit     ctermbg=Black
-" highlight SignColumn    ctermbg=NONE
-" highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
-" highlight TabLine ctermfg=Blue ctermbg=Yellow
-" highlight TabLineSel ctermfg=Red ctermbg=Yellow
-" highlight Normal        cterm=NONE ctermbg=NONE
-" highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
 
 
 
@@ -251,6 +200,60 @@ filetype plugin indent on    " Enable file type detection and do language-depend
 
 
 
+" Section: Visual
+" ===============
+
+" dfferent colorscheme for ruby and markdown, for example
+" autocmd FileType ruby colorscheme railcasts
+
+" Make sure colored syntax mode is on, and make it Just Work with newer 256
+" color terminals like iTerm2.
+colorscheme jellybeans
+
+let g:rehash256 = 1
+if has('gui_running')
+  set guicursor+=n-v-c:blinkon0
+  set guioptions=
+else
+  if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+    set t_Co=256
+  elseif has("terminfo")
+    colorscheme default
+    set t_Co=8
+    set t_Sf=[3%p1%dm
+    set t_Sb=[4%p1%dm
+  else
+    colorscheme default
+    set t_Co=8
+    set t_Sf=[3%dm
+    set t_Sb=[4%dm
+  endif
+  " Disable Background Color Erase when within tmux -
+  " https://stackoverflow.com/q/6427650/102704
+  if $TMUX != ""
+    set t_ut=
+  endif
+endif
+
+highlight Normal        ctermbg=NONE
+highlight nonText       ctermbg=NONE
+highlight SignColumn    ctermbg=NONE
+highlight TabLineFill   ctermbg=NONE
+highlight CursorLineNr  ctermbg=NONE
+highlight Normal        ctermbg=NONE
+highlight nonText       ctermbg=NONE
+highlight LineNr        ctermbg=NONE
+highlight Folded        ctermbg=NONE ctermfg=grey
+highlight VertSplit     ctermbg=Black
+" highlight SignColumn    ctermbg=NONE
+" highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
+" highlight TabLine ctermfg=Blue ctermbg=Yellow
+" highlight TabLineSel ctermfg=Red ctermbg=Yellow
+" highlight Normal        cterm=NONE ctermbg=NONE
+" highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
+
+
+
 " Section: Mappings
 " =================
 
@@ -259,7 +262,7 @@ noremap     k                 gk
 noremap     j                 gj
 nnoremap    &                 :&&<Enter>
 xnoremap    &                 :&&<Enter>
-nnoremap    <c-space>         :e#<cr>
+nnoremap    <backspace>         :e#<cr>
 
 " map <Leader>P :set paste<CR>o<esc>"*]p:set nopaste<cr>
 nnoremap <leader>p      =p
@@ -307,8 +310,9 @@ nnoremap    <leader>aw          :Ack <C-r><C-w><cr>
 vnoremap    <leader>aw          y :Ack <C-r>"<cr>
 nnoremap    <leader>aa          :Ack <C-r><C-w> app/<cr>
 nnoremap    <leader>aj          :Ack <C-r><C-w> jsapp/<cr>
-nnoremap    <leader>ar          :Ack <C-r><C-w> resources/assets<cr>
-nnoremap    <leader>as          :Ack <C-r><C-w> src<cr>
+nnoremap    <leader>ar          :Ack <C-r><C-w> resources/assets/<cr>
+nnoremap    <leader>as          :Ack <C-r><C-w> src/<cr>
+nnoremap    <leader>at          :Ack <C-r><C-w> test/<cr>
 nnoremap    <leader>av          :Ack <C-r><C-w> vendor/<cr>
 
 nnoremap    <leader>b           :ls<cr>:b
@@ -500,7 +504,8 @@ let g:ale_fixers = {
 \       'format'
 \   ],
 \   'javascript': [
-\       'eslint'
+\       'eslint',
+\       'prettier'
 \   ]
 \}
 
@@ -615,6 +620,7 @@ let g:vdebug_options = {
 "/ Vim vue
 let g:vue_disable_pre_processors=1
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.css.javascript
+
 " Prevent syntax highlighting quirks
 autocmd FileType vue syntax sync fromstart
 
@@ -713,6 +719,26 @@ function! ToggleQuotes()
   " @TODO
 endfunction
 
+function! SplitNextArrow()
+  let l:arrow_or_paren = search('\v(\(|\S\zs-\>\ze)', '', line('.'))
+  if ! arrow_or_paren
+    return
+  endif
+  if matchstr(getline('.'), '\%' . col('.') . 'c.') == '('
+    normal! %
+  else
+    normal! i
+  endif
+  call SplitNextArrow()
+endfunction
+
+function! SplitPhpFluent()
+  normal! 0
+  call SplitNextArrow()
+endfunction
+
+command! SplitPhpFluent call SplitPhpFluent()
+
 nmap <leader>)     ys$)
 
 
@@ -733,6 +759,12 @@ function! s:dashcase(word)
 endfunction
 
 function! FindDoc(...)
+  " @TODO:
+  " php
+  " js
+  " elm
+  " elixir
+  " rust
   let l:name = a:0 == 1 ? a:1 : expand("<cword>")
 
   if &filetype =~ 'javascript'
