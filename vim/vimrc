@@ -258,14 +258,14 @@ highlight NonText       ctermfg=Black
 " Section: Mappings
 " =================
 
-inoremap    jk                <Esc>
-noremap     k                 gk
-noremap     j                 gj
-nnoremap    &                 :&&<Enter>
-xnoremap    &                 :&&<Enter>
-nnoremap    <backspace>         :e#<cr>
+inoremap <silent>  jk            <Esc>
+noremap  <silent>  k             gk
+noremap  <silent>  j             gj
+nnoremap <silent>  &             :&&<Enter>
+xnoremap <silent>  &             :&&<Enter>
+nmap     <silent>  <leader>)     ys$)
+nnoremap <silent>  <backspace>   :e#<cr>
 
-" map <Leader>P :set paste<CR>o<esc>"*]p:set nopaste<cr>
 nnoremap <leader>p      =p
 nnoremap <leader>P      =P
 
@@ -735,14 +735,6 @@ function! SplitNextArrow()
   call SplitNextArrow()
 endfunction
 
-function! SplitPhpFluent()
-  normal! 0
-  call SplitNextArrow()
-endfunction
-
-command! SplitPhpFluent call SplitPhpFluent()
-
-nmap <leader>)     ys$)
 
 
 
