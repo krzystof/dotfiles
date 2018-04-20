@@ -133,7 +133,7 @@ Plug 'AndrewRadev/splitjoin.vim'
 
 Plug 'SirVer/ultisnips'
   let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsSnippetsDir="~/.vim/ultisnips"
+  let g:UltiSnipsSnippetDirectories=[$HOME."/.vim/ultisnips"]
 
 Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'                  " <-- both needed?
