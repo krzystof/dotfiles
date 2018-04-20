@@ -12,13 +12,18 @@ cd $PROJECT
 
 tmux new-session -s $SESSION -d
 tmux rename-window -n "vim"
-tmux send-keys -t $SESSION:vim.0 "vim ."
+
+if [ -f wip ]; then
+  ./wip
+else
+  tmux send-keys -t $SESSION:vim.0 "vim ."
+fi
 
 tmux new-window -n "yarn"
 tmux split-window -h
 tmux send-keys -t $SESSION:yarn.0 "git status" "C-m"
 tmux send-keys -t $SESSION:yarn.1 "yarn start" "C-m"
 
-tmux select-window -t $SESSION:"vim"
+# tmux select-window -t $SESSION:"vim"
 
 tmux attach-session -t $SESSION

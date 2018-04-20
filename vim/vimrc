@@ -23,6 +23,8 @@
 "   - c for comments
 "   - , for params
 "   - x for xml/html attribute
+"   - z for fold text object
+"   - v for variable segments (camelCase or snake_case)
 "
 "   Need Practice:
 "   - vim-sneak (using the \ shortcut)
@@ -53,7 +55,7 @@ set dictionary+=/usr/share/dict/words
 set expandtab
 set fillchars=fold:\  " <- need that empty space there
 set foldlevelstart=6
-set foldmethod=syntax
+set foldmethod=marker
 set foldtext=MyFoldText()
 set formatprg=par
 set hidden
@@ -113,21 +115,23 @@ Plug 'machakann/vim-highlightedyank'
 
 " Text Objects
 Plug 'kana/vim-textobj-user'
-Plug 'thinca/vim-textobj-between'      " <-- used?
 Plug 'kana/vim-textobj-line'
+Plug 'thinca/vim-textobj-between'      " <-- used?
 Plug 'andyl/vim-textobj-elixir'
 Plug 'glts/vim-textobj-comment'
 Plug 'sgur/vim-textobj-parameter'
 Plug 'whatyouhide/vim-textobj-xmlattr'
 Plug 'jeetsukumaran/vim-indentwise'
 Plug 'michaeljsmith/vim-indent-object'
+Plug 'Julian/vim-textobj-variable-segment'
+Plug 'kana/vim-textobj-fold'
 
 Plug 'AndrewRadev/sideways.vim'
   nnoremap <silent> gh :SidewaysLeft<cr>
   nnoremap <silent> gl :SidewaysRight<cr>
 
 Plug 'AndrewRadev/splitjoin.vim'
-  let g:splitjoin_php_method_chain_until_end_of_line = 1
+  let g:splitjoin_php_method_chain_full = 1
   nnoremap <silent> gj :SplitjoinJoin<CR>
   nnoremap <silent> gs :SplitjoinSplit<CR>
 
@@ -169,32 +173,34 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack' }
   let g:ackprg = 'rg --vimgrep'
 
 Plug 'qpkorr/vim-bufkill', { 'on': 'BD' }
-Plug 'noahfrederick/vim-laravel'
 Plug 'skwp/greplace.vim'             " <-- replace with workflow
-
 Plug 'talek/obvious-resize'
-
 Plug 'w0rp/ale'                      " <-- optimizable?
 Plug 'skywind3000/asyncrun.vim'      " <-- needed?
 
 " Languages and Syntax
-Plug 'tpope/vim-endwise'             " <-- maybe not
-Plug 'sheerun/vim-polyglot'
-Plug 'elixir-lang/vim-elixir'
-Plug 'elmcast/elm-vim'
-Plug 'posva/vim-vue'
+Plug 'tpope/vim-endwise'
+Plug 'sheerun/vim-polyglot'          " <-- do I want to keep this?
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
+Plug 'elmcast/elm-vim', { 'for': 'elm' }
+Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'styled-components/vim-styled-components', { 'for': 'jsx' }
 Plug 'arnaud-lb/vim-php-namespace'   " <-- replace by phpactor, same for composer and complete
 Plug 'noahfrederick/vim-composer'    " <-- just want to keep the command line stuff
-Plug 'shawncplus/phpcomplete.vim'
+Plug 'shawncplus/phpcomplete.vim'    " <-- maybe replace this as well
 Plug '1995eaton/vim-better-javascript-completion'
-" Plugin 'othree/jspc.vim'
+Plug 'othree/jspc.vim'                            " Parameters completion
+
+" Others
+Plug 'noahfrederick/vim-laravel'
 
 call plug#end()
 
 
 
-" Section: Visual
+" Section: Visual {{{
+"
+" }}}
 " ===============
 
 " dfferent colorscheme for ruby and markdown, for example
@@ -239,6 +245,7 @@ highlight nonText       ctermbg=NONE
 highlight LineNr        ctermbg=NONE
 highlight Folded        ctermbg=NONE ctermfg=grey
 highlight VertSplit     ctermbg=Black
+highlight NonText       ctermfg=Black
 " highlight SignColumn    ctermbg=NONE
 " highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
 " highlight TabLine ctermfg=Blue ctermbg=Yellow
@@ -573,29 +580,29 @@ endfunction
 "/
 "/ Custom text objects
 "/
-call textobj#user#plugin('function', {
-\   '-': {
-\     'select-a-function': 'CurrentFunctionA',
-\     'select-a': 'am',
-\   },
-\ })
+" call textobj#user#plugin('function', {
+" \   '-': {
+" \     'select-a-function': 'CurrentFunctionA',
+" \     'select-a': 'am',
+" \   },
+" \ })
 
-function! CurrentFunctionA()
-  if getline('.') =~# '}'
-    normal! k
-  endif
-  normal! ]M$
-  let e = getpos('.')
-  normal! [m
-  call search('function', 'bW')
-  normal! 0
-  let b = getpos('.')
-  if 1 < e[1] - b[1]
-    return ['V', b, e]
-  else
-    return 0
-  endif
-endfunction
+" function! CurrentFunctionA()
+"   if getline('.') =~# '}'
+"     normal! k
+"   endif
+"   normal! ]M$
+"   let e = getpos('.')
+"   normal! [m
+"   call search('function', 'bW')
+"   normal! 0
+"   let b = getpos('.')
+"   if 1 < e[1] - b[1]
+"     return ['V', b, e]
+"   else
+"     return 0
+"   endif
+" endfunction
 
 
 
