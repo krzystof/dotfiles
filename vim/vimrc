@@ -8,26 +8,24 @@
 " Section: Learning stuff
 " =======================
 "
-"   - & to repeat the last substitution
-"
 "   Mappings:
+"   - & to repeat the last substitution
 "   - gV select visually the text that was last edited or pasted
 "   - projections
 "
 "   Text Objects:
-"   - i for indent
-"   - m for function
-"   - l for line
-"   - e for elixir block
-"   - f for characters
-"   - c for comments
 "   - , for params
+"   - c for comments
+"   - e for elixir block
+"   - f for function
+"   - i for indent
+"   - l for line
+"   - v for variable segments (camelCase or snake_case)
 "   - x for xml/html attribute
 "   - z for fold text object
-"   - v for variable segments (camelCase or snake_case)
 "
 "   Need Practice:
-"   - vim-sneak (using the \ shortcut)
+"   - vim-sneak (using the \ and | shortcut)
 "
 "   Other:
 "   Using Vim for writing.
@@ -44,7 +42,6 @@ syntax enable
 let mapleader = "\<Space>"
 let maplocalleader = '\\'
 
-" set fillchars=fold:\  " <- need that empty space there
 set autoread
 set background=dark
 set backspace=indent,eol,start
@@ -70,6 +67,7 @@ set nocursorcolumn
 set nocursorline
 set nohlsearch
 set nojoinspaces
+set noshowmode
 set number
 set relativenumber
 set rtp+=~/.fzf
@@ -97,6 +95,7 @@ runtime! macros/matchit.vim
 call plug#begin('~/.vim/plugged')
 
 Plug 'nanotech/jellybeans.vim'
+
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
@@ -110,13 +109,12 @@ Plug 'tpope/vim-projectionist'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-db'
-Plug 'tommcdo/vim-exchange'            " <-- needed?
 Plug 'machakann/vim-highlightedyank'
 
 " Text Objects
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
-Plug 'thinca/vim-textobj-between'      " <-- used?
+Plug 'kana/vim-textobj-function'      " <-- need to add my own
 Plug 'andyl/vim-textobj-elixir'
 Plug 'glts/vim-textobj-comment'
 Plug 'sgur/vim-textobj-parameter'
@@ -140,6 +138,11 @@ Plug 'SirVer/ultisnips'
   let g:UltiSnipsSnippetDirectories=[$HOME."/.vim/ultisnips"]
 
 Plug 'airblade/vim-gitgutter'
+  highlight GitGutterAdd          ctermfg=darkgreen   ctermbg=NONE
+  highlight GitGutterChange       ctermfg=yellow      ctermbg=NONE
+  highlight GitGutterDelete       ctermfg=darkred     ctermbg=NONE
+  highlight GitGutterChangeDelete ctermfg=lightgreen  ctermbg=NONE
+
 Plug 'benmills/vimux'                  " <-- both needed?
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -166,7 +169,10 @@ Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 Plug 'jiangmiao/auto-pairs'
 Plug 'justinmk/vim-sneak'
-Plug 'kshenoy/vim-signature'         " <-- needed?
+Plug 'kshenoy/vim-signature'
+  highlight Marks ctermfg=blue ctermbg=NONE
+  let g:SignatureMarkTextHL = "Marks"
+
 Plug 'majutsushi/tagbar'
 
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
@@ -175,7 +181,29 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack' }
 Plug 'qpkorr/vim-bufkill', { 'on': 'BD' }
 Plug 'skwp/greplace.vim'             " <-- replace with workflow
 Plug 'talek/obvious-resize'
-Plug 'w0rp/ale'                      " <-- optimizable?
+
+Plug 'w0rp/ale'
+  let g:ale_sign_warning = '▲'
+  let g:ale_sign_error = '✗'
+  let g:ale_echo_msg_error_str = 'E'
+  let g:ale_echo_msg_warning_str = 'W'
+  let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  let g:ale_fix_on_save = 1
+  let g:ale_linters = {
+  \  'php': ['php', 'php_cs_fixer', 'phpmd', 'phpstan']
+  \}
+  let g:ale_fixers = {
+  \   'php': ['php_cs_fixer'],
+  \ 'elm': ['format'],
+  \   'javascript': [
+  \       'eslint',
+  \       'prettier'
+  \   ]
+  \}
+  let g:ale_php_phpcs_standard = 'phpcs.xml'
+  let g:ale_php_phpmd_ruleset = 'phpmd.xml'
+  nmap <F8> <Plug>(ale_fix)
+
 Plug 'skywind3000/asyncrun.vim'      " <-- needed?
 
 " Languages and Syntax
@@ -185,9 +213,22 @@ Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'elmcast/elm-vim', { 'for': 'elm' }
 Plug 'posva/vim-vue', { 'for': 'vue' }
 Plug 'styled-components/vim-styled-components', { 'for': 'jsx' }
-Plug 'arnaud-lb/vim-php-namespace'   " <-- replace by phpactor, same for composer and complete
-Plug 'noahfrederick/vim-composer'    " <-- just want to keep the command line stuff
-Plug 'shawncplus/phpcomplete.vim'    " <-- maybe replace this as well
+
+Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
+  " nnoremap    <leader>ne          :call PhpExpandClass()<CR> <-- reimplement
+  " nnoremap    <leader>ns          :call PhpSortUse()<CR>     <-- reimplement
+  nnoremap    <leader>u           :call phpactor#UseAdd()<cr>
+  nnoremap    <leader>mm          :call phpactor#ContextMenu()<cr>
+  nnoremap    <leader>o           :call phpactor#GotoDefinition()<cr>
+  nnoremap    <leader>r           :call phpactor#Transform()<cr>
+  " nnoremap    <leader>cc          :call phpactor#ClassNew()<cr>
+  vnoremap    <silent><leader>em  :<C-U>call phpactor#ExtractMethod()<cr>
+  autocmd FileType php setlocal omnifunc=phpactor#Complete
+
+" Plug 'arnaud-lb/vim-php-namespace'   " <-- replace by phpactor, same for composer and complete
+" Plug 'noahfrederick/vim-composer'    " <-- just want to keep the command line stuff
+" Plug 'shawncplus/phpcomplete.vim'    " <-- maybe replace this as well
+
 Plug '1995eaton/vim-better-javascript-completion'
 Plug 'othree/jspc.vim'                            " Parameters completion
 
@@ -198,17 +239,13 @@ call plug#end()
 
 
 
-" Section: Visual {{{
-"
-" }}}
+" Section: Visual
 " ===============
 
-" dfferent colorscheme for ruby and markdown, for example
-" autocmd FileType ruby colorscheme railcasts
+colorscheme jellybeans
 
 " Make sure colored syntax mode is on, and make it Just Work with newer 256
 " color terminals like iTerm2.
-colorscheme jellybeans
 
 let g:rehash256 = 1
 if has('gui_running')
@@ -253,6 +290,10 @@ highlight NonText       ctermfg=Black
 " highlight Normal        cterm=NONE ctermbg=NONE
 " highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
 
+highlight NiceError ctermfg=red ctermbg=NONE
+highlight NiceWarning ctermfg=yellow ctermbg=NONE
+highlight link ALEWarningSign NiceWarning
+highlight link ALEErrorSign NiceError
 
 
 " Section: Mappings
@@ -300,8 +341,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 
 " in insert mode, uppercase the current word
-inoremap <c-u> <esc>gUiwea
-
+inoremap    <c-u>               <esc>gUiwea
 
 nnoremap    <leader>2           :TagbarToggle<CR>
 nnoremap    <leader>;           :call ToggleLast()<cr>
@@ -319,12 +359,11 @@ nnoremap    <leader>av          :Ack <C-r><C-w> vendor/<cr>
 nnoremap    <leader>b           :Buffers<cr>
 nnoremap    <leader>f           :Files<cr>
 nnoremap    <leader>l           :Lines<cr>
-nnoremap    <leader>rc          :History:<cr>
+nnoremap    <leader>:           :History:<cr>
 nnoremap    <leader>]           :Tags<cr>
 nnoremap    <leader>m           :Marks<cr>
 nnoremap    <leader>h           :History<cr>
 
-" Insert Now or Date
 nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
 nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 
@@ -337,11 +376,8 @@ nnoremap    <leader>es          :UltiSnipsEdit<cr>
 nnoremap    <Leader>i           vip:sort<CR>
 nnoremap    <leader>g           :Gstatus<CR>
 
+" What is that for?
 nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
-
-nnoremap    <leader>ni          :call PhpInsertUse()<CR>
-nnoremap    <leader>ne          :call PhpExpandClass()<CR>
-nnoremap    <leader>ns          :call PhpSortUse()<CR>
 
 nnoremap    <leader>q           :call ToggleList("Quickfix List", 'c')<CR>
 
@@ -384,7 +420,7 @@ onoremap    in(                 :<c-u>normal! f(vi(<cr>
 onoremap    il(                 :<c-u>normal! F)vi(<cr>
 
 
-command! Wip call VimuxRunCommand("u --group wip")
+command! Wip call VimuxRunCommand('u --group wip')
 command! So :source $MYVIMRC
 command! Doc call FindDoc()
 " command! -nargs=1 Doc call FindDoc(<f-args>)
@@ -410,11 +446,6 @@ let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*
 set grepprg=rg\ --color=never
 let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 let g:ctrlp_use_caching = 1
-
-
-"/ Signature
-highlight Marks ctermfg=blue ctermbg=NONE
-let g:SignatureMarkTextHL = "Marks"
 
 
 "/ VIM Test
@@ -474,55 +505,11 @@ nnoremap <silent> <Right> :<C-U>ObviousResizeRight<CR>
 " let g:VimuxOrientation = "h"
 " let g:VimuxHeight = "30"
 
-"/ Gitgutter
-highlight GitGutterAdd ctermfg=darkgreen ctermbg=NONE
-highlight GitGutterChange ctermfg=yellow ctermbg=NONE
-highlight GitGutterDelete ctermfg=darkred ctermbg=NONE
-" highlight GitGutterChangeDelete ctermfg=lightgreen ctermbg=NONE
-
-
-"/ ALE
-let g:ale_sign_warning = '▲'
-let g:ale_sign_error = '✗'
-highlight NiceError ctermfg=red ctermbg=NONE
-highlight NiceWarning ctermfg=yellow ctermbg=NONE
-highlight link ALEWarningSign NiceWarning
-highlight link ALEErrorSign NiceError
-
-
-let g:ale_echo_msg_error_str = 'E'
-let g:ale_echo_msg_warning_str = 'W'
-" let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
-
-let g:ale_fix_on_save = 1
-nmap <F8> <Plug>(ale_fix)
-
-let g:ale_linters = {
-\  'php': ['php', 'phpcs', 'phpmd', 'phpstan']
-\}
-
-let g:ale_fixers = {
-\   'php': [],
-\   'elm': [
-\       'format'
-\   ],
-\   'javascript': [
-\       'eslint',
-\       'prettier'
-\   ]
-\}
-
-" php
-let g:ale_php_phpcs_standard = 'phpcs.xml'
-let g:ale_php_phpmd_ruleset = 'phpmd.xml'
-
-
-
 "/ Lightline
 let g:lightline = {
 \ 'colorscheme': 'jellybeans',
 \ 'active': {
-\   'left': [['mode', 'paste'], ['gitbranch', 'filename', 'modified']],
+\   'left': [['mode', 'paste'], ['filename', 'modified']],
 \   'right': [['lineinfo'], ['percent'], ['readonly', 'linter_warnings', 'linter_errors', 'linter_ok']]
 \ },
 \ 'component_expand': {
@@ -536,7 +523,8 @@ let g:lightline = {
 \   'linter_ok': 'success'
 \ },
 \ 'component-function': {
-\   'gitbranch': 'fugitive#head'
+\   'gitbranch': 'fugitive#head',
+\   'filename': 'LightlineFilename'
 \ },
 \ }
 
@@ -559,6 +547,13 @@ function! LightlineLinterOK() abort
   let l:all_errors = l:counts.error + l:counts.style_error
   let l:all_non_errors = l:counts.total - l:all_errors
   return l:counts.total == 0 ? '✓ ' : ''
+endfunction
+
+function! LightlineFilename()
+  return &filetype ==# 'vimfiler' ? vimfiler#get_status_string() :
+        \ &filetype ==# 'unite' ? unite#get_status_string() :
+        \ &filetype ==# 'vimshell' ? vimshell#get_status_string() :
+        \ expand('%:t') !=# '' ? expand('%:t') : '[No Name]'
 endfunction
 
 autocmd User ALELint call s:MaybeUpdateLightline()
@@ -854,6 +849,9 @@ augroup END
 augroup fixers
   autocmd BufWritePre * %s/\s\+$//e
 augroup END
+
+autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
+    \| exe "normal! g'\"" | endif
 
 
 " vim:fdm=expr:fen:fdl=2:foldexpr=getline(v\:lnum)=~'^\"\\sSection'?'>1'\:'=':
