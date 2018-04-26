@@ -190,7 +190,7 @@ Plug 'w0rp/ale'
   \}
   let g:ale_fixers = {
   \   'php': ['php_cs_fixer'],
-  \ 'elm': ['format'],
+  \   'elm': ['format'],
   \   'javascript': [
   \       'eslint',
   \       'prettier'
@@ -505,6 +505,22 @@ nnoremap <silent> <Right> :<C-U>ObviousResizeRight<CR>
 " let g:VimuxOrientation = "h"
 " let g:VimuxHeight = "30"
 
+<<<<<<< e62d743f0a64743bc0d98dfbb4dd3cf88619ee49
+||||||| merged common ancestors
+"/ Gitgutter
+highlight GitGutterAdd ctermfg=darkgreen ctermbg=NONE
+highlight GitGutterChange ctermfg=yellow ctermbg=NONE
+highlight GitGutterDelete ctermfg=darkred ctermbg=NONE
+" highlight GitGutterChangeDelete ctermfg=lightgreen ctermbg=NONE
+
+
+"/ ALE
+highlight NiceError ctermfg=red ctermbg=NONE
+highlight NiceWarning ctermfg=yellow ctermbg=NONE
+highlight link ALEWarningSign NiceWarning
+highlight link ALEErrorSign NiceError
+
+
 "/ Lightline
 let g:lightline = {
 \ 'colorscheme': 'jellybeans',
@@ -792,7 +808,7 @@ function! WriterMode()
   set nonumber
   set norelativenumber
   set laststatus=0
-  set formatoptions=ta
+  set formatoptions=
   call CenterPane()
 endfunction
 
