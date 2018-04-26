@@ -396,6 +396,7 @@ map         <Leader>vl          :VimuxRunLastCommand<CR>
 map         <Leader>vp          :VimuxPromptCommand<CR>
 nnoremap    <leader>vr          :call VimuxRunLastCommand()<CR>
 nnoremap    <leader>vc          :call VimuxCloseRunner()<CR>
+nnoremap    <leader>w           :Files<cr><c-r><c-w>
 
 " Window Switching:
 nnoremap <C-j> <C-w><C-j>
