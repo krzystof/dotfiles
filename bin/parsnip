@@ -13,13 +13,17 @@ trk parsnip
 cd $PROJECT
 
 tmux new-session -d -s ${SESSION}
-tmux rename-window -n "code"
+tmux rename-window "electron"
 
 tmux send-keys -t ${SESSION}:code "vim ." "C-m"
 
+tmux new-window -n "rust"
+tmux send-keys -t ${SESSION}:rust "cd native" "C-m"
+
 tmux new-window -n "build"
 tmux split-window -h -t ${SESSION}:build
+tmux send-keys -t ${SESSION}:build "cd native" "C-m"
 
-tmux select-window -t $SESSION:"code"
+tmux select-window -t $SESSION:"electron"
 
 tmux attach-session -t ${SESSION}
