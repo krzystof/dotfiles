@@ -138,14 +138,11 @@ Plug 'SirVer/ultisnips'
   let g:UltiSnipsSnippetDirectories=[$HOME."/.vim/ultisnips"]
 
 Plug 'airblade/vim-gitgutter'
-  highlight GitGutterAdd          ctermfg=darkgreen   ctermbg=NONE
-  highlight GitGutterChange       ctermfg=yellow      ctermbg=NONE
-  highlight GitGutterDelete       ctermfg=darkred     ctermbg=NONE
-  highlight GitGutterChangeDelete ctermfg=lightgreen  ctermbg=NONE
 
 Plug 'benmills/vimux'                  " <-- both needed?
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/supertab'
@@ -170,7 +167,6 @@ Plug 'janko-m/vim-test'
 Plug 'jiangmiao/auto-pairs'
 Plug 'justinmk/vim-sneak'
 Plug 'kshenoy/vim-signature'
-  highlight Marks ctermfg=blue ctermbg=NONE
   let g:SignatureMarkTextHL = "Marks"
 
 Plug 'majutsushi/tagbar'
@@ -272,29 +268,32 @@ else
   endif
 endif
 
-highlight Normal        ctermbg=NONE
-highlight nonText       ctermbg=NONE
-highlight SignColumn    ctermbg=NONE
-highlight TabLineFill   ctermbg=NONE
-highlight CursorLineNr  ctermbg=NONE
-highlight Normal        ctermbg=NONE
-highlight nonText       ctermbg=NONE
-highlight LineNr        ctermbg=NONE
-highlight Folded        ctermbg=NONE ctermfg=grey
-highlight VertSplit     ctermbg=Black
-highlight NonText       ctermfg=Black
-" highlight SignColumn    ctermbg=NONE
-" highlight TabLineFill ctermfg=LightGreen ctermbg=darkBlue
-" highlight TabLine ctermfg=Blue ctermbg=Yellow
-" highlight TabLineSel ctermfg=Red ctermbg=Yellow
-" highlight Normal        cterm=NONE ctermbg=NONE
-" highlight StatusLine    cterm=NONE ctermbg=blue ctermfg=white
-
-highlight NiceError ctermfg=red ctermbg=NONE
-highlight NiceWarning ctermfg=yellow ctermbg=NONE
-highlight link ALEWarningSign NiceWarning
-highlight link ALEErrorSign NiceError
-
+highlight Normal                ctermbg=NONE
+highlight nonText               ctermbg=NONE
+highlight SignColumn            ctermbg=NONE
+highlight TabLineFill           ctermbg=NONE
+highlight CursorLineNr          ctermbg=NONE
+highlight Normal                ctermbg=NONE
+highlight nonText               ctermbg=NONE
+highlight LineNr                ctermbg=NONE
+highlight Folded                ctermbg=NONE ctermfg=grey
+highlight VertSplit             ctermbg=Black
+highlight NonText               ctermfg=Black
+" highlight SignColumn            ctermbg=NONE
+" highlight TabLineFill           ctermfg=LightGreen ctermbg=darkBlue
+" highlight TabLine               ctermfg=Blue ctermbg=Yellow
+" highlight TabLineSel            ctermfg=Red ctermbg=Yellow
+" highlight Normal                cterm=NONE ctermbg=NONE
+" highlight StatusLine            cterm=NONE ctermbg=blue ctermfg=white
+highlight GitGutterAdd          ctermfg=darkgreen   ctermbg=NONE
+highlight GitGutterChange       ctermfg=yellow      ctermbg=NONE
+highlight GitGutterDelete       ctermfg=darkred     ctermbg=NONE
+highlight GitGutterChangeDelete ctermfg=lightgreen  ctermbg=NONE
+highlight Marks                 ctermfg=blue        ctermbg=NONE
+highlight NiceError             ctermfg=red         ctermbg=NONE
+highlight NiceWarning           ctermfg=yellow      ctermbg=NONE
+highlight link ALEWarningSign   NiceWarning
+highlight link ALEErrorSign     NiceError
 
 " Section: Mappings
 " =================

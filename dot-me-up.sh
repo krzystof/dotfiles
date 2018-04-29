@@ -32,6 +32,10 @@ apt_install tmux
 apt_install libevent-dev
 apt_install terminator
 apt_install silversearcher-ag
+apt_install network-manager
+apt_install libnss3-tools
+apt_install jq
+apt_install xsel
 
 clone_github_repo ryanoasis/nerd-fonts nerd-fonts
 clone_github_repo sorin-ionescu/prezto prezto
@@ -72,7 +76,7 @@ if ! type_exists clementine; then
   e_arrow "installing clementine"
   cd "${HOME}/Downloads"
   wget https://github.com/clementine-player/Clementine/releases/download/1.3.1/clementine_1.3.1-xenial_amd64.deb
-  sudo gdebi clementine_1.3.1-xenial_amd64.deb &> /dev/null
+  sudo gdebi clementine_1.3.1-xenial_amd64.deb
   rm -f clementine_1.3.1-xenial_amd64.deb
   e_ok "clementine installed"
 fi
@@ -84,11 +88,7 @@ symlink_dropbox Clementine/Clementine.conf .config/Clementine/Clementine.conf
 symlink_dropbox Clementine/clementine.db .config/Clementine/clementine.db
 
 if [ ! -e ${HOME}/.vim ]; then
-  mkdir -p ${HOME}/.vim
-  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-  ln -s ${HOME}/Dropbox/Vim/after ${HOME}/.vim/after
-  ln -s ${HOME}/Dropbox/Vim/UltiSnips ${HOME}/.vim/UltiSnips
-  ln -s ${HOME}/Dropbox/Vim/plugins.vim ${HOME}/.vim/plugins.vim
+  ln -s ${HOME}/Dotfiles/vim ${HOME}/.vim
   e_ok "vim dir ready"
 fi
 
@@ -115,8 +115,8 @@ fi
 
 mkdir -p ${HOME}/.config/terminator
 
-if [! -L ${HOME}/.config/terminator/conf ]; then
-  ln -s ${DOTFILES}/files/terminator ${HOME}/.config/terminator/config
+if [ ! -L ${HOME}/.config/terminator/conf ]; then
+  ln -fs ${DOTFILES}/files/terminator ${HOME}/.config/terminator/config
 fi
 
 if [ ! -d ${HOME}/.local/share/icons/bridge ]; then
@@ -145,7 +145,7 @@ if [ ! -d ${NVM_DIR} ]; then
   sudo apt-get remove nodejs
   e_arrow "installing nvm"
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.8/install.sh | bash
-  sed '/$NVM_DIR/nvm.sh/d' ${HOME}/.zshrc
+  # sed '/$NVM_DIR/nvm.sh/d' ${HOME}/.zshrc
   . "$NVM_DIR/nvm.sh"
   e_arrow "installing node"
   nvm install v8.1.3
@@ -153,7 +153,7 @@ if [ ! -d ${NVM_DIR} ]; then
   e_ok "nvm and node installed successfully"
 fi
 
-if [ ! -d "${HOME}/.config/yarn" ]; then
+if ! type_exists yarn; then
   e_arrow "installing yarn"
   curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -207,6 +207,13 @@ fi
 
 add_ppa philip.scott/elementary-tweaks
 sudo apt-get update && apt_install elementary-tweaks
+
+if ! -d $HOME/.rbenv; then
+  git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+  rbenv init
+  mkdir -p "$(rbenv root)"/plugins
+  git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+fi
 
 # What needs to be done on a brand new system?
 # - install elm
