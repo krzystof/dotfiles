@@ -72,7 +72,7 @@ function prompt_polly_precmd {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
 
-  _prompt_status=" %(?:%B%K{15}%F{0} λ %f%k%b :%B%K{1}%F{15} λ %f%k%b) "
+  _prompt_status=" %(?:%B%K{15}%F{1} λ %f%k%b :%B%K{1}%F{15} λ %f%k%b) "
 
   # Format PWD.
   _prompt_polly_pwd=$(prompt-pwd)
@@ -126,7 +126,7 @@ function prompt_polly_setup {
     'status' '$(coalesce "%b" "%p" "%c")%s%A%B%S%a%d%m%r%U%u'
 
   # Define prompts.
-  PROMPT='${_prompt_status}${SSH_TTY:+"%F{9}%n%f%F{7}@%f%F{3}%m%f "}%F{8}${_prompt_polly_pwd}%f%(!. %B%F{1}#%f%b.) (${git_info:+${(e)git_info[status]}} )${editor_info[keymap]} '
+  PROMPT='${_prompt_status}${SSH_TTY:+"%F{9}%n%f%F{7}@%f%F{3}%m%f "}%F{8}${_prompt_polly_pwd}%f%(!. %B%F{1}#%f%b.)${git_info:+${(e)git_info[status]}}${editor_info[keymap]} '
   RPROMPT=''
   SPROMPT='zsh: correct %F{1}%R%f to %F{2}%r%f [nyae]? '
 }
