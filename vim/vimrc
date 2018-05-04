@@ -220,6 +220,8 @@ Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
   vnoremap    <silent><leader>em  :<C-U>call phpactor#ExtractMethod()<cr>
   autocmd FileType php setlocal omnifunc=phpactor#Complete
 
+Plug 'noahfrederick/vim-laravel'
+
 " Plug 'arnaud-lb/vim-php-namespace'   " <-- replace by phpactor, same for composer and complete
 " Plug 'noahfrederick/vim-composer'    " <-- just want to keep the command line stuff
 " Plug 'shawncplus/phpcomplete.vim'    " <-- maybe replace this as well
@@ -227,8 +229,6 @@ Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
 Plug '1995eaton/vim-better-javascript-completion'
 Plug 'othree/jspc.vim'                            " Parameters completion
 
-" Others
-Plug 'noahfrederick/vim-laravel'
 
 call plug#end()
 
