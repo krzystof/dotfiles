@@ -6,10 +6,9 @@ function! ResolveWebpackAlias(fname)
   "
   " Load aliases by project
   "
+  echom "This is the filename: " . fname
 
-
-  " LearningLadders
-  if a:fname =~ '^App'
+  if my#IsProject('learning-ladders', fname) && a:fname =~ '^App'
     let relativePath = substitute(a:fname, 'App/', 'jsapp/', '')
     let js = substitute(l:relativePath, '$', '.js', '')
     let jsx = substitute(l:relativePath, '$', '.jsx', '')
@@ -18,9 +17,9 @@ function! ResolveWebpackAlias(fname)
     else
       return l:jsx
     endif
-  else
-    return FindNodModule(a:fname)
   endif
+
+  return FindNodModule(a:fname)
 endfunction
 
 set includeexpr=ResolveWebpackAlias(v:fname)

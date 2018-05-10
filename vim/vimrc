@@ -40,7 +40,7 @@
 syntax enable
 
 let mapleader = "\<Space>"
-let maplocalleader = '\\'
+let maplocalleader = "\\"
 
 set autoread
 set background=dark
@@ -139,6 +139,8 @@ Plug 'SirVer/ultisnips'
 
 Plug 'airblade/vim-gitgutter'
 
+" Plug 'jceb/vim-orgmode'
+
 Plug 'benmills/vimux'                  " <-- both needed?
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -174,7 +176,7 @@ Plug 'majutsushi/tagbar'
 Plug 'mileszs/ack.vim', { 'on': 'Ack' }
   let g:ackprg = 'rg --vimgrep'
 
-Plug 'qpkorr/vim-bufkill', { 'on': 'BD' }
+Plug 'qpkorr/vim-bufkill'
 Plug 'skwp/greplace.vim'             " <-- replace with workflow
 Plug 'talek/obvious-resize'
 
@@ -189,12 +191,9 @@ Plug 'w0rp/ale'
   \  'php': ['php', 'php_cs_fixer', 'phpmd', 'phpstan']
   \}
   let g:ale_fixers = {
-  \   'php': ['php_cs_fixer'],
-  \   'elm': ['format'],
-  \   'javascript': [
-  \       'eslint',
-  \       'prettier'
-  \   ]
+  \ 'php': ['php_cs_fixer'],
+  \ 'elm': ['format'],
+  \ 'javascript': [ 'eslint' ]
   \}
   let g:ale_php_phpcs_standard = 'phpcs.xml'
   let g:ale_php_phpmd_ruleset = 'phpmd.xml'
@@ -505,22 +504,6 @@ nnoremap <silent> <Right> :<C-U>ObviousResizeRight<CR>
 " let g:VimuxOrientation = "h"
 " let g:VimuxHeight = "30"
 
-<<<<<<< e62d743f0a64743bc0d98dfbb4dd3cf88619ee49
-||||||| merged common ancestors
-"/ Gitgutter
-highlight GitGutterAdd ctermfg=darkgreen ctermbg=NONE
-highlight GitGutterChange ctermfg=yellow ctermbg=NONE
-highlight GitGutterDelete ctermfg=darkred ctermbg=NONE
-" highlight GitGutterChangeDelete ctermfg=lightgreen ctermbg=NONE
-
-
-"/ ALE
-highlight NiceError ctermfg=red ctermbg=NONE
-highlight NiceWarning ctermfg=yellow ctermbg=NONE
-highlight link ALEWarningSign NiceWarning
-highlight link ALEErrorSign NiceError
-
-
 "/ Lightline
 let g:lightline = {
 \ 'colorscheme': 'jellybeans',
@@ -633,7 +616,7 @@ let g:vdebug_options = {
 
 "/ Vim vue
 let g:vue_disable_pre_processors=1
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.css.javascript
+" autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.css.javascript
 
 " Prevent syntax highlighting quirks
 autocmd FileType vue syntax sync fromstart
