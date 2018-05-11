@@ -229,6 +229,8 @@ Plug 'noahfrederick/vim-laravel'
 Plug '1995eaton/vim-better-javascript-completion'
 Plug 'othree/jspc.vim'                            " Parameters completion
 
+Plug 'junegunn/vader.vim'
+
 
 call plug#end()
 
@@ -814,6 +816,12 @@ endfunction
 
 command! YarnAdd :call YarnAdd()
 
+function! ExtractFirstArg()
+  let line = getline('.')
+  let line = substitute(line, 'some_func', '', '')
+  return substitute(line, '\v[\(\)]', '', 'g')
+endfunction
+
 
 
 " Section: Auto commands
@@ -833,10 +841,11 @@ augroup specialabbrev
   autocmd FileType php :iabbrev <buffer> $ $this->
 augroup END
 
-augroup html
+augroup syntaxspecifics
   autocmd!
   " fold with \ f
-  autocmd FileType html nnoremap <buffer> <localleader>f Vatzf
+  autocmd FileType html     nnoremap <buffer> <localleader>f Vatzf
+  autocmd FileType markdown nnoremap <buffer> <leader>p      gqap
 augroup END
 
 
