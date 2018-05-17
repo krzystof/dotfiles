@@ -199,11 +199,15 @@ Plug 'w0rp/ale'
   let g:ale_fixers = {
   \ 'php': ['php_cs_fixer'],
   \ 'elm': ['format'],
-  \ 'javascript': [ 'eslint', 'prettier' ]
+  \ 'javascript': ['eslint']
   \}
   let g:ale_php_phpcs_standard = 'phpcs.xml'
   let g:ale_php_phpmd_ruleset = 'phpmd.xml'
   nmap <F8> <Plug>(ale_fix)
+
+  if  my#all#GetProject() == 'planizely'
+    let g:ale_fixers.javascript = ['eslint', 'prettier']
+  endif
 
 Plug 'skywind3000/asyncrun.vim'      " <-- needed?
 
