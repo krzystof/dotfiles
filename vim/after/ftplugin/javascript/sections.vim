@@ -1,10 +1,8 @@
-" http://learnvimscriptthehardway.stevelosh.com/chapters/51.html
-
 function! s:NextSection(type, backwards)
     if a:type == 1
-        let pattern = '\v^((port )\?module|type alias Model|type Msg|update :|view :|main :)'
+        let pattern = '\v(<class>|<export>|<function>|^\s*\w*[:\(].*\{$)'
     elseif a:type == 2
-        let pattern = '\v\n\n^\S'
+        let pattern = '\v^\s*\},?$'
     endif
 
     if a:backwards

@@ -1,4 +1,4 @@
-function! my#php#namespace()"{{{
+function! my#php#namespace()
   let classpath = expand('%:h')
   if l:classpath =~ '\v^app'
     let normalized = toupper(classpath[0]) . classpath[1,]
@@ -12,7 +12,7 @@ endfunction
 function! my#php#classname_from_file()
   let filename = expand('%:t')
   return substitute(filename, '.php', '', '')
-endfunction"}}}
+endfunction
 
 function! my#php#functionTextobj(object_type)
   return s:select_{a:object_type}()

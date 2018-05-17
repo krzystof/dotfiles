@@ -8,6 +8,12 @@
 " Section: Learning stuff
 " =======================
 "
+"   Improvements:
+"   -------------
+"   - Javascript open file path alias per project
+"   - Enable prettier per project
+"   - Switch.vim gs
+"
 "   Mappings:
 "   - & to repeat the last substitution
 "   - gV select visually the text that was last edited or pasted
@@ -28,8 +34,7 @@
 "   - vim-sneak (using the \ and | shortcut)
 "
 "   Other:
-"   Using Vim for writing.
-"   set spell, and word completion (Ctrl+x Ctrl+k)
+"   - set spell, and word completion (Ctrl+x Ctrl+k)
 "
 
 
@@ -114,7 +119,8 @@ Plug 'machakann/vim-highlightedyank'
 " Text Objects
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
-Plug 'kana/vim-textobj-function'      " <-- need to add my own
+Plug 'kana/vim-textobj-function'
+" Plug 'thinca/vim-textobj-function-javascript'
 Plug 'andyl/vim-textobj-elixir'
 Plug 'glts/vim-textobj-comment'
 Plug 'sgur/vim-textobj-parameter'
@@ -143,7 +149,7 @@ Plug 'airblade/vim-gitgutter'
 
 Plug 'benmills/vimux'                  " <-- both needed?
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'ctrlpvim/ctrlp.vim'
+" Plug 'ctrlpvim/ctrlp.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -193,7 +199,7 @@ Plug 'w0rp/ale'
   let g:ale_fixers = {
   \ 'php': ['php_cs_fixer'],
   \ 'elm': ['format'],
-  \ 'javascript': [ 'eslint' ]
+  \ 'javascript': [ 'eslint', 'prettier' ]
   \}
   let g:ale_php_phpcs_standard = 'phpcs.xml'
   let g:ale_php_phpmd_ruleset = 'phpmd.xml'
@@ -618,10 +624,10 @@ let g:vdebug_options = {
 
 "/ Vim vue
 let g:vue_disable_pre_processors=1
-" autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.css.javascript
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.css.javascript
 
 " Prevent syntax highlighting quirks
-autocmd FileType vue syntax sync fromstart
+autocmd FileType vue.* syntax sync fromstart
 
 
 
@@ -836,16 +842,13 @@ augroup autosyntax
   autocmd FileType elm    setlocal ts=4 sts=4 sw=4 expandtab
 augroup END
 
-augroup specialabbrev
-  autocmd!
-  autocmd FileType php :iabbrev <buffer> $ $this->
-augroup END
-
 augroup syntaxspecifics
   autocmd!
+  autocmd FileType php :iabbrev <buffer> $ $this->
   " fold with \ f
-  autocmd FileType html     nnoremap <buffer> <localleader>f Vatzf
-  autocmd FileType markdown nnoremap <buffer> <leader>p      gqap
+  autocmd FileType html         nnoremap <buffer> <localleader>f Vatzf
+  autocmd FileType markdown     nnoremap <buffer> <leader>p      gqap
+  autocmd FileType javascript   nnoremap <buffer> <localleader>l   :%!prettier %
 augroup END
 
 
@@ -860,6 +863,5 @@ augroup END
 
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
-
 
 " vim:fdm=expr:fen:fdl=2:foldexpr=getline(v\:lnum)=~'^\"\\sSection'?'>1'\:'=':

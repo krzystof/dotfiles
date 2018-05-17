@@ -21,18 +21,32 @@ snippet ">" "arrow function" i
 (${1}) => ${2:{}}
 endsnippet
 
-snippet "^des" "describe block" rbA
-describe('${1:Something}', () => {
-	test('${2:Stuff}', () => {
-		${3:Assert me}
+snippet > "arrow function" i
+(${1}) => ${2:{$3}}
+endsnippet
+
+snippet "des" "describe block" rbA
+describe('$1', () => {
+	test('$2', () => {
+		$0
 	})
 })
 endsnippet
 
-snippet "^\S*test" "test block" rbA
+snippet wrapdesc
+describe('$1', () => {
+	${VISUAL}
+})
+endsnippet
+
+snippet "^\s*test" "test block" rbA
 test('${1:Stuff}', () => {
 	${2:Assert me}
 })
+endsnippet
+
+snippet import
+import $1 from '$0$1'
 endsnippet
 
 snippet _jest "Jest Test"
@@ -40,6 +54,19 @@ snippet _jest "Jest Test"
 import React from 'react'
 import { mount } from 'enzyme'
 import renderer from 'react-test-renderer'
+import `!v my#js#test_file_to_name()` from '../`!v my#js#test_file_to_name()`'
+
+describe('`!v my#js#test_file_to_name()`', () => {
+  test('${1}', () => {
+		${2}
+		expect('stuff').toBe('tested')
+  })
+})
+endsnippet
+
+snippet _vue_test "Vue component test"
+/* eslint-env jest */
+import { mount } from 'vue-test-utils'
 import `!v my#js#test_file_to_name()` from '../`!v my#js#test_file_to_name()`'
 
 describe('`!v my#js#test_file_to_name()`', () => {
