@@ -10,14 +10,13 @@
 "
 "   Improvements:
 "   -------------
-"   - Javascript open file path alias per project
-"   - Enable prettier per project
-"   - Switch.vim gs
+"   - Switch.vim (find a mapping)
 "
 "   Mappings:
 "   - & to repeat the last substitution
 "   - gV select visually the text that was last edited or pasted
 "   - projections
+"   - more snippets
 "
 "   Text Objects:
 "   - , for params
@@ -32,6 +31,7 @@
 "
 "   Need Practice:
 "   - vim-sneak (using the \ and | shortcut)
+"   - sideways ( leader sh and leader sl )
 "
 "   Other:
 "   - set spell, and word completion (Ctrl+x Ctrl+k)
@@ -120,7 +120,6 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-function'
-" Plug 'thinca/vim-textobj-function-javascript'
 Plug 'andyl/vim-textobj-elixir'
 Plug 'glts/vim-textobj-comment'
 Plug 'sgur/vim-textobj-parameter'
@@ -131,8 +130,8 @@ Plug 'Julian/vim-textobj-variable-segment'
 Plug 'kana/vim-textobj-fold'
 
 Plug 'AndrewRadev/sideways.vim'
-  nnoremap <silent> gh :SidewaysLeft<cr>
-  nnoremap <silent> gl :SidewaysRight<cr>
+  nnoremap <silent> <leader>sh :SidewaysLeft<cr>
+  nnoremap <silent> <leader>sl :SidewaysRight<cr>
 
 Plug 'AndrewRadev/splitjoin.vim'
   let g:splitjoin_php_method_chain_full = 1
@@ -150,6 +149,11 @@ Plug 'airblade/vim-gitgutter'
 Plug 'benmills/vimux'                  " <-- both needed?
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'ctrlpvim/ctrlp.vim'
+
+Plug 'junegunn/vim-easy-align'
+  xmap ga <Plug>(EasyAlign)
+  nmap ga <Plug>(EasyAlign)
+
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
@@ -173,7 +177,27 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
 Plug 'jiangmiao/auto-pairs'
+
 Plug 'justinmk/vim-sneak'
+  let g:sneak#use_ic_scs = 1
+  nnoremap s s
+  nnoremap S S
+  nmap \ <Plug>Sneak_s
+  nmap gh <Plug>Sneak_S
+  xmap \ <Plug>Sneak_s
+  xmap gh <Plug>Sneak_S
+  omap \ <Plug>Sneak_s
+  omap gh <Plug>Sneak_S
+
+  " repeat motion
+  map ; <Plug>Sneak_;
+  map , <Plug>Sneak_,
+
+  map f <Plug>Sneak_f
+  map F <Plug>Sneak_F
+  map t <Plug>Sneak_t
+  map T <Plug>Sneak_T
+
 Plug 'kshenoy/vim-signature'
   let g:SignatureMarkTextHL = "Marks"
 
@@ -309,6 +333,7 @@ highlight link ALEErrorSign     NiceError
 " Section: Mappings
 " =================
 
+noremap  <silent>  <leader>zf    zfafzM
 inoremap <silent>  jk            <Esc>
 noremap  <silent>  k             gk
 noremap  <silent>  j             gj
@@ -325,6 +350,8 @@ nnoremap    <C-s>             :w<CR>
 inoremap    <C-s>             <Esc>:w<CR>
 nnoremap    gV                `[v`]
 nnoremap    ==                mz=ap`z
+" nnoremap    gh                ^
+" nnoremap    gl                $
 
 nmap <C-Up>   [e
 nmap <C-Down> ]e
@@ -390,6 +417,7 @@ nnoremap    <leader>g           :Gstatus<CR>
 nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap    <leader>q           :call ToggleList("Quickfix List", 'c')<CR>
+
 
 nnoremap    <leader>tt          :TestNearest<CR>
 nnoremap    <leader>tf          :TestFile<CR>
@@ -478,31 +506,8 @@ let g:SuperTabLongestHighlight=1
 nmap <leader>c    <Plug>(composer-find)
 
 
-"/ Sneak
-let g:sneak#use_ic_scs = 1
 
 
-
-nnoremap s s
-nnoremap S S
-"" 2-character Sneak (default)
-nmap \  <Plug>Sneak_s
-nmap \| <Plug>Sneak_S
-" visual-mode
-xmap \  <Plug>Sneak_s
-xmap \| <Plug>Sneak_S
-" operator-pending-mode
-omap \  <Plug>Sneak_s
-omap \| <Plug>Sneak_S
-
-" repeat motion
-map ; <Plug>Sneak_;
-map , <Plug>Sneak_,
-
-map f <Plug>Sneak_f
-map F <Plug>Sneak_F
-map t <Plug>Sneak_t
-map T <Plug>Sneak_T
 
 
 "/ Obvious Resize

@@ -54,7 +54,7 @@ snippet t "new test"
 /** @group wip */
 function test_${1:a_thing_that_should_be_a_thing}()
 {
-    ${2}
+	$0
 }
 endsnippet
 
@@ -63,8 +63,8 @@ $this->withoutExceptionHandling();
 endsnippet
 
 snippet if "if statement"
-if (${1}) {
-    ${2}
+if ($1) {
+	$0
 }
 endsnippet
 
