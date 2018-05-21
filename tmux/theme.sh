@@ -25,7 +25,7 @@ set -g message-bg black
 
 setw -g window-status-format "#[bg=black, noreverse]#{?window_activity_flag,#[fg=red]⋅ ,#[fg=colour244]}#I #W"
 setw -g window-status-current-format "#[fg=brightcyan bold, bg=black, noreverse]#I #{?window_zoomed_flag,[#W],#W}"
-setw -g window-status-separator '#[fg=colour244] | '
+setw -g window-status-separator '#[fg=colour237] | '
 setw -g window-status-current-attr dim
 setw -g window-status-bg green
 setw -g window-status-fg black
@@ -34,7 +34,7 @@ set -g window-status-attr reverse
 set -g window-status-activity-attr none
 
 # Make this shit happen
-set -g status-left "#[fg=yellow] ♜ #[fg=blue nobold] #S#[fg=colour244] | "
+set -g status-left "#[fg=yellow] ♜ #[fg=blue nobold] #S#[fg=colour237] | "
 
 # Show when prefix is selected + date + host
 set -g status-right "#{?client_prefix,#[fg=blue bold]^A #[fg=colour237 nobold]|#[bg=default fg=default],}#[fg=colour244] %R %d %b #[fg=blue nobold] #h "
