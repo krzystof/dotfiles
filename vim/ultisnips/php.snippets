@@ -21,28 +21,28 @@ endsnippet
 snippet c "constructor"
 public function __construct(${1})
 {
-    ${1}
+	${1}
 }
 endsnippet
 
 snippet f "function"
 public function ${1:nameme}(${2})
 {
-    ${3}
+	${3}
 }
 endsnippet
 
 snippet pf "private function"
 private function ${1:nameme}(${2})
 {
-    ${3}
+	${3}
 }
 endsnippet
 
 snippet sf "static function"
 ${1:public} static function ${2:nameme}(${3})
 {
-    ${4}
+	${4}
 }
 endsnippet
 
@@ -103,11 +103,21 @@ use Tests\TestCase;
 
 class `!v my#php#classname_from_file()` extends TestCase
 {
-    use RefreshDatabase;
+	use RefreshDatabase;
 
-    function test_${1:a feature}()
-    {
-			${2}
-    }
+	function test_${1:a feature}()
+	{
+		${2}
+	}
+}
+endsnippet
+
+snippet ass
+$this->assert${3:Equals}($1, $2);
+endsnippet
+
+snippet foreach
+foreach (${1:\$items} as ${2:\$item}) {
+	$0
 }
 endsnippet

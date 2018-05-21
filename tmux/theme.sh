@@ -1,45 +1,40 @@
-tm_color_active=colour41
-tm_color_inactive=colour241
-tm_color_feature=colour13
-tm_color_music=colour164
-tm_active_border_color=colour198
+#!/usr/bin/env bash
 
-set -g pane-border-fg white
-set -g pane-active-border-fg cyan
-set -g visual-activity on
+# Status bar config
+set -g status on
+set -g status-position bottom
+set -g status-interval 1
+set -g status-justify "left"
+set -g status-left-length 200
+set -g status-right-length 200
 
-# default statusbar colors
-set-option -g status-fg $tm_color_active
-set-option -g status-bg default
-set-option -g status-attr default
+# Pane border
+set -g pane-border-fg brightblack
+set -g pane-active-border-fg blue
 
-# default window title colors
-set-window-option -g window-status-fg $tm_color_inactive
-set-window-option -g window-status-bg default
+# Show border on top
+# setw -g pane-border-status bottom
+setw -g pane-border-format '─'
 
-# active window title colors
-set-window-option -g window-status-current-fg $tm_color_active
-set-window-option -g window-status-current-bg default
-# set-window-option -g window-status-current-format "#[bold]#I #W"
+# Status bar colors
+set -g status-fg brightwhite
+set -g status-bg black
+set -g message-fg yellow
+set -g message-bg black
 
-# pane border
-set-option -g pane-border-fg $tm_color_inactive
-set-option -g pane-active-border-fg $tm_active_border_color
 
-# message text
-set-option -g message-bg default
-set-option -g message-fg $tm_color_active
+setw -g window-status-format "#[bg=black, noreverse]#{?window_activity_flag,#[fg=red]⋅ ,#[fg=colour244]}#I #W"
+setw -g window-status-current-format "#[fg=brightcyan bold, bg=black, noreverse]#I #{?window_zoomed_flag,[#W],#W}"
+setw -g window-status-separator '#[fg=colour244] | '
+setw -g window-status-current-attr dim
+setw -g window-status-bg green
+setw -g window-status-fg black
 
-# pane number display
-set-option -g display-panes-active-colour $tm_color_active
-set-option -g display-panes-colour $tm_color_inactive
+set -g window-status-attr reverse
+set -g window-status-activity-attr none
 
-# clock
-set-window-option -g clock-mode-colour $tm_color_active
+# Make this shit happen
+set -g status-left "#[fg=yellow] ♜ #[fg=blue nobold] #S#[fg=colour244] | "
 
-tm_date="#[fg=$tm_color_inactive] %R %d %b"
-tm_host="#[fg=$tm_color_feature,bold]#h"
-tm_session_name="#[fg=$tm_color_feature,bold]#S"
-
-set -g status-left $tm_session_name' '
-set -g status-right $tm_tunes' '$tm_date' '$tm_host
+# Show when prefix is selected + date + host
+set -g status-right "#{?client_prefix,#[fg=blue bold]^A #[fg=colour237 nobold]|#[bg=default fg=default],}#[fg=colour244] %R %d %b #[fg=blue nobold] #h "

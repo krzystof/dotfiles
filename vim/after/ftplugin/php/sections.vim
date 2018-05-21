@@ -2,7 +2,7 @@ function! s:NextSection(type, backwards)
   if a:type == 1     " beginning of the section
       let pattern = '\v(public|private|protected) function'
   elseif a:type == 2 " end of the section
-      let pattern = '\v\n(public|private|protected)'
+      let pattern = '\v\n\s*(public|private|protected)'
   endif
 
   if a:backwards
