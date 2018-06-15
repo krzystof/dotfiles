@@ -122,6 +122,14 @@ function ts {
   tmux send-keys -t right "$args" C-m
 }
 
+function agvim () {
+	CHOICE=$(ag --color $* | fzf -0 -1 --ansi)
+	if [ ! -z "$CHOICE" ]
+	then
+		vim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"LAg! '$*'" "+wincmd k"
+	fi
+}
+
 export PATH="$HOME/.cargo/bin:$PATH"
 
 source $HOME/.xprofile

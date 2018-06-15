@@ -39,17 +39,23 @@ describe('$1', () => {
 })
 endsnippet
 
-snippet "^\s*test" "test block" rbA
-test('${1:Stuff}', () => {
-	${2:Assert me}
-})
-endsnippet
-
 snippet import
 import $1 from '$0$1'
 endsnippet
 
-snippet _jest "Jest Test"
+snippet testcase
+/* eslint-env jest */
+import `!v my#js#test_file_to_name()` from '../`!v my#js#test_file_to_name()`'
+
+describe('`!v my#js#test_file_to_name()`', () => {
+  test('${1}', () => {
+		${2}
+		expect('stuff').toBe('tested')
+  })
+})
+endsnippet
+
+snippet _react_test "Jest Test"
 /* eslint-env jest */
 import React from 'react'
 import { mount } from 'enzyme'

@@ -10,13 +10,16 @@
 "
 "   Improvements:
 "   -------------
-"   - Switch.vim (find a mapping)
+"   - Switch.vim (find a mapping) g-something
 "
 "   Mappings:
+"   - use phpactor a bit more
+"   - leader leader to expand snippets
 "   - & to repeat the last substitution
 "   - gV select visually the text that was last edited or pasted
 "   - projections
 "   - more snippets
+"   - gb select all buffer
 "
 "   Text Objects:
 "   - , for params
@@ -37,8 +40,6 @@
 "   - set spell, and word completion (Ctrl+x Ctrl+k)
 "
 
-
-
 " Section: Config
 " ===============
 
@@ -55,10 +56,21 @@ set clipboard=unnamed
 set complete=.,w,b,u
 set dictionary+=/usr/share/dict/words
 set expandtab
+
 set fillchars=fold:\  " <- need that empty space there
 set foldlevelstart=6
-set foldmethod=marker
 set foldtext=MyFoldText()
+set foldmethod=marker
+set foldmethod=syntax
+let javaScript_fold=1         " JavaScript
+let perl_fold=1               " Perl
+let php_folding=1             " PHP
+let r_syntax_folding=1        " R
+let ruby_fold=1               " Ruby
+let sh_fold_enabled=1         " sh
+let vimsyn_folding='af'       " Vim script
+let xml_syntax_folding=1      " XML
+
 set formatprg=par
 set hidden
 set ignorecase
@@ -91,7 +103,6 @@ set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
 set wildmenu
 
 runtime! macros/matchit.vim
-
 
 
 " Section: Plugins
@@ -143,8 +154,6 @@ Plug 'SirVer/ultisnips'
   let g:UltiSnipsSnippetDirectories=[$HOME."/.vim/ultisnips"]
 
 Plug 'airblade/vim-gitgutter'
-
-" Plug 'jceb/vim-orgmode'
 
 Plug 'benmills/vimux'                  " <-- both needed?
 Plug 'christoomey/vim-tmux-navigator'
@@ -383,23 +392,24 @@ inoremap    <c-u>               <esc>gUiwea
 nnoremap    <leader>2           :TagbarToggle<CR>
 nnoremap    <leader>;           :call ToggleLast()<cr>
 
-nnoremap    <leader>a           :Ack<space>
-nnoremap    <leader>aw          :Ack <C-r><C-w><cr>
-vnoremap    <leader>aw          y :Ack <C-r>"<cr>
+nnoremap    <leader>a<space>    :Ack<space>
 nnoremap    <leader>aa          :Ack <C-r><C-w> app/<cr>
 nnoremap    <leader>aj          :Ack <C-r><C-w> jsapp/<cr>
 nnoremap    <leader>ar          :Ack <C-r><C-w> resources/assets/<cr>
 nnoremap    <leader>as          :Ack <C-r><C-w> src/<cr>
 nnoremap    <leader>at          :Ack <C-r><C-w> test/<cr>
 nnoremap    <leader>av          :Ack <C-r><C-w> vendor/<cr>
+nnoremap    <leader>aw          :Ack <C-r><C-w><cr>
+vnoremap    <leader>aw          y :Ack <C-r>"<cr>
 
 nnoremap    <leader>b           :Buffers<cr>
 nnoremap    <leader>f           :Files<cr>
-nnoremap    <leader>l           :Lines<cr>
+nnoremap    <leader>li          :Lines<cr>
 nnoremap    <leader>:           :History:<cr>
 nnoremap    <leader>]           :Tags<cr>
 nnoremap    <leader>m           :Marks<cr>
 nnoremap    <leader>h           :History<cr>
+nnoremap    <leader>ven         :Files vendor/<cr>
 
 nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
 nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
@@ -413,11 +423,10 @@ nnoremap    <leader>es          :UltiSnipsEdit<cr>
 nnoremap    <Leader>i           vip:sort<CR>
 nnoremap    <leader>g           :Gstatus<CR>
 
-" What is that for?
 nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap    <leader>q           :call ToggleList("Quickfix List", 'c')<CR>
-
+nnoremap    <leader>lo          :call ToggleList("Location List", 'l')<CR>
 
 nnoremap    <leader>tt          :TestNearest<CR>
 nnoremap    <leader>tf          :TestFile<CR>
@@ -434,7 +443,9 @@ map         <Leader>vl          :VimuxRunLastCommand<CR>
 map         <Leader>vp          :VimuxPromptCommand<CR>
 nnoremap    <leader>vr          :call VimuxRunLastCommand()<CR>
 nnoremap    <leader>vc          :call VimuxCloseRunner()<CR>
-nnoremap    <leader>w           :Files<cr><c-r><c-w>
+" nnoremap    <leader>w           :Files <c-r><c-w>            <-- does not work
+
+
 
 " Window Switching:
 nnoremap <C-j> <C-w><C-j>
@@ -442,6 +453,7 @@ nnoremap <C-k> <C-w><C-k>
 nnoremap <C-h> <C-w><C-h>
 nnoremap <C-l> <C-w><C-l>
 
+" Terminal stuff
 tnoremap <C-h> <c-\><c-n><c-w>h
 tnoremap <C-j> <c-\><c-n><c-w>j
 tnoremap <C-k> <c-\><c-n><c-w>k
@@ -722,8 +734,6 @@ function! ToggleList(bufname, pfx)
   endif
 endfunction
 
-nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
-
 
 
 " Section: Work In Progress
@@ -854,10 +864,10 @@ augroup END
 augroup syntaxspecifics
   autocmd!
   autocmd FileType php :iabbrev <buffer> $ $this->
+
   " fold with \ f
-  autocmd FileType html         nnoremap <buffer> <localleader>f Vatzf
   autocmd FileType markdown     nnoremap <buffer> <leader>p      gqap
-  autocmd FileType javascript   nnoremap <buffer> <localleader>l   :%!prettier %
+  autocmd FileType javascript   nnoremap <buffer> <leader>pre    :%!prettier %
 augroup END
 
 
@@ -873,4 +883,4 @@ augroup END
 autocmd BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
     \| exe "normal! g'\"" | endif
 
-" vim:fdm=expr:fen:fdl=2:foldexpr=getline(v\:lnum)=~'^\"\\sSection'?'>1'\:'=':
+" vim:fdm=expr:fen:fdl=2:foldexpr=getline(v\:lnum)=~'\"\\sSection'?'>1'\:'=':
