@@ -342,7 +342,7 @@ highlight link ALEErrorSign     NiceError
 " Section: Mappings
 " =================
 
-noremap  <silent>  <leader>zf    zfafzM
+noremap  <silent>  <leader>z     [[zf][]zc
 inoremap <silent>  jk            <Esc>
 noremap  <silent>  k             gk
 noremap  <silent>  j             gj

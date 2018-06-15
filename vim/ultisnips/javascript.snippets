@@ -25,21 +25,7 @@ snippet > "arrow function" i
 (${1}) => ${2:{$3}}
 endsnippet
 
-snippet "des" "describe block" rbA
-describe('$1', () => {
-	test('$2', () => {
-		$0
-	})
-})
-endsnippet
-
-snippet wrapdesc
-describe('$1', () => {
-	${VISUAL}
-})
-endsnippet
-
-snippet import
+snippet import "Import stuff" bA
 import $1 from '$0$1'
 endsnippet
 
@@ -83,14 +69,28 @@ describe('`!v my#js#test_file_to_name()`', () => {
 })
 endsnippet
 
-snippet test "test"
+snippet test "test" bA
 test('${1:Some things needs certainty}', () => {
 	${2}
 })
 endsnippet
 
-snippet ed
+snippet export "export stuff" bA
 export default ${1:{
 	${0}
 }}
+endsnippet
+
+snippet "describe" "describe block" rbA
+describe('$1', () => {
+	test('$2', () => {
+		$0
+	})
+})
+endsnippet
+
+snippet wrapdesc
+describe('$1', () => {
+	${VISUAL}
+})
 endsnippet
