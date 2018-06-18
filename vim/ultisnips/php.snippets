@@ -50,9 +50,9 @@ snippet wip "wip a test"
 /** @group wip */
 endsnippet
 
-snippet t "new test"
+snippet test "new test"
 /** @group wip */
-function test_${1:a_thing_that_should_be_a_thing}()
+public function test_${1:a_thing_that_should_be_a_thing}()
 {
 	$0
 }
@@ -83,13 +83,6 @@ class `!v my#php#classname_from_file()`
 	{
 		${2}
 	}
-}
-endsnippet
-
-snippet "^fn" "public function" Art
-${2:public} function ${1:funktion}(${3})
-{
-	${0}
 }
 endsnippet
 

@@ -225,6 +225,7 @@ Plug 'w0rp/ale'
   let g:ale_echo_msg_error_str = 'E'
   let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+  let g:ale_javascript_prettier_use_local_config = 1
   let g:ale_fix_on_save = 1
   let g:ale_linters = {
   \  'php': ['php', 'php_cs_fixer', 'phpmd', 'phpstan']
@@ -420,11 +421,13 @@ nnoremap    <leader>dk          :-delete<cr>
 nnoremap    <leader>ev          :tabedit $MYVIMRC<cr>
 nnoremap    <leader>ep          :vsplit ~/Dropbox/Documents/pass.md<cr>
 nnoremap    <leader>es          :UltiSnipsEdit<cr>
+
 nnoremap    <Leader>i           vip:sort<CR>
 nnoremap    <leader>g           :Gstatus<CR>
 
 nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
 
+nnoremap    <leader>pro         :tabe .projections.json<cr>
 nnoremap    <leader>q           :call ToggleList("Quickfix List", 'c')<CR>
 nnoremap    <leader>lo          :call ToggleList("Location List", 'l')<CR>
 
@@ -867,7 +870,7 @@ augroup syntaxspecifics
 
   " fold with \ f
   autocmd FileType markdown     nnoremap <buffer> <leader>p      gqap
-  autocmd FileType javascript   nnoremap <buffer> <leader>pre    :%!prettier %
+  autocmd FileType javascript   nnoremap <buffer> <leader>pre    :%!prettier<cr>
 augroup END
 
 
