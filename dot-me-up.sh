@@ -43,11 +43,15 @@ clone_github_repo sorin-ionescu/prezto prezto
 if [ ! -L ${HOME}/.zprezto ]; then
   ln -s ${DOTFILES}/repos/prezto ${HOME}/.zprezto
   e_ok "Symlinked prezto dir"
+else
+  e_arrow "Prezto dir is symlinked"
 fi
 
 if [ ! -f ${DOTFILES}/repos/prezto/modules/prompt/functions/prompt_polly_setup ]; then
   ln -s ${DOTFILES}/files/prompt_polly_setup  ${DOTFILES}/repos/prezto/modules/prompt/functions/prompt_polly_setup
   e_ok "Symlinked prezto prompt"
+else
+  e_arrow "Already using the proper prompt"
 fi
 
 install_nerd_font SauceCodePro
@@ -65,11 +69,15 @@ if ! type_exists dropbox; then
     e_error "dropbox not synced yet! Please sign in and rerun this script after"
     exit 1
   fi
+else
+  e_arrow "Dropbox is there"
 fi
 
 if [ ! -d ${HOME}/Dropbox/Clementine ]; then
-  e_error "dropbox not synced yet! Please sign in and rerun this script after"
+  e_error "Dropbox not synced yet! Please sign in and rerun this script after"
   exit 1
+else
+  e_arrow "Dropbox synced and ready"
 fi
 
 if ! type_exists clementine; then
@@ -79,6 +87,8 @@ if ! type_exists clementine; then
   sudo gdebi clementine_1.3.1-xenial_amd64.deb
   rm -f clementine_1.3.1-xenial_amd64.deb
   e_ok "clementine installed"
+else
+  e_arrow "Clementine ready"
 fi
 
 mkdir -p ${HOME}/.config/Clementine
@@ -90,14 +100,18 @@ symlink_dropbox Clementine/clementine.db .config/Clementine/clementine.db
 if [ ! -e ${HOME}/.vim ]; then
   ln -s ${HOME}/Dotfiles/vim ${HOME}/.vim
   e_ok "vim dir ready"
+else
+  e_arrow "Vim dir ready"
 fi
 
-symlinks=(zlogin zlogout zpreztorc zprofile zshenv zshrc tmux.conf gitconfig gitignore_global xprofile ctags vimrc)
+symlinks=(zlogin zlogout zpreztorc zprofile zshenv zshrc tmux.conf gitconfig gitignore_global xprofile ctags)
 
 for symlink in "${symlinks[@]}"; do
   if [ ! -L ${HOME}/.${symlink} ]; then
     ln -s ${DOTFILES}/files/${symlink} ${HOME}/.${symlink}
     e_ok "symlinked ${symlink}"
+  else
+    e_arrow "${symlink} symlink: OK"
   fi
 done
 
@@ -105,25 +119,25 @@ mkdir -p ${HOME}/.zsh
 
 if [ ! -L "${HOME}/.zsh/completion" ]; then
   ln -s "${DOTFILES}/completion" "${HOME}/.zsh/completion"
-  e_ok "symlinked zsh completion"
+  e_ok "Symlinked zsh completion"
+else
+  e_arrow "Zsh completion is set up"
 fi
 
 if [ `echo $SHELL` != /bin/zsh ]; then
   chsh -s /bin/zsh
-  e_ok "changed default shell to zsh"
+  e_ok "Changed default shell to zsh"
+else
+  e_arrow "Zsh is the default shell"
 fi
 
 mkdir -p ${HOME}/.config/terminator
 
-if [ ! -L ${HOME}/.config/terminator/conf ]; then
+if [ ! -L "${HOME}/.config/terminator/config" ]; then
   ln -fs ${DOTFILES}/files/terminator ${HOME}/.config/terminator/config
-fi
-
-if [ ! -d ${HOME}/.local/share/icons/bridge ]; then
-  e_arrow "installing bridge cursor"
-  mkdir -p ${HOME}/.local/share/icons
-  cp -R ${DOTFILES}/files/bridge ${HOME}/.local/share/icons/
-  e_ok "bridge cursor copied"
+  e_ok "Terminator config symlinked"
+else
+  e_arrow "terminator config: OK"
 fi
 
 if ! type_exists albert; then
@@ -139,6 +153,8 @@ if ! type_exists albert; then
   mkdir -p "${HOME}/.config/albert/org.albert.extension.kvstore"
   ln -s "${HOME}/Dropbox/AlbertKeyValues/kvstore.db" "${HOME}/.config/albert/org.albert.extension.kvstore/kvstore.db"
   e_ok "albert installed"
+else
+  e_arrow "Albert set up"
 fi
 
 if [ ! -d ${NVM_DIR} ]; then
@@ -151,6 +167,8 @@ if [ ! -d ${NVM_DIR} ]; then
   nvm install v8.1.3
   echo fs.inotify.max_user_watches=582222 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
   e_ok "nvm and node installed successfully"
+else
+  e_arrow "Nvm is set up"
 fi
 
 if ! type_exists yarn; then
@@ -159,6 +177,8 @@ if ! type_exists yarn; then
   echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
   sudo apt-get update && sudo apt-get install -y yarn
   e_ok "yarn installed successfully"
+else
+  e_arrow "Yarn is set up"
 fi
 
 if ! type_exists docker; then
@@ -176,13 +196,17 @@ if ! type_exists docker; then
   sudo curl -L https://github.com/docker/compose/releases/download/1.18.0/docker-compose-Linux-x86_64 -o /usr/local/bin/docker-compose
   sudo chmod +x /usr/local/bin/docker-compose
   e_ok "docker installed successfully"
+else
+  e_arrow "docker: OK"
 fi
 
 if ! type_exists php; then
-  e_arrow "installing php7.1"
+  e_arrow "installing php7.2"
   add_ppa ondrej/php
-  sudo apt-get update && sudo apt-get install -y php7.1-cli php7.1-pdo php7.1-xml php7.1-curl php7.1-dom php7.1-gd php7.1-mbstring php7.1-zip
-  e_ok "php7.1 installed"
+  sudo apt-get update && sudo apt-get install -y php7.2-cli php7.2-pdo php7.2-xml php7.2-curl php7.2-dom php7.2-gd php7.2-mbstring php7.2-zip
+  e_ok "php7.2: installed"
+else
+  e_arrow "php7.2: OK"
 fi
 
 if ! type_exists composer; then
@@ -193,6 +217,8 @@ if ! type_exists composer; then
   php -r "unlink('composer-setup.php');"
   sudo mv composer.phar /usr/local/bin/composer
   e_ok "composer installed"
+else
+  e_arrow "Composer is set up"
 fi
 
 if ! type_exists valet; then
@@ -202,17 +228,21 @@ if ! type_exists valet; then
   valet domain wip
   cd "${HOME}/Code"
   valet park
-  e_ok "valet installed"
+  e_ok "valet: installed"
+else
+  e_arrow "valet: OK"
 fi
 
-add_ppa philip.scott/elementary-tweaks
-sudo apt-get update && apt_install elementary-tweaks
+# add_ppa philip.scott/elementary-tweaks
+# sudo apt-get update && apt_install elementary-tweaks
 
-if ! -d $HOME/.rbenv; then
+if [ ! -d ${HOME}/.rbenv ]; then
   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
   rbenv init
   mkdir -p "$(rbenv root)"/plugins
   git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+else
+  e_arrow "rbenv: OK"
 fi
 
 # What needs to be done on a brand new system?

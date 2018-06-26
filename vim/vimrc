@@ -133,6 +133,9 @@ Plug 'AndrewRadev/sideways.vim'
   nnoremap <silent> <leader>sh :SidewaysLeft<cr>
   nnoremap <silent> <leader>sl :SidewaysRight<cr>
 
+Plug 'AndrewRadev/switch.vim'
+  let g:switch_mapping = "+"
+
 Plug 'AndrewRadev/splitjoin.vim'
   let g:splitjoin_php_method_chain_full = 1
   nnoremap <silent> gj :SplitjoinJoin<CR>

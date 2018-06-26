@@ -3,15 +3,19 @@ function add_ppa() {
   if ! grep -q "^deb .*${ppa}" /etc/apt/sources.list /etc/apt/sources.list.d/*; then
     sudo add-apt-repository -y ppa:${ppa} &> /dev/null
     e_ok "${ppa} ppa added"
+  else
+    e_arrow "${ppa} ppa: OK"
   fi
 }
 
 function apt_install() {
   pkg=$1
-  if ! command -v ${pkg} &> /dev/null; then
+  if [[ ! `dpkg -l ${pkg}` ]]; then
     e_arrow "Installing ${pkg}"
     sudo apt-get install -y ${pkg} &> /dev/null
-    e_ok "${pkg} installed"
+    e_ok "${pkg}: installed"
+  else
+    e_arrow "${pkg} apt: OK"
   fi
 }
 
@@ -42,5 +46,7 @@ function install_nerd_font() {
     e_arrow "installing nerd font ${1}"
     ./nerd-fonts/install.sh $1
     e_ok "${1} font installed"
+  else
+    e_arrow "Nerd font ${1} is there"
   fi
 }
