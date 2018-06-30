@@ -659,7 +659,9 @@ iabbrev retrun return
 iabbrev repsonse response
 iabbrev gropu group
 
-autocmd BufEnter *.js  iabbr zzz console.log('ZZZ',
+autocmd BufEnter *.js iabbr xxx console.log('XXX',
+autocmd BufEnter *.js iabbr yyy console.log('YYY',
+autocmd BufEnter *.js iabbr zzz console.log('ZZZ',
 autocmd BufEnter *.vue iabbr xxx console.log('XXX',
 autocmd BufEnter *.vue iabbr yyy console.log('YYY',
 autocmd BufEnter *.vue iabbr zzz console.log('ZZZ',
