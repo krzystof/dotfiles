@@ -868,7 +868,6 @@ augroup syntaxspecifics
   autocmd FileType markdown     nnoremap <buffer> <leader>p      gqap
   autocmd FileType javascript   nnoremap <buffer> <leader>pre    :%!prettier<cr>
 augroup END
->>>>>>> Update vue test case
 
 
 " Enable that with Elixir 1.6! or try to use it with ALE
