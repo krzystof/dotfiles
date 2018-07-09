@@ -232,7 +232,7 @@ Plug 'w0rp/ale'
   nmap <F8> <Plug>(ale_fix)
 
   if  my#all#GetProject() == 'planizely'
-    let g:ale_fixers.javascript = ['eslint', 'prettier']
+    let g:ale_fixers.javascript = ['eslint']
   endif
 
 Plug 'skywind3000/asyncrun.vim'      " <-- needed?
@@ -835,7 +835,8 @@ function! DeWriteMode()
 endfunction
 
 function! YarnAdd()
-  execute ':AsyncRun yarn add ' . expand('<cword>')
+  " execute ':AsyncRun yarn add ' . expand('<cword>')
+  normal :AsyncRun yarn add<space>
 endfunction
 
 command! YarnAdd :call YarnAdd()
