@@ -57,7 +57,7 @@ set dictionary+=/usr/share/dict/words
 set expandtab
 set fillchars=fold:\  " <- need that empty space there
 set foldlevelstart=6
-set foldmethod=marker
+set foldmethod=syntax
 set foldtext=MyFoldText()
 set formatprg=par
 set hidden
@@ -116,7 +116,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-db'
 Plug 'machakann/vim-highlightedyank'
 
-" Text Objects
+" " Text Objects
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-function'
@@ -159,7 +159,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'ervandew/supertab'
-Plug 'gregsexton/matchtag'
+" Plug 'gregsexton/matchtag'
 
 Plug 'haya14busa/incsearch.vim'
   set hlsearch
@@ -218,7 +218,7 @@ Plug 'w0rp/ale'
   let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
   let g:ale_javascript_prettier_use_local_config = 1
-  let g:ale_fix_on_save = 1
+  let g:ale_fix_on_save = 0
   let g:ale_linters = {
   \  'php': ['php', 'php_cs_fixer', 'phpmd', 'phpstan']
   \}
