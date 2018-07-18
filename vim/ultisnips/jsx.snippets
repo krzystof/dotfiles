@@ -1,7 +1,19 @@
 extends html
 extends javascript
 
-snippet functional "Functional component" b
+snippet cdm
+componentDidMount = () => ${1:{$0}}
+endsnippet
+
+snippet ss
+this.setState(${1:state => ({$0})})
+endsnippet
+
+snippet cn
+className="$0"
+endsnippet
+
+snippet reactfunc "Functional component" b
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 
@@ -14,11 +26,11 @@ const `!v my#js#jsx_filename_to_name()` = (${1}) => (
 export default `!v my#js#jsx_filename_to_name()`
 endsnippet
 
-snippet class "Simple component" b
-import React, { Component } from 'react'
+snippet reactclass "Simple component" b
+import React, {Component} from 'react'
 
-export default class `!v my#js#jsx_filename_to_name()` extends Component {
-	static propTypes = {}
+class `!v my#js#jsx_filename_to_name()` extends Component {
+	// static propTypes = {}
 
 	state = {}
 
@@ -30,6 +42,8 @@ export default class `!v my#js#jsx_filename_to_name()` extends Component {
 		)
 	}
 }
+
+export default `!v my#js#jsx_filename_to_name()`
 endsnippet
 
 snippet _react "React component" b
@@ -49,4 +63,19 @@ export default class `!v my#js#jsx_filename_to_name()` extends Component {
 		)
 	}
 }
+endsnippet
+
+snippet reacttest "Jest Test"
+/* eslint-env jest */
+import React from 'react'
+import {render, cleanup, fireEvent, waitForElement} from 'react-testing-library'
+import renderer from 'react-test-renderer'
+import `!v my#js#test_file_to_name()` from '../`!v my#js#test_file_to_name()`'
+
+describe('`!v my#js#test_file_to_name()`', () => {
+  test('${1}', () => {
+		${2}
+		expect('stuff').toBe('tested')
+  })
+})
 endsnippet

@@ -238,12 +238,12 @@ Plug 'w0rp/ale'
 Plug 'skywind3000/asyncrun.vim'      " <-- needed?
 
 " Languages and Syntax
+Plug 'sheerun/vim-polyglot'
+" Plug 'reasonml-editor/vim-reason-plus'
 Plug 'tpope/vim-endwise'
-Plug 'sheerun/vim-polyglot'          " <-- do I want to keep this?
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'elmcast/elm-vim', { 'for': 'elm' }
-Plug 'posva/vim-vue', { 'for': 'vue' }
-Plug 'styled-components/vim-styled-components', { 'for': 'jsx' }
+Plug 'elixir-lang/vim-elixir',                  { 'for': 'elixir' }
+Plug 'elmcast/elm-vim',                         { 'for': 'elm' }
+Plug 'posva/vim-vue',                           { 'for': 'vue' }
 
 Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
   " nnoremap    <leader>ne          :call PhpExpandClass()<CR> <-- reimplement
@@ -263,7 +263,7 @@ Plug 'noahfrederick/vim-laravel'
 " Plug 'shawncplus/phpcomplete.vim'    " <-- maybe replace this as well
 
 Plug '1995eaton/vim-better-javascript-completion'
-Plug 'othree/jspc.vim'                            " Parameters completion
+Plug 'othree/jspc.vim'                            " Parameters completion. Is it working???
 
 Plug 'junegunn/vader.vim'
 
@@ -835,11 +835,35 @@ function! DeWriteMode()
 endfunction
 
 function! YarnAdd()
-  " execute ':AsyncRun yarn add ' . expand('<cword>')
-  normal :AsyncRun yarn add<space>
+  normal! "ayi'
+  execute ':AsyncRun yarn add ' . @a
+  :copen
+endfunction
+command! YarnAdd :call YarnAdd()
+
+
+"
+" Run the visual selected text asynchronously
+"
+function! s:get_visual_selection()
+  " Why is this not a built-in Vim script function?!
+  let [line_start, column_start] = getpos("'<")[1:2]
+  let [line_end, column_end] = getpos("'>")[1:2]
+  let lines = getline(line_start, line_end)
+  if len(lines) == 0
+      return ''
+  endif
+  let lines[-1] = lines[-1][: column_end - (&selection == 'inclusive' ? 1 : 2)]
+  let lines[0] = lines[0][column_start - 1:]
+  return join(lines, "\n")
 endfunction
 
-command! YarnAdd :call YarnAdd()
+function! Run()
+  let selection =  s:get_visual_selection()
+  execute ':AsyncRun ' . l:selection
+  :copen
+endfunction
+command! -range Run <line1>,<line2>call Run()
 
 function! ExtractFirstArg()
   let line = getline('.')
