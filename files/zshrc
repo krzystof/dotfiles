@@ -23,8 +23,8 @@ export TERM=xterm-256color
 # zstyle ':completion:*:manuals.*'  insert-sections   true
 # zstyle ':completion:*:man:*'      menu yes select
 
-source $HOME/Dropbox/Scripts/aliases.sh
-source $HOME/Dropbox/Scripts/helper_functions.sh
+source $HOME/Dotfiles/files/aliases.sh
+source $HOME/Dotfiles/files/helper_functions.sh
 source $HOME/Dropbox/Scripts/z.sh
 
 fpath=(~/.zsh/completion $fpath)

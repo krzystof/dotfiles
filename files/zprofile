@@ -80,6 +80,13 @@ export SWAGGER_CODEGEN_PATH=/home/krzystof/Code/java/swagger-cli
 
 
 #
+# Rust
+#
+export PATH="$HOME/.cargo/bin:$PATH"
+
+
+
+#
 # Less
 #
 
@@ -129,7 +136,5 @@ function agvim () {
 		vim $( echo "$CHOICE" | awk 'BEGIN { FS=":" } { printf "+%d %s\n", $2, $1 } ') +"LAg! '$*'" "+wincmd k"
 	fi
 }
-
-export PATH="$HOME/.cargo/bin:$PATH"
 
 source $HOME/.xprofile
