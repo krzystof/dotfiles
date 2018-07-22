@@ -86,7 +86,23 @@ class `!v my#php#classname_from_file()`
 }
 endsnippet
 
-snippet _laravel_test
+snippet testcase
+<?php
+
+namespace `!v my#php#namespace()`;
+
+use PHPUnit\Framework\TestCase
+
+class `!v my#php#classname_from_file()` extends TestCase
+{
+	function test_${1:a feature}()
+	{
+		${2}
+	}
+}
+endsnippet
+
+snippet featuretest
 <?php
 
 namespace Tests\Feature;
@@ -105,7 +121,7 @@ class `!v my#php#classname_from_file()` extends TestCase
 }
 endsnippet
 
-snippet ass
+snippet assert
 $this->assert${3:Equals}($1, $2);
 endsnippet
 

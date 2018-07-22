@@ -1,0 +1,30 @@
+#!/bin/bash
+set -ex
+
+SESSION=Guess
+PROJECT="$HOME/Code/guess"
+
+if [ ! -z $TMUX ]; then
+    echo I refuse to run this inside a session
+    exit 0
+fi
+
+if tmux has-session -t $SESSION ; then
+     tmux attach-session -t $SESSION
+    exit 0
+fi
+
+cd $PROJECT
+
+tmux new-session -d -s $SESSION
+
+tmux rename-window "Code"
+tmux split-window -p 25 -h -t $SESSION:Code
+
+tmux send-keys -t $SESSION:"Code" "cd web && vim ." C-m
+tmux send-keys -t $SESSION:Code.1 "yarn start-dev" C-m
+
+tmux select-window -t $SESSION:"Code"
+
+trk Guess
+tmux attach-session -t $SESSION

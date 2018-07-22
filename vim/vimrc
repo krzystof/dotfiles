@@ -10,15 +10,24 @@
 "
 "   Improvements:
 "   -------------
-"   - Switch.vim (find a mapping)
+"   - search and replace in multiple files:
+"       Ack <search> <path>
+"       cdo %s/<search>/<replace>/g
+"       cdo update (to save the files)
 "
 "   Mappings:
+"   ---------
+"   - <leader>[ toggle between ([{
+"   - <leader>' toggle between '"`
+"   - <leader>sub to substitute in buffer
+"   - + to trigger Switch.vim
 "   - & to repeat the last substitution
 "   - gV select visually the text that was last edited or pasted
 "   - projections
 "   - more snippets
 "
 "   Text Objects:
+"   -------------
 "   - , for params
 "   - c for comments
 "   - e for elixir block
@@ -30,10 +39,12 @@
 "   - z for fold text object
 "
 "   Need Practice:
+"   --------------
 "   - vim-sneak (using the \ and | shortcut)
 "   - sideways ( leader sh and leader sl )
 "
 "   Other:
+"   ------
 "   - set spell, and word completion (Ctrl+x Ctrl+k)
 "
 
@@ -105,6 +116,9 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'
+  autocmd FileType php setlocal commentstring=\/\/\ %s
+  autocmd FileType vue setlocal commentstring=\/\/\ %s
+
 Plug 'tpope/vim-git'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-abolish'
@@ -177,6 +191,8 @@ Plug 'haya14busa/incsearch.vim'
 
 Plug 'itchyny/lightline.vim'
 Plug 'janko-m/vim-test'
+  let test#strategy = "vimux"
+
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'justinmk/vim-sneak'
@@ -218,14 +234,15 @@ Plug 'w0rp/ale'
   let g:ale_echo_msg_warning_str = 'W'
   let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
   let g:ale_javascript_prettier_use_local_config = 1
-  let g:ale_fix_on_save = 0
+  let g:ale_fix_on_save = 1
   let g:ale_linters = {
   \  'php': ['php', 'php_cs_fixer', 'phpmd', 'phpstan']
   \}
   let g:ale_fixers = {
   \ 'php': ['php_cs_fixer'],
   \ 'elm': ['format'],
-  \ 'javascript': ['eslint']
+  \ 'javascript': ['eslint'],
+  \ 'typescript': ['eslint', 'prettier', 'tslint']
   \}
   let g:ale_php_phpcs_standard = 'phpcs.xml'
   let g:ale_php_phpmd_ruleset = 'phpmd.xml'
@@ -236,6 +253,7 @@ Plug 'w0rp/ale'
   endif
 
 Plug 'skywind3000/asyncrun.vim'      " <-- needed?
+Plug 'mattn/emmet-vim'
 
 " Languages and Syntax
 Plug 'sheerun/vim-polyglot'
@@ -244,6 +262,8 @@ Plug 'tpope/vim-endwise'
 Plug 'elixir-lang/vim-elixir',                  { 'for': 'elixir' }
 Plug 'elmcast/elm-vim',                         { 'for': 'elm' }
 Plug 'posva/vim-vue',                           { 'for': 'vue' }
+Plug 'styled-components/vim-styled-components', { 'for': 'jsx' }
+Plug 'leafgarland/typescript-vim'
 
 Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
   " nnoremap    <leader>ne          :call PhpExpandClass()<CR> <-- reimplement
@@ -335,7 +355,7 @@ highlight link ALEErrorSign     NiceError
 " Section: Mappings
 " =================
 
-noremap  <silent>  <leader>z     [[zf][]zc
+noremap  <silent>  <leader>z     [[zf]()zc
 inoremap <silent>  jk            <Esc>
 noremap  <silent>  k             gk
 noremap  <silent>  j             gj
@@ -346,6 +366,19 @@ nnoremap <silent>  <backspace>   :e#<cr>
 
 nnoremap <leader>p      =p
 nnoremap <leader>P      =P
+
+
+nmap <silent> <Plug>ToggleLastMap   :call ToggleLast()<cr>
+\:call repeat#set("\<Plug>ToggleLastMap")<cr>
+nmap <leader>; <Plug>ToggleLastMap
+
+nmap <silent> <Plug>ToggleParenMap   :call ToggleParen()<cr>
+\:call repeat#set("\<Plug>ToggleParenMap")<cr>
+nmap <leader>[ <Plug>ToggleParenMap
+
+nmap <silent> <Plug>ToggleQuoteMap   :call ToggleQuote()<cr>
+\:call repeat#set("\<Plug>ToggleQuoteMap")<cr>
+nmap <leader>' <Plug>ToggleQuoteMap
 
 nnoremap    K                 :w<cr>
 nnoremap    <C-s>             :w<CR>
@@ -383,7 +416,6 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 inoremap    <c-u>               <esc>gUiwea
 
 nnoremap    <leader>2           :TagbarToggle<CR>
-nnoremap    <leader>;           :call ToggleLast()<cr>
 
 nnoremap    <leader>a           :Ack<space>
 nnoremap    <leader>aw          :Ack <C-r><C-w><cr>
@@ -405,7 +437,7 @@ nnoremap    <leader>h           :History<cr>
 
 imap        <leader><tab>       <esc>ysiw>yiW$pbi/<esc>hi
 
-
+nnoremap    <leader>dig         :Dig<space>
 nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
 nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
 
@@ -425,6 +457,7 @@ nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
 nnoremap    <leader>pro         :tabe .projections.json<cr>
 nnoremap    <leader>q           :call ToggleList("Quickfix List", 'c')<CR>
 
+nnoremap    <leader>sub         :%S///g<left><left>
 
 nnoremap    <leader>tt          :TestNearest<CR>
 nnoremap    <leader>tf          :TestFile<CR>
@@ -466,37 +499,46 @@ onoremap    in(                 :<c-u>normal! f(vi(<cr>
 onoremap    il(                 :<c-u>normal! F)vi(<cr>
 
 
-command! Wip call VimuxRunCommand('u --group wip')
-command! So :source $MYVIMRC
-command! Doc call FindDoc()
-" command! -nargs=1 Doc call FindDoc(<f-args>)
+
+" Custom Commands:
+" ================
+
+" Add the dependency under the cursor
+command! YarnAdd        call YarnAdd()
+
+" Run the visually selected shell command
+command! -range Run     <line1>,<line2>call Run()
+
+" Run the phpunit wip group
+command! Wip            call VimuxRunCommand('u --group wip')
+
+" Source the vimrc
+command! So             source $MYVIMRC
+
+" Enter writer mode. meh
+command! WriterMode     call WriterMode()
+
+" Go into a directory and local cd in it
+command! -nargs=1 Dig   call Dig(<f-args>)
 
 
 
 " Section: ToSort: Plugins
 " ========================
 
-"/ VimCommentary
-autocmd FileType php setlocal commentstring=\/\/\ %s
-autocmd FileType vue setlocal commentstring=\/\/\ %s
-
 ""/ CtrlP
-let g:ctrlp_extensions = ['tag']
-" let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
-let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
+" let g:ctrlp_extensions = ['tag']
+" " let g:ctrlp_match_window = 'top,order:ttb,min:1,max:20,results:20'    " window to the top and other settings
+" let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|node_modules|vendor|_build|deps|*.beam)$' " ignore package managers huge folders
 
-" set grepprg=ag\ --nogroup\ --nocolor
-" let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" " set grepprg=ag\ --nogroup\ --nocolor
+" " let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+" " let g:ctrlp_use_caching = 1
+
+" set grepprg=rg\ --color=never
+" let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
 " let g:ctrlp_use_caching = 1
 
-set grepprg=rg\ --color=never
-let g:ctrlp_user_command = 'rg %s --files --color=never --glob ""'
-let g:ctrlp_use_caching = 1
-
-
-"/ VIM Test
-" let test#strategy = "dispatch"
-let test#strategy = "vimux"
 
 "/ AutoPairs
 let g:AutoPairsShortcutBackInsert = '<C-b>'
@@ -735,11 +777,43 @@ nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
 
 
 
-" Section: Work In Progress
+" Section: Work In Progress              `check me out`
 " =========================
 
-function! ToggleQuotes()
-  " @TODO
+function! CharUnderCursorMatch(char)
+  return matchstr(getline('.'), '\%' . col('.') . 'c.') == a:char
+endfunction
+
+function! ToggleQuote()
+  let l:winview = winsaveview()
+  let l:prev_quote = search('\v[`''"]', 'b')
+  if CharUnderCursorMatch('`')
+    normal! r'
+    let l:useless = search('`', '')
+    normal! r'
+  elseif CharUnderCursorMatch('''')
+    normal! r"
+    let l:useless = search('''', '')
+    normal! r"
+  elseif CharUnderCursorMatch('"')
+    normal! r`
+    let l:useless = search('"', '')
+    normal! r`
+  endif
+  call winrestview(l:winview)
+endfunction
+
+function! ToggleParen()
+  let l:winview = winsaveview()
+  let l:prev_paren = search('\v[\(\[\{]', 'b')
+  if CharUnderCursorMatch('[')
+    normal! mp%r)`pr(
+  elseif CharUnderCursorMatch('(')
+    normal! mp%r}`pr{
+  elseif CharUnderCursorMatch('{')
+    normal! mp%r]`pr[
+  endif
+  call winrestview(l:winview)
 endfunction
 
 function! SplitNextArrow()
@@ -756,6 +830,14 @@ function! SplitNextArrow()
 endfunction
 
 
+" Dig:
+" Open a new tab in the given directory and then change the root
+" directory of the buffer. Useful to search for files in a directory
+" listed in your .gitignore.
+function! Dig(dir)
+  normal! tabe l:dir
+  normal! lcd l:dir
+endfunction
 
 
 " Working on the FIND DOC thing
@@ -772,35 +854,6 @@ endfunction
 function! s:dashcase(word)
   return substitute(s:snakecase(a:word),'_','-','g')
 endfunction
-
-function! FindDoc(...)
-  " @TODO:
-  " php
-  " js
-  " elm
-  " elixir
-  " rust
-  let l:name = a:0 == 1 ? a:1 : expand("<cword>")
-
-  if &filetype =~ 'javascript'
-    let module = s:dashcase(name)
-    let moduledir = "node_modules/" . module
-    if isdirectory(moduledir)
-      execute "tabedit " . moduledir
-    endif
-  endif
-
-  " if &filetype =~ 'php'
-    " Do something to use composer autoloader?
-    " Or defer to vim composer package
-  " endif
-
-  " and then
-  " - Elm
-  " - Elixir
-  " - Rust
-endfunction
-
 
 function! CenterPane()
   lefta vnew
@@ -821,8 +874,6 @@ function! WriterMode()
   call CenterPane()
 endfunction
 
-command! WriterMode :call WriterMode()
-
 function! DeWriteMode()
   set showmode
   set showcmd
@@ -839,7 +890,6 @@ function! YarnAdd()
   execute ':AsyncRun yarn add ' . @a
   :copen
 endfunction
-command! YarnAdd :call YarnAdd()
 
 
 "
@@ -863,7 +913,6 @@ function! Run()
   execute ':AsyncRun ' . l:selection
   :copen
 endfunction
-command! -range Run <line1>,<line2>call Run()
 
 function! ExtractFirstArg()
   let line = getline('.')

@@ -2,6 +2,10 @@ snippet log "console.log stuff"
 console.log(${1})
 endsnippet
 
+snippet l "console.log stuff even quicker"
+console.log('>>>', $0)
+endsnippet
+
 snippet if
 if (${1}) {
 	${2}
@@ -17,16 +21,12 @@ switch (${1}) {
 }
 endsnippet
 
-snippet ">" "arrow function" i
-(${1}) => ${2:{}}
-endsnippet
-
 snippet > "arrow function" i
 (${1}) => ${2:{$3}}
 endsnippet
 
-snippet import "Import stuff" bA
-import $1 from '$0$1'
+snippet import "Import stuff" b
+import $1 from '$2${0:$1}'
 endsnippet
 
 snippet jest
