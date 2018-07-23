@@ -891,10 +891,6 @@ function! YarnAdd()
   :copen
 endfunction
 
-
-"
-" Run the visual selected text asynchronously
-"
 function! s:get_visual_selection()
   " Why is this not a built-in Vim script function?!
   let [line_start, column_start] = getpos("'<")[1:2]
@@ -908,6 +904,9 @@ function! s:get_visual_selection()
   return join(lines, "\n")
 endfunction
 
+"
+" Run the visual selected text asynchronously
+"
 function! Run()
   let selection =  s:get_visual_selection()
   execute ':AsyncRun ' . l:selection

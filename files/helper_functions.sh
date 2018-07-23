@@ -42,6 +42,16 @@ function journaleries {
 
 
 
+function vimswap {
+  if [ "$1" == "rm" ]; then
+    find -type f -name *.swp -delete
+  else
+    find -type f -name *.swp
+  fi
+}
+
+
+
 function cleanbranches {
   git branch --merged | grep -v \* | xargs git branch -d
 }
