@@ -835,8 +835,8 @@ endfunction
 " directory of the buffer. Useful to search for files in a directory
 " listed in your .gitignore.
 function! Dig(dir)
-  normal! tabe l:dir
-  normal! lcd l:dir
+  normal! :tabe l:dir
+  normal! :lcd l:dir
 endfunction
 
 

@@ -252,3 +252,8 @@ fi
 # dconf
 # elementary tweaks
 # maybe sublime?
+
+
+
+gem install tmuxinator
+ln -s ~/Dropbox/Tmuxinator ~/.config/tmuxinator
