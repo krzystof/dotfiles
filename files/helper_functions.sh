@@ -29,7 +29,7 @@ function github {
 
 
 
-function diary {
+function journal {
   today=`date +%Y-%m-%d`
   vim ~/Dropbox/Journaleries/dailies/${today}.md
 }
