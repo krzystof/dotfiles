@@ -252,6 +252,14 @@ Plug 'w0rp/ale'
     let g:ale_fixers.javascript = ['eslint']
   endif
 
+Plug 'Valloric/YouCompleteMe'
+  let g:ycm_min_num_of_chars_for_completion = 4
+  let g:ycm_min_num_identifier_candidate_chars = 4
+  let g:ycm_enable_diagnostic_highlighting = 0
+  set completeopt-=preview
+  let g:ycm_add_preview_to_completeopt = 0
+  let g:ycm_enable_diagnostic_signs = 0
+
 Plug 'skywind3000/asyncrun.vim'      " <-- needed?
 Plug 'mattn/emmet-vim'
 
