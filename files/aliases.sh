@@ -50,6 +50,12 @@ alias tor="tmuxinator"
 
 
 #
+# Tmuxinator
+#
+alias tor="tmuxinator"
+
+
+#
 #        PHP aliases
 #
 alias u="vendor/bin/phpunit"

@@ -101,6 +101,10 @@ set undofile
 set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
 set wildmenu
 
+let g:LanguageClient_serverCommands = {
+  \ 'vue': ['vls']
+  \ }
+
 runtime! macros/matchit.vim
 
 
@@ -236,21 +240,22 @@ Plug 'w0rp/ale'
   let g:ale_javascript_prettier_use_local_config = 1
   let g:ale_fix_on_save = 1
   let g:ale_linters = {
-  \  'php': ['php', 'php_cs_fixer', 'phpmd', 'phpstan']
-  \}
+  \  'php': ['php', 'php_cs_fixer', 'phpmd', 'phpstan'],
+  \  'javascript': ['eslint']
+  \ }
   let g:ale_fixers = {
   \ 'php': ['php_cs_fixer'],
   \ 'elm': ['format'],
-  \ 'javascript': ['eslint'],
+  \ 'javascript': ['eslint', 'prettier'],
   \ 'typescript': ['eslint', 'prettier', 'tslint']
   \}
   let g:ale_php_phpcs_standard = 'phpcs.xml'
   let g:ale_php_phpmd_ruleset = 'phpmd.xml'
   nmap <F8> <Plug>(ale_fix)
 
-  if  my#all#GetProject() == 'planizely'
-    let g:ale_fixers.javascript = ['eslint']
-  endif
+  " if  my#all#GetProject() == 'planizely'
+    " let g:ale_fixers.javascript = ['eslint']
+  " endif
 
 Plug 'Valloric/YouCompleteMe'
   let g:ycm_min_num_of_chars_for_completion = 4
@@ -264,7 +269,7 @@ Plug 'skywind3000/asyncrun.vim'      " <-- needed?
 Plug 'mattn/emmet-vim'
 
 " Languages and Syntax
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 " Plug 'reasonml-editor/vim-reason-plus'
 Plug 'tpope/vim-endwise'
 Plug 'elixir-lang/vim-elixir',                  { 'for': 'elixir' }
@@ -690,7 +695,8 @@ let g:vdebug_options = {
 
 "/ Vim vue
 let g:vue_disable_pre_processors=1
-autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.css.javascript
+autocmd BufRead,BufNewFile *.vue setlocal filetype=vue
+" autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.css.javascript
 
 " Prevent syntax highlighting quirks
 autocmd FileType vue.* syntax sync fromstart

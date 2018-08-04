@@ -4,8 +4,6 @@ function mine {
   sudo chown -R krzystof:krzystof $1
 }
 
-
-
 #
 # Open current repo in a browser on Github
 #

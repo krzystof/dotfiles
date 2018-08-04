@@ -40,6 +40,10 @@ apt_install xsel
 clone_github_repo ryanoasis/nerd-fonts nerd-fonts
 clone_github_repo sorin-ionescu/prezto prezto
 
+
+symlink_dropbox AutoKeys/Phrases ~/.config/autokey/data/Phrases
+
+
 if [ ! -L ${HOME}/.zprezto ]; then
   ln -s ${DOTFILES}/repos/prezto ${HOME}/.zprezto
   e_ok "Symlinked prezto dir"
@@ -255,5 +259,5 @@ fi
 
 
 
-gem install tmuxinator
-ln -s ~/Dropbox/Tmuxinator ~/.config/tmuxinator
+# gem install tmuxinator
+# symlink_dropbox Tmuxinator ~/.config/tmuxinator
