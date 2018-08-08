@@ -165,7 +165,10 @@ Plug 'SirVer/ultisnips'
 
 Plug 'airblade/vim-gitgutter'
 
-Plug 'benmills/vimux'                  " <-- both needed?
+Plug 'benmills/vimux'
+  let g:VimuxOrientation = "h"
+  let g:VimuxHeight = "40"
+
 Plug 'christoomey/vim-tmux-navigator'
 " Plug 'ctrlpvim/ctrlp.vim'
 
@@ -245,7 +248,7 @@ Plug 'w0rp/ale'
   \ }
   let g:ale_fixers = {
   \ 'php': ['php_cs_fixer'],
-  \ 'elm': ['format'],
+  \ 'elm': ['elm-format'],
   \ 'javascript': ['eslint', 'prettier'],
   \ 'typescript': ['eslint', 'prettier', 'tslint']
   \}
@@ -578,10 +581,6 @@ nnoremap <silent>    <Up> :<C-U>ObviousResizeUp<CR>
 nnoremap <silent>  <Down> :<C-U>ObviousResizeDown<CR>
 nnoremap <silent>  <Left> :<C-U>ObviousResizeLeft<CR>
 nnoremap <silent> <Right> :<C-U>ObviousResizeRight<CR>
-
-"/ vimux
-" let g:VimuxOrientation = "h"
-" let g:VimuxHeight = "30"
 
 "/ Lightline
 let g:lightline = {

@@ -85,3 +85,5 @@ alias vdestup="vagrant destroy -f && vagrant up"
 #    Yarn stuff
 #
 alias yt="yarn test"
+
+alias now="bash now.sh"
