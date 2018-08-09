@@ -41,7 +41,6 @@
 "   Need Practice:
 "   --------------
 "   - vim-sneak (using the \ and | shortcut)
-"   - sideways ( leader sh and leader sl )
 "
 "   Other:
 "   ------
@@ -143,10 +142,6 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'Julian/vim-textobj-variable-segment'
 Plug 'kana/vim-textobj-fold'
 
-Plug 'AndrewRadev/sideways.vim'
-  nnoremap <silent> <leader>sh :SidewaysLeft<cr>
-  nnoremap <silent> <leader>sl :SidewaysRight<cr>
-
 Plug 'AndrewRadev/switch.vim'
   let g:switch_mapping = "+"
 
@@ -228,8 +223,14 @@ Plug 'mileszs/ack.vim', { 'on': 'Ack' }
   let g:ackprg = 'rg --vimgrep'
 
 Plug 'qpkorr/vim-bufkill'
-Plug 'skwp/greplace.vim'             " <-- replace with workflow
+
 Plug 'talek/obvious-resize'
+  let g:obvious_resize_default = 5
+  nnoremap <silent> <Up>    :<C-U>ObviousResizeUp<CR>
+  nnoremap <silent> <Down>  :<C-U>ObviousResizeDown<CR>
+  nnoremap <silent> <Left>  :<C-U>ObviousResizeLeft<CR>
+  nnoremap <silent> <Right> :<C-U>ObviousResizeRight<CR>
+
 
 Plug 'w0rp/ale'
   let g:ale_sign_warning = '▲'
@@ -576,13 +577,6 @@ nmap <leader>c    <Plug>(composer-find)
 
 
 
-"/ Obvious Resize
-let g:obvious_resize_default = 5
-nnoremap <silent>    <Up> :<C-U>ObviousResizeUp<CR>
-nnoremap <silent>  <Down> :<C-U>ObviousResizeDown<CR>
-nnoremap <silent>  <Left> :<C-U>ObviousResizeLeft<CR>
-nnoremap <silent> <Right> :<C-U>ObviousResizeRight<CR>
-
 "/ vimux
 " let g:VimuxOrientation = "h"
 " let g:VimuxHeight = "30"
@@ -794,7 +788,7 @@ nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
 
 
 
-" Section: Work In Progress              `check me out`
+" Section: Work In Progress
 " =========================
 
 function! CharUnderCursorMatch(char)
