@@ -156,8 +156,12 @@ Plug 'AndrewRadev/splitjoin.vim'
   nnoremap <silent> gs :SplitjoinSplit<CR>
 
 Plug 'SirVer/ultisnips'
-  let g:UltiSnipsExpandTrigger="<S-tab>"
   let g:UltiSnipsSnippetDirectories=[$HOME."/.vim/ultisnips"]
+
+  " better key bindings for UltiSnipsExpandTrigger
+  let g:UltiSnipsExpandTrigger = "<tab>"
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+  let g:UltiSnipsJumpBackwardTrigger = "<s-tab>"
 
 Plug 'airblade/vim-gitgutter'
 
@@ -253,19 +257,24 @@ Plug 'w0rp/ale'
   endif
 
 Plug 'Valloric/YouCompleteMe'
-  let g:ycm_min_num_of_chars_for_completion = 4
-  let g:ycm_min_num_identifier_candidate_chars = 4
+  let g:ycm_min_num_of_chars_for_completion = 3
+  let g:ycm_min_num_identifier_candidate_chars = 3
   let g:ycm_enable_diagnostic_highlighting = 0
   set completeopt-=preview
   let g:ycm_add_preview_to_completeopt = 0
   let g:ycm_enable_diagnostic_signs = 0
+
+  " make YCM compatible with UltiSnips (using supertab)
+  let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
+  let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
+  let g:SuperTabDefaultCompletionType = '<C-n>'
 
 Plug 'skywind3000/asyncrun.vim'      " <-- needed?
 Plug 'mattn/emmet-vim'
 
 " Languages and Syntax
 Plug 'sheerun/vim-polyglot'
-" Plug 'reasonml-editor/vim-reason-plus'
+Plug 'reasonml-editor/vim-reason'
 Plug 'tpope/vim-endwise'
 Plug 'elixir-lang/vim-elixir',                  { 'for': 'elixir' }
 Plug 'elmcast/elm-vim',                         { 'for': 'elm' }
@@ -276,12 +285,12 @@ Plug 'leafgarland/typescript-vim'
 Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
   " nnoremap    <leader>ne          :call PhpExpandClass()<CR> <-- reimplement
   " nnoremap    <leader>ns          :call PhpSortUse()<CR>     <-- reimplement
-  nnoremap    <leader>u           :call phpactor#UseAdd()<cr>
-  nnoremap    <leader>mm          :call phpactor#ContextMenu()<cr>
-  nnoremap    <leader>o           :call phpactor#GotoDefinition()<cr>
-  nnoremap    <leader>r           :call phpactor#Transform()<cr>
   " nnoremap    <leader>cc          :call phpactor#ClassNew()<cr>
-  vnoremap    <silent><leader>em  :<C-U>call phpactor#ExtractMethod()<cr>
+  nnoremap    <silent><leader>puse         :call phpactor#UseAdd()<cr>
+  nnoremap    <silent><leader>pm           :call phpactor#ContextMenu()<cr>
+  nnoremap    <silent><leader>pgo          :call phpactor#GotoDefinition()<cr>
+  nnoremap    <silent><leader>ptr          :call phpactor#Transform()<cr>
+  vnoremap    <silent><leader>pex          :<C-U>call phpactor#ExtractMethod()<cr>
   autocmd FileType php setlocal omnifunc=phpactor#Complete
 
 Plug 'noahfrederick/vim-laravel'
@@ -843,8 +852,8 @@ endfunction
 " directory of the buffer. Useful to search for files in a directory
 " listed in your .gitignore.
 function! Dig(dir)
-  normal! :tabe l:dir
-  normal! :lcd l:dir
+  normal! :tabe a:dir
+  normal! :lcd a:dir
 endfunction
 
 

@@ -50,6 +50,7 @@ Session.vim
 .idea
 .ackrc
 .agignore
+jsconfig.json
 
 # Vim tags
 ###########
