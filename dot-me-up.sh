@@ -104,6 +104,7 @@ else
   e_arrow "Vim dir ready"
 fi
 
+
 symlinks=(zlogin zlogout zpreztorc zprofile zshenv zshrc tmux.conf gitconfig gitignore_global xprofile ctags)
 
 for symlink in "${symlinks[@]}"; do

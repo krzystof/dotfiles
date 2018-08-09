@@ -1,0 +1,29 @@
+- shell:
+  - mkdir -p ~/.config/Clementine
+  - mkdir -p ~/.config/terminator
+  - mkdir -p ~/.zsh
+
+
+- link:
+    ~/.vim: vim
+    ~/.tmux.conf: tmux/tmux.conf
+    ~/.gitconfig: files/gitconfig
+    ~/.gitignore_global: files/gitignore_global
+    ~/.xprofile: files/xprofile
+    ~/.ctags: files/ctags
+    ~/.zsh/completion: completion
+    ~/.config/terminator/config: files/terminator
+    ~/.config/tmuxinator: ~/Dropbox/Tmuxinator
+
+    ~/.zprezto: prezto
+    ~/.zlogin: zsh/zlogin
+    ~/.zlogout: zsh/zlogout
+    ~/.zpreztorc: zsh/zpreztorc
+    ~/.zprofile: zsh/zprofile
+    ~/.zshenv: zsh/zshenv
+    ~/.zshrc: zsh/zshrc
+    prezto/modules/prompt/functions/prompt_polly_setup: zsh/prompt_polly_setup
+
+    ~/.config/Clementine/albumcovers: ~/Dropbox/Clementine/albumcovers
+    ~/.config/Clementine/Clementine.conf: ~/Dropbox/Clementine/Clementine.conf
+    ~/.config/Clementine/clementine.db: ~/Dropbox/Clementine/clementine.db

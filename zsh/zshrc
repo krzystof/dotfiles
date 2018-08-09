@@ -23,8 +23,8 @@ export TERM=xterm-256color
 # zstyle ':completion:*:manuals.*'  insert-sections   true
 # zstyle ':completion:*:man:*'      menu yes select
 
-source $HOME/Dotfiles/files/aliases.sh
-source $HOME/Dotfiles/files/helper_functions.sh
+source $HOME/Dotfiles/zsh/aliases.sh
+source $HOME/Dotfiles/zsh/helper_functions.sh
 source $HOME/Dropbox/Scripts/z.sh
 
 fpath=(~/.zsh/completion $fpath)
@@ -61,7 +61,7 @@ export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-source $HOME/Dotfiles/files/lazynvm.sh
+source $HOME/Dotfiles/zsh/lazynvm.sh
 
 # export NVM_DIR="$HOME/.nvm"
 # [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
