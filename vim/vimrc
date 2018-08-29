@@ -99,6 +99,7 @@ set undodir=~/.vim/undodir
 set undofile
 set wildignore+=*/.git,*/tmp/*,*.so,*.swp,*.zip
 set wildmenu
+set noswapfile
 
 runtime! macros/matchit.vim
 
@@ -257,6 +258,13 @@ Plug 'w0rp/ale'
     let g:ale_fixers.javascript = ['eslint']
   endif
 
+" Plug 'lifepillar/vim-mucomplete'
+"   set completeopt+=menuone
+"   set completeopt+=noselect
+"   set shortmess+=c
+"   let g:mucomplete#enable_auto_at_startup = 1
+"   let g:mucomplete#delayed_completion = 1
+
 Plug 'Valloric/YouCompleteMe'
   let g:ycm_min_num_of_chars_for_completion = 3
   let g:ycm_min_num_identifier_candidate_chars = 3
@@ -264,7 +272,6 @@ Plug 'Valloric/YouCompleteMe'
   set completeopt-=preview
   let g:ycm_add_preview_to_completeopt = 0
   let g:ycm_enable_diagnostic_signs = 0
-
   " make YCM compatible with UltiSnips (using supertab)
   let g:ycm_key_list_select_completion = ['<C-n>', '<Down>']
   let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']

@@ -18,7 +18,7 @@ alias dc="docker-compose"
 #
 # zsh aliases
 #
-alias aliases="vim ~/Dotfiles/files/aliases.sh"
+alias aliases="vim ~/Dotfiles/zsh/aliases.sh"
 alias reload=". ~/.zshrc && echo 'ZSH config reloaded from ~/.zshrc'"
 alias zshrc="vim ~/.zshrc && reload"
 alias blog="cd ~/Code/christophegraniczny.com && vim ."
@@ -47,6 +47,15 @@ alias gitclean='git branch --merged dev | grep -v "\dev" | xargs -n 1 git branch
 #
 alias v="vim ."
 alias tor="tmuxinator"
+
+
+
+#
+# Utilities shadowing stuff
+#
+alias cat="bat"
+alias du="ncdu --color dark -rr -x --exclude example_dir"
+
 
 
 #
