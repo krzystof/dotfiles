@@ -47,15 +47,22 @@
 "   - set spell, and word completion (Ctrl+x Ctrl+k)
 "
 
+" Substitute
+nnoremap <c-s> :%s/
+vnoremap <c-s> :s/
+
 
 
 " Section: Config
 " ===============
 
-syntax enable
+set nocompatible
 
 let mapleader = "\<Space>"
 let maplocalleader = "\\"
+
+filetype plugin indent on
+syntax enable
 
 set autoread
 set background=dark
@@ -77,7 +84,6 @@ set laststatus=2
 set lazyredraw
 set listchars=tab:▸\ ,eol:¬
 set mouse=nvca
-set nocompatible
 set nocursorcolumn
 set nocursorline
 set nohlsearch
@@ -380,7 +386,11 @@ highlight link ALEErrorSign     NiceError
 " Section: Mappings
 " =================
 
-noremap  <silent>  <leader>z     [[zf]()zc
+
+" Don't move on * (thanks Steve Losh)
+nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+
+" noremap  <silent>  <leader>z     [[zf]()zc
 inoremap <silent>  jk            <Esc>
 noremap  <silent>  k             gk
 noremap  <silent>  j             gj
@@ -389,20 +399,18 @@ xnoremap <silent>  &             :&&<Enter>
 nmap     <silent>  <leader>)     ys$)
 nnoremap <silent>  <backspace>   :e#<cr>
 
-nnoremap <leader>p      =p
-nnoremap <leader>P      =P
 
 
 nmap <silent> <Plug>ToggleLastMap   :call ToggleLast()<cr>
-\:call repeat#set("\<Plug>ToggleLastMap")<cr>
+  \:call repeat#set("\<Plug>ToggleLastMap")<cr>
 nmap <leader>; <Plug>ToggleLastMap
 
 nmap <silent> <Plug>ToggleParenMap   :call ToggleParen()<cr>
-\:call repeat#set("\<Plug>ToggleParenMap")<cr>
+  \:call repeat#set("\<Plug>ToggleParenMap")<cr>
 nmap <leader>[ <Plug>ToggleParenMap
 
 nmap <silent> <Plug>ToggleQuoteMap   :call ToggleQuote()<cr>
-\:call repeat#set("\<Plug>ToggleQuoteMap")<cr>
+  \:call repeat#set("\<Plug>ToggleQuoteMap")<cr>
 nmap <leader>' <Plug>ToggleQuoteMap
 
 nnoremap    K                 :w<cr>
@@ -434,7 +442,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " How to toggle fold in a nice way??
 " vnoremap <M-f> zf
-" nnoremap <cr> za
+nnoremap <cr> za
 
 
 " in insert mode, uppercase the current word
@@ -454,7 +462,7 @@ nnoremap    <leader>av          :Ack <C-r><C-w> vendor/<cr>
 
 nnoremap    <leader>b           :Buffers<cr>
 nnoremap    <leader>f           :Files<cr>
-nnoremap    <leader>l           :Lines<cr>
+" nnoremap    <leader>l           :Lines<cr>
 nnoremap    <leader>:           :History:<cr>
 nnoremap    <leader>]           :Tags<cr>
 nnoremap    <leader>m           :Marks<cr>
@@ -480,7 +488,11 @@ nnoremap    <leader>g           :Gstatus<CR>
 nnoremap    <expr> gb           '`[' . strpart(getregtype(), 0, 1) . '`]'
 
 nnoremap    <leader>pro         :tabe .projections.json<cr>
-nnoremap    <leader>q           :call ToggleList("Quickfix List", 'c')<CR>
+nnoremap <leader>p      =p
+nnoremap <leader>P      =P
+
+nnoremap    <silent> <leader>q  :call ToggleList("Quickfix List", 'c')<CR>
+nnoremap    <silent> <leader>Q  :call ToggleList("Location List", 'l')<CR>
 
 nnoremap    <leader>sub         :%S///g<left><left>
 
@@ -500,6 +512,7 @@ map         <Leader>vp          :VimuxPromptCommand<CR>
 nnoremap    <leader>vr          :call VimuxRunLastCommand()<CR>
 nnoremap    <leader>vc          :call VimuxCloseRunner()<CR>
 nnoremap    <leader>w           :Files<cr><c-r><c-w>
+vnoremap    <leader>y           "+y
 
 " Window Switching:
 nnoremap <C-j> <C-w><C-j>
@@ -539,9 +552,6 @@ command! Wip            call VimuxRunCommand('u --group wip')
 
 " Source the vimrc
 command! So             source $MYVIMRC
-
-" Enter writer mode. meh
-command! WriterMode     call WriterMode()
 
 " Go into a directory and local cd in it
 command! -nargs=1 Dig   call Dig(<f-args>)
@@ -791,12 +801,47 @@ function! ToggleList(bufname, pfx)
   endif
 endfunction
 
-nmap <silent> <leader>l :call ToggleList("Location List", 'l')<CR>
-
 
 
 " Section: Work In Progress
 " =========================
+
+" Some Steve Losh here:
+" function! FocusLine()
+"     let oldscrolloff = &scrolloff
+"     set scrolloff=0
+"     execute "keepjumps normal! mzzMzvzt25\<c-y>`z:Pulse\<cr>"
+"     let &scrolloff = oldscrolloff
+" endfunction
+" nnoremap gz :call FocusLine()<cr>
+
+function! s:Pulse() " {{{
+    redir => old_hi
+        silent execute 'hi CursorLine'
+    redir END
+    let old_hi = split(old_hi, '\n')[0]
+    let old_hi = substitute(old_hi, 'xxx', '', '')
+
+    let steps = 8
+    let width = 1
+    let start = width
+    let end = steps * width
+    let color = 233
+
+    for i in range(start, end, width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
+    for i in range(end, start, -1 * width)
+        execute "hi CursorLine ctermbg=" . (color + i)
+        redraw
+        sleep 6m
+    endfor
+
+    execute 'hi ' . old_hi
+endfunction
+command! -nargs=0 Pulse call s:Pulse()
 
 function! CharUnderCursorMatch(char)
   return matchstr(getline('.'), '\%' . col('.') . 'c.') == a:char
@@ -849,12 +894,15 @@ endfunction
 
 
 " Dig:
+" ====
+"
 " Open a new tab in the given directory and then change the root
 " directory of the buffer. Useful to search for files in a directory
 " listed in your .gitignore.
+"
 function! Dig(dir)
-  normal! :tabe a:dir
-  normal! :lcd a:dir
+  execute "tabedit " . a:dir
+  execute "lcd " . a:dir
 endfunction
 
 
@@ -871,36 +919,6 @@ endfunction
 
 function! s:dashcase(word)
   return substitute(s:snakecase(a:word),'_','-','g')
-endfunction
-
-function! CenterPane()
-  lefta vnew
-  wincmd w
-  exec 'vertical resize '. string(&columns * 0.75)
-endfunction
-
-
-function! WriterMode()
-  set noshowmode
-  set noshowcmd
-  set scrolloff=999
-  set textwidth=80
-  set nonumber
-  set norelativenumber
-  set laststatus=0
-  set formatoptions=
-  call CenterPane()
-endfunction
-
-function! DeWriteMode()
-  set showmode
-  set showcmd
-  set scrolloff=5
-  set textwidth=0
-  set number
-  set relativenumber
-  set laststatus=2
-  set formatoptions=croql
 endfunction
 
 function! YarnAdd()
