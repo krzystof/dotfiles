@@ -5,7 +5,6 @@ function! my#php#namespace()
   elseif l:classpath =~ '\v^src'
     let normalized = substitute(classpath, 'src/', '', '')
   endif
-
   return substitute(l:normalized, '/', '\', '')
 endfunction
 

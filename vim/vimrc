@@ -136,7 +136,7 @@ Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-db'
 Plug 'machakann/vim-highlightedyank'
 
-" " Text Objects
+" Text Objects
 Plug 'kana/vim-textobj-user'
 Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-function'
@@ -283,7 +283,7 @@ Plug 'Valloric/YouCompleteMe'
   let g:ycm_key_list_previous_completion = ['<C-p>', '<Up>']
   let g:SuperTabDefaultCompletionType = '<C-n>'
 
-Plug 'skywind3000/asyncrun.vim'      " <-- needed?
+Plug 'skywind3000/asyncrun.vim'
 Plug 'mattn/emmet-vim'
 
 " Languages and Syntax
@@ -309,15 +309,13 @@ Plug 'phpactor/phpactor', { 'for': 'php', 'do': 'composer install' }
 
 Plug 'noahfrederick/vim-laravel'
 
-" Plug 'arnaud-lb/vim-php-namespace'   " <-- replace by phpactor, same for composer and complete
-" Plug 'noahfrederick/vim-composer'    " <-- just want to keep the command line stuff
-" Plug 'shawncplus/phpcomplete.vim'    " <-- maybe replace this as well
-
 Plug '1995eaton/vim-better-javascript-completion'
 Plug 'othree/jspc.vim'                            " Parameters completion. Is it working???
 
 Plug 'junegunn/vader.vim'
+Plug 'krzystof/vim-clog'
 
+Plug 'yardnsm/vim-import-cost'                    " How does that work?
 
 call plug#end()
 
@@ -473,6 +471,7 @@ imap        <leader><tab>       <esc>ysiw>yiW$pbi/<esc>hi
 nnoremap    <leader>dig         :Dig<space>
 nnoremap    <leader>ds          "=strftime("%d/%m/%Y")<CR>P
 nnoremap    <leader>dl          "=strftime("%Y-%m-%d %H:%M:%S")<CR>P
+nnoremap    <leader>date        "=strftime("%A %d %B %Y")<CR>P
 
 nnoremap    <leader>dj          :+delete<cr>
 nnoremap    <leader>dk          :-delete<cr>

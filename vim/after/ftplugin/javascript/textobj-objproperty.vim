@@ -1,11 +1,13 @@
-call textobj#user#plugin('objproperty', {
-\   'o': {
-\     'select-a-function': 'PropDeclarationA',
-\     'select-a': 'ao',
-\     'select-i-function': 'PropDeclarationI',
-\     'select-i': 'io',
-\   },
-\ })
+if (exists('textobj#user#plugin'))
+  call textobj#user#plugin('objproperty', {
+  \   'o': {
+  \     'select-a-function': 'PropDeclarationA',
+  \     'select-a': 'ao',
+  \     'select-i-function': 'PropDeclarationI',
+  \     'select-i': 'io',
+  \   },
+  \ })
+endif
 
 function! PropDeclarationA()
   if search('\v\s*\k.*\{$', 'bW')

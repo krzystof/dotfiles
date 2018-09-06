@@ -30,7 +30,7 @@ function github {
 
 
 function journal {
-  today=`date +%Y-%m-%d`
+  today=`date +%Y`
   vim ~/Dropbox/Journaleries/dailies/${today}.md
 }
 
