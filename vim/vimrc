@@ -440,7 +440,7 @@ cnoremap <expr> %% getcmdtype() == ':' ? expand('%:h').'/' : '%%'
 
 " How to toggle fold in a nice way??
 " vnoremap <M-f> zf
-nnoremap <cr> za
+" nnoremap <cr> za
 
 
 " in insert mode, uppercase the current word
