@@ -5,3 +5,6 @@
 	path = prezto
 	url = https://github.com/sorin-ionescu/prezto
   ignore = dirty
+[submodule "vim-things"]
+	path = vim-things
+	url = git@github.com:krzystof/vim-things.git
