@@ -88,10 +88,15 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 # Prompt
 #
 
+# Add location of custom theme.
+fpath=(
+  ${HOME}/Dotfiles/zsh/custom-theme
+  ${fpath}
+)
+
 # Set the prompt theme to load.
 # Setting it to 'random' loads a random theme.
 # Auto set to 'off' on dumb terminals.
-# zstyle ':prezto:module:prompt' theme 'polly'
 zstyle ':prezto:module:prompt' theme 'mezcal'
 
 #
@@ -170,3 +175,7 @@ zstyle ':completion:*:man:*'      menu yes select
 
 # Disable ctrl-s freezing the terminal
 stty -ixon
+
+# Use custom theme.
+
+# zstyle ':prezto:module:prompt' theme '3n'

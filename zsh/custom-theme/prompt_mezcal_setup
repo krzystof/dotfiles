@@ -72,7 +72,7 @@ function prompt_mezcal_precmd {
   setopt LOCAL_OPTIONS
   unsetopt XTRACE KSH_ARRAYS
 
-  _prompt_status="%(?: :%B%F{1}▲%f%b)"
+  _prompt_status="%(?: :%B%F{1}!%f%b)"
 
   # Format PWD.
   _prompt_mezcal_pwd=$(prompt-pwd)
@@ -103,21 +103,21 @@ function prompt_mezcal_setup {
 
   # Set editor-info parameters.
   zstyle ':prezto:module:editor:info:completing' format '%B%F{6}…%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{14}⟶%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{14}=>%f%b'
   zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format ' %F{3}♺%f'
-  zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{6}⟶%f%b'
+  zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{4}▲%f%b'
 
   # Set git-info parameters.
   zstyle ':prezto:module:git:info' verbose 'yes'
   zstyle ':prezto:module:git:info:action' format '%F{7}:%f%F{9}%s%f'
   zstyle ':prezto:module:git:info:added' format '%F{2}+%f'
-  zstyle ':prezto:module:git:info:ahead' format '%F{13}↥%f%'
+  zstyle ':prezto:module:git:info:ahead' format '%F{13}↥%f'
   zstyle ':prezto:module:git:info:behind' format '%F{13}↧%f'
   zstyle ':prezto:module:git:info:commit' format '%F{3}%.7c%f'
-  zstyle ':prezto:module:git:info:deleted' format '%F{1}⮿%f'
-  zstyle ':prezto:module:git:info:modified' format '%F{4}🛈%f'
+  zstyle ':prezto:module:git:info:deleted' format '%F{1}x%f'
+  zstyle ':prezto:module:git:info:modified' format '%F{4}*%f'
   zstyle ':prezto:module:git:info:position' format '%F{13}%p%f'
-  zstyle ':prezto:module:git:info:renamed' format '%F{5}➜%f'
+  zstyle ':prezto:module:git:info:renamed' format '%F{5}@%f'
   zstyle ':prezto:module:git:info:stashed' format '%F{6}⤠%f'
   zstyle ':prezto:module:git:info:unmerged' format '%F{3}═%f'
   zstyle ':prezto:module:git:info:untracked' format '%F{7}?%f'

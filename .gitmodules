@@ -4,7 +4,9 @@
 [submodule "prezto"]
 	path = prezto
 	url = https://github.com/sorin-ionescu/prezto
-  ignore = dirty
-[submodule "vim-things"]
-	path = vim-things
+[submodule "vim"]
+	path = vim
 	url = git@github.com:krzystof/vim-things.git
+[submodule "zsh-completions"]
+	path = zsh-completions
+	url = git@github.com:zsh-users/zsh-completions.git
