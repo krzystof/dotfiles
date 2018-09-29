@@ -23,12 +23,12 @@
 [plugins]
 [profiles]
   [[default]]
-    background_color = "#252525"
+    background_color = "#282a36"
     background_image = None
     cursor_blink = False
     cursor_color = "#ffffdd"
     font = Dank Mono 12
-    foreground_color = "#a1b0b8"
+    foreground_color = "#eff0eb"
     icon_bell = False
     palette = "#282a36:#ff5c57:#5af78e:#f3f99d:#57c7ff:#ff6ac1:#9aedfe:#f1f1f0:#686868:#ff5c57:#5af78e:#f3f99d:#57c7ff:#ff6ac1:#9aedfe:#eff0eb"
     scrollbar_position = hidden
