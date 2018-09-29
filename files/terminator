@@ -27,10 +27,10 @@
     background_image = None
     cursor_blink = False
     cursor_color = "#ffffdd"
-    font = Dank Mono 10
+    font = Dank Mono 12
     foreground_color = "#a1b0b8"
     icon_bell = False
-    palette = "#252525:#ff443e:#c3d82c:#ffc135:#42a5f5:#d81b60:#00acc1:#f5f5f5:#bbbbbb:#c0392b:#2ecc71:#f39c12:#2980b9:#8e44ad:#16a085:#fdf6e3"
+    palette = "#282a36:#ff5c57:#5af78e:#f3f99d:#57c7ff:#ff6ac1:#9aedfe:#f1f1f0:#686868:#ff5c57:#5af78e:#f3f99d:#57c7ff:#ff6ac1:#9aedfe:#eff0eb"
     scrollbar_position = hidden
     show_titlebar = False
     use_system_font = False

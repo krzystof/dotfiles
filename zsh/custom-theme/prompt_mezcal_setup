@@ -103,7 +103,7 @@ function prompt_mezcal_setup {
 
   # Set editor-info parameters.
   zstyle ':prezto:module:editor:info:completing' format '%B%F{6}…%f%b'
-  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{14}=>%f%b'
+  zstyle ':prezto:module:editor:info:keymap:primary' format '%B%F{14}⇒%f%b'
   zstyle ':prezto:module:editor:info:keymap:primary:overwrite' format ' %F{3}♺%f'
   zstyle ':prezto:module:editor:info:keymap:alternate' format '%B%F{4}▲%f%b'
 
