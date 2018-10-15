@@ -3,12 +3,15 @@
       relink: true
 
 - shell:
-  - mkdir -p ~/.config/kitty
   - mkdir -p ~/.zsh
+  - sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
+  - test -d ~/.linuxbrew && PATH="$HOME/.linuxbrew/bin:$HOME/.linuxbrew/sbin:$PATH"
+  - test -d /home/linuxbrew/.linuxbrew && PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin:$PATH"
+  - test -r ~/.bash_profile && echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >> ~/.bash_profile
+  - echo "export PATH='$(brew --prefix)/bin:$(brew --prefix)/sbin'":'"$PATH"' >> ~/.profile
 
 - link:
-    ~/.config/kitty/kitty.conf: files/kitty
-    ~/.config/tmuxinator: ~/Dropbox/Tmuxinator
+    # ~/.config/tmuxinator: ~/Dropbox/Tmuxinator
     ~/.ctags: files/ctags
     ~/.gitconfig: files/gitconfig
     ~/.gitignore_global: files/gitignore_global
